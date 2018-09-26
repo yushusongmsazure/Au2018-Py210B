@@ -49,9 +49,6 @@
   1. Add your new file to your local repo, commit it
   1. Push your commit to your github repo (the `origin` remote)
   1. (For future: Repeat the above 3 steps as frequently as possible as needed)
-  1. Create a PR (Pull Request) against the upstream (our class repo)
-  1. Wait for your PR to get approved/merged
-  1. Add the class repo to your local repo as a remote (name it `upstream`)
-  1. Pull from `upstream`
-  1. Push to `origin`
+  1. Create a PR (Pull Request) against the upstream (our class repo) if you'd like your code to be reviewed by instructors, or if a PR is required as an activity/assignment (for potential peer code review)
+  1. Wait for comments in your PR, for it to get approved/merged, or proceed if it's delayed (pinging the instructors is OK for PR review request)
   1. Repeat the cycle (go back and repeat from 'Pull from `upstream`' step)
