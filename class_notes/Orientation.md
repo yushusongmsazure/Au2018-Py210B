@@ -2,6 +2,14 @@
 
 ## Topics
 
+### UW PCE learning environment
+
+* Make sure you set up your UWNetID and receive emails to your `myUWNetID@uw.edu` email address!
+* Course LMS (Learning Management System): [Canvas for this course](https://canvas.uw.edu/courses/1231462/) 
+* Email announcement: Through [Piazza](https://piazza.com/class/jma0wi35h6sfu) (your `@uw.edu` email address should just work with this, after signing up on invitation)
+  * This may be replaced with the Canvas announcements, but for now, please stay tuned to this Piazza email announcement as well
+* Zoom online meeting [link](https://washington.zoom.us/my/python2018): For remote class/office hours participation, also for in-class volunteer demo sharing purpose--volunteer needed for today's demo!
+
 ### Set up Python programming environment: Python, modules, git
 
 * [Windows](https://uwpce-pythoncert.github.io/PythonCertDevel/supplemental/installing/python_for_windows.html)
