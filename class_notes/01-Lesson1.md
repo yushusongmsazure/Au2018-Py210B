@@ -41,6 +41,8 @@
 
 * https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html
 * Use iPython for REPL (Python still works, but iPython is better for interactive sessions)
+* Try running Python script files provided in `examples/tutorial` directory
+  * Either on your shell (bash) or on iPython (start using iPython commands like `cd` to navigate the directory hierarchy within iPython)
 * Create a Python script file, run it on iPython or from your shell (using `python my_first_python_script.py`)
   * May configure VSCode for gitbash terminal (Windows)
 * Now ready to start and complete the Lesson 1 Activity assignment
