@@ -40,4 +40,22 @@ def array123(nums):
       return True
   return False
 
+#string_bits
+def string_bits(str):
+  newstr = ""
+  for i in range(len(str)):
+    if i%2 == 0:
+      newstr += str[i]
+  return newstr
 
+#array_count9
+def array_count9(nums):
+  return nums.count(9)
+
+#string_match
+def string_match(a, b):
+  count = 0
+  for i in range(len(a)-1):
+    if a[i:i+2] == b[i:i+2]:
+      count += 1
+  return count
