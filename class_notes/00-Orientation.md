@@ -37,18 +37,3 @@
   * Settings:
     * Render whitespace to All
     * Shell:Windows to bash path
-* (Really optional) Github class repo forking and making the first commit/PR
-  1. First, create your github account (if you haven't) at [github](https://github.com/)
-  1. Fork our [class repo](https://github.com/UWPCE-PythonCert-ClassRepos/Au2018-Py210B) into your github account
-  1. Clone your forked repo to your local workstation (your forked repo becomes the `origin` remote on your local git repo)
-  1. Add the github class repo as a remote on your local repo (the `upstream` remote)
-  1. Pull from `upstream` (nothing for the first time, but something thereafter)
-  1. Push to `origin` (to sync your forked repo with the class repo)
-  1. Make your own student subdirectory under the `students` directory
-  1. Create your own `README.md` file that says anything (about you, about anything)
-  1. Add your new file to your local repo, commit it
-  1. Push your commit to your github repo (the `origin` remote)
-  1. (For future: Repeat the above 3 steps as frequently as possible as needed)
-  1. Create a PR (Pull Request) against the upstream (our class repo) if you'd like your code to be reviewed by instructors, or if a PR is required as an activity/assignment (for potential peer code review)
-  1. Wait for comments in your PR, for it to get approved/merged, or proceed if it's delayed (pinging the instructors is OK for PR review request)
-  1. Repeat the cycle (go back and repeat from 'Pull from `upstream`' step)
