@@ -1,4 +1,5 @@
 def basicprintgrid():
+    """ Part 1 function for printing basic grid"""
     print("+" + "----" + "+" + "----" + "+")
     for i in range(4):
         print("|" + "    " + "|" + "    " + "|")
@@ -8,6 +9,7 @@ def basicprintgrid():
     print("+" + "----" + "+" + "----" + "+")    
 
 def print_grid(n):
+    """ Part 2 function for printing multi cell size 3x3 cell grid"""
     print("+" + n * "-" + "+" + n * "-" + "+")
     for i in range(n):
         print("|" + n * " " + "|" + n* " " + "|")
@@ -17,7 +19,7 @@ def print_grid(n):
     print("+" + n * "-" + "+" + n * "-" + "+")
 
 def print_grid2(x , y):
-
+    """ Part 3 function multi cell size and multi cell number"""
     for i in range(x):
         
         #First line print
