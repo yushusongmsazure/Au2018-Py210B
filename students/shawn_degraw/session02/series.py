@@ -28,8 +28,28 @@ def sum_series(n, n0=0, n1=1):
     if n0 == 0 and n1 == 1, the result is the Fibbonacci series
 
     if n0 == 2 and n1 == 1, the result is the Lucas series
+
+    if n0 and n1 not matching, series not implemented yet
     """
-    pass
+
+    """ compute the nth Fibonacci number """
+    if n0 == 0 and n1 == 1:
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return sum_series(n-1) + sum_series(n-2)
+    """ compute the nth Lucas number """
+    if n0 == 2 and n1 == 1:
+        if n == 0:
+            return 2
+        elif n == 1:
+            return 1
+        else:
+            return sum_series(n-1, 2, 1) + sum_series(n-2, 2, 1)
+    """ Other series: not implemented yet """
+    return None
 
 if __name__ == "__main__":
     # run some tests
