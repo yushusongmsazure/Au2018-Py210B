@@ -33,7 +33,7 @@ def string_bits(str):
 
 # Given a non-empty string like "Code" return a string like "CCoCodCode"
 def string_splosion(str):
-    newstr == ''
+    newstr = ''
     for i in range(len(str)):
         newstr += str[:i]
     return newstr + str
