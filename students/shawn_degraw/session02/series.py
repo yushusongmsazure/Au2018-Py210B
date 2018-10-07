@@ -10,7 +10,12 @@ def fibonacci(n):
 
 def lucas(n):
     """ compute the nth Lucas number """
-    pass
+    if n == 0:
+        return 2
+    elif n == 1:
+        return 1
+    else:
+        return lucas(n-1) + lucas(n-2)
 
 
 def sum_series(n, n0=0, n1=1):
