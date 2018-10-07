@@ -23,7 +23,7 @@ random.shuffle(names)
 
 date = datetime.date.today()
 
-print("Here's the order of Authum 2018 PYTHON210B lightening talks! (two students every week):")
+print("Here's the order of Authum 2018 PYTHON210B lightning talks! (two students every week):")
 print()
 for i, name in enumerate(names, 1):
     if i % 2 == 1:
