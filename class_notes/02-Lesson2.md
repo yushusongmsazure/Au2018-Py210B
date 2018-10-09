@@ -11,7 +11,7 @@
   * Quickly go over the `lightning.py` in the `examples` directory
     * Do `git pull upstream master` and `git push origin master` always at the beginning of your work session
 * Office hours
-  * Instructor: Tuesday 7-9pm online only through [Zoom](https://washington.zoom.us/my/python2018)
+  * Instructor: Tuesday 7:30-9pm online only through [Zoom](https://washington.zoom.us/my/python2018)
   * TA: Optional or TBA
 * VSCode settings missed last week
   * Render whitespace: all
@@ -32,6 +32,7 @@
 
 * https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html
 * In-place assignments for mutable and immutable types: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#in-place-assignment
+  * Are `a += [4, 5, 6]` and `a = a + [4, 5, 6]` the same? Find out with iPython (after `a = [1, 2, 3]` and `b = a`).
 * Multiple assignments, one-line swap in Python
 * Identity, `is`, `==`: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#identity
 * Builtins, exceptions: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#builtins
