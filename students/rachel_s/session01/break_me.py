@@ -1,7 +1,7 @@
 # This function causes a NameError
 
 def i_make_name_errors():
-    return foo
+    return flubber
 
 # This function causes a TypeError
 
