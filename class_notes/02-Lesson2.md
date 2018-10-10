@@ -33,6 +33,7 @@
 * https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html
 * In-place assignments for mutable and immutable types: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#in-place-assignment
   * Are `a += [4, 5, 6]` and `a = a + [4, 5, 6]` the same? Find out with iPython (after `a = [1, 2, 3]` and `b = a`).
+  * See an article like [this](https://www.geeksforgeeks.org/inplace-vs-standard-operators-python/)
 * Multiple assignments, one-line swap in Python
 * Identity, `is`, `==`: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#identity
 * Builtins, exceptions: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/BasicPython.html#builtins
