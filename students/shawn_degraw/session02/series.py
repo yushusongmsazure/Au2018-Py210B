@@ -1,22 +1,19 @@
 def fibonacci(n):
-    """ compute the nth Fibonacci number """
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
+    """
+    compute the nth Fibonacci number 
+    
+    :param n: value of the nth fibonacci element
+    """
+    return sum_series(n)
 
 
 def lucas(n):
-    """ compute the nth Lucas number """
-    if n == 0:
-        return 2
-    elif n == 1:
-        return 1
-    else:
-        return lucas(n-1) + lucas(n-2)
-
+    """
+    compute the nth Lucas number
+    
+    :param n: value of the nth lucas element
+    """
+    return sum_series(n, 2, 1)
 
 def sum_series(n, n0=0, n1=1):
     """
