@@ -1,3 +1,4 @@
+#fizz buzz function
 for i in range(1,101):
     result3 = i % 3
     result5 = i % 5
