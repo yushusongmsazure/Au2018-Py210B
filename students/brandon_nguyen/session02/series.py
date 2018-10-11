@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#Week2 Excercise #2
+#Student: Brandon Nguyen - Au2018
 def fibonacci(n):
     """
     The function have one parameter n which represents the index.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#Fizz Buzz problem
+#Fizz Buzz problem - Week 2 Excercise 1
 #Student: Brandon Nguyen - Au2018
 for i in range(100):
     i +=1
