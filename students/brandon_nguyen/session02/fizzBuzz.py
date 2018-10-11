@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 #Fizz Buzz problem
+#Student: Brandon Nguyen - Au2018
 for i in range(100):
     i +=1
     if (i%3 ==0 and i%5 == 0):
