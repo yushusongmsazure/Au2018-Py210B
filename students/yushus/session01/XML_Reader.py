@@ -9,7 +9,7 @@ def parseXML(xmlFile):
 
     groups = root.findall('CloudGroup')
     #clouds = groups.findall('Cloud')
-
+    
     for item in groups:
         clouds = item.findall('Cloud')
         for cloud in clouds:
