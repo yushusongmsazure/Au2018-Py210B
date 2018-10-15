@@ -1,29 +1,10 @@
-
 def fibonacci(n):
     """ compute the nth Fibonacci number """
-
-    if n < 0:
-        raise "Input number has to be non-negative!!!"
-
-    if n <= 1:
-        return n
-    else:
-        return (fibonacci(n-1) + fibonacci(n-2))
-
-
+    return sum_series(n, 0, 1)
 
 def lucas(n):
     """ compute the nth Lucas number """
-
-    if n < 0:
-        raise "Input number has to be non-negative!!!"
-
-    if n == 0:
-        return 2
-    elif n == 1:
-        return 1
-    else:
-        return (lucas(n-1) + lucas(n-2))
+    return sum_series(n, 2, 1)
 
 def sum_series(n, n0=0, n1=1):
     """
@@ -36,12 +17,21 @@ def sum_series(n, n0=0, n1=1):
 
     if n0 == 2 and n1 == 1, the result is the Lucas series
     """
+
     if n0 == 0 and n1 == 1:
-        return fibonacci(n)
+        if n <= 1:
+            return n
+        else:
+            return (sum_series(n-1, n0, n1) + sum_series(n-2, n0, n1))
     elif n0 == 2 and n1 == 1:
-        return lucas(n)
+        if n == 0:
+            return 2
+        elif n == 1:
+            return 1
+        else:
+            return (sum_series(n-1, n0, n1) + sum_series(n-2, n0, n1))
     else:
-        raise "Not the right format!!!"
+        raise "Function not defined"
 
 if __name__ == "__main__":
     # run some tests
