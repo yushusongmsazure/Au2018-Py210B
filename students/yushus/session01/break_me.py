@@ -1,31 +1,17 @@
-import sys
-
 def yushus_Exception_NameError():
-	try:
-		raise NameError	
-	except NameError:
-		print("Catched NameError")
+	# use a variable that has not been defined yet
+    x = y
 
 def yushus_Exception_TypeError():
-	try:
-		raise TypeError
-	except TypeError:
-		print("Catched TypeError")
-	
-def yushus_Exception_SyntaxError():
-	try:
-		with open('file.log') as file:
-			read_data = file.read()
-	except FileNotFoundError as fnf_error:
-		print(fnf_error)	
-		
+    # operations between two different type, like str and int
+    x = 'yushu'
+    x // 3
+
 def yushus_Exception_AttributeError():
-	try:
-		raise AttributeError
-	except AttributeError:
-		print("Catched AttributeError")
-	
+    # int type doesn't have an attribute of strip
+    x = 5
+    y = x.strip()
+
 #yushus_Exception_NameError()
 #yushus_Exception_TypeError()
-yushus_Exception_SyntaxError()
-#yushus_Exception_AttributeError()
+yushus_Exception_AttributeError()
