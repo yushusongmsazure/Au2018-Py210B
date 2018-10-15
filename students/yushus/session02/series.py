@@ -14,7 +14,7 @@ def fibonacci(n):
 
 def lucas(n):
     """ compute the nth Lucas number """
-    
+
     if n < 0:
         raise "Input number has to be non-negative!!!"
 
@@ -40,7 +40,8 @@ def sum_series(n, n0=0, n1=1):
         return fibonacci(n)
     elif n0 == 2 and n1 == 1:
         return lucas(n)
-
+    else:
+        raise "Not the right format!!!"
 
 if __name__ == "__main__":
     # run some tests
