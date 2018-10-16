@@ -21,5 +21,25 @@ def lucas(n):
         return abs(n-2)
     else:
         return lucas(n-1) + lucas(n-2)
-        
+def sum_series(n,n0=0,n1=1):   
+    """
+    compute the nth value for fibonacci or lucas serie. 
+    :param optional or default to n0=0, n1=1 determine the first two values in the series. 
+
+    if n0 == 0 and n1 == 1 do Fibbonacci 
+    if n0 == 2 and n1 == 1 do lucas
+    elif do other 
+
+    """
+    #validate arguments - what is the best way?
+    try:
+         x=(n + n0 + n1)
+            #print("do in try")
+    except NameError as err:
+        print(err)
+        print("Function usage sum_series(n,n0=0,n1=0) n,n0,n1 are int.")
+    else:
+        print("do this now if correct value input")
+
+
 
