@@ -1,12 +1,12 @@
-def grid_fcnt(x,y):
+def print_grid2(x,y):
 
-    plus = "+" + "-"*x + "+" + "-"*x + "+"
-    pipe = "|" + " "*x + "|" + " "*x + "|"
+    plus = (("+" + "-"*y) * x) + "+"
+    pipe = (("|" + " "*y) * x) + "|"
 
-    for i in range(y*2 + 3):
-        if i%(y + 1)==0:
+    for row in range((y * x) + x + 1):
+        if row%(y + 1) == 0:
             print(plus)
         else:
             print(pipe)
 
-grid_fcnt(5,3)
+print_grid2(5,3)
