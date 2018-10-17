@@ -1,9 +1,10 @@
 
-"""he Fibonacci Series is a numeric series starting with the integers 0 and 1.
-In this series, the next integer is determined by summing the previous two"""
 
 def fibonacci(n):
-    #n is integer starting from 0
+    """The Fibonacci Series is a numeric series starting with the integers 0 and 1.
+    In this series, the next integer is determined by summing the previous two. 
+    This function is to write Fibonacci series. N is the length of series. N is an integer starting from 0"""
+   
     list1 = list()
 
     for i in range(n+1):
@@ -18,10 +19,10 @@ def fibonacci(n):
     return list1[n]
 
 
-"""The Lucas Numbers is like fibonacci series but are start with the values 2 and 1 rather than 0 and 1"""
-
 def lucas(n):
-    #n is integer starting from 0
+    """The Lucas Numbers is like fibonacci series but are start with the values 2 and 1 rather than 0 and 1.
+    This function is to write a Lucas series with the length of n. N is integer starting from 0"""
+    
     list2 = list()
 
     for i in range(n+1):
@@ -36,6 +37,10 @@ def lucas(n):
     return list2[n]
 
 def sum_series (n, a=0, b=1):
+    """This function is a more generalized function to write series. N means length of series. A is the first number.
+    B is the second number. The number after is the sum of the previous two numbers. the defaul value of a is 0. 
+    the default value of b is 1"""
+
     list3 = list()
 
     for i in range(n+1):
