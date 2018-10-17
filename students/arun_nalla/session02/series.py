@@ -29,10 +29,10 @@ print (lucas(10))
 print ('Done with lucas series')
 
 def sum_series(n, a=0, b=1):
-    
+
     list_sum_series = [a,b]
-    if n ==0: return 0
-    elif n ==1: return 1
+    if n ==0: return a
+    elif n ==1: return b
     for x in range (2,n+1):
         y = list_sum_series[-2] + list_sum_series[-1]
         list_sum_series.append(y)
