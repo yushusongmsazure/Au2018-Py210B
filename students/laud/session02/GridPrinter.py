@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Part 2 & Part 2 (one parameter)
+# Part 1 & Part 2 (one parameter)
 def print_grid(n):
     line = ''
     bars = ''
@@ -35,6 +35,8 @@ def print_grid(n):
             print(bars)
     print(line)
 print_grid(15)
+
+
 
 
 
