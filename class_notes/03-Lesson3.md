@@ -46,6 +46,7 @@
 
 * Truthiness: Need to remember the rules [What is False?](https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#what-is-false)
 * `and` and `or` short-circuiting: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#shortcutting
+  * Some typos in the material [Booleans.html](https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html): See [PR](https://github.com/UWPCE-PythonCert/PythonCertDevel/pull/169) for a fix
 * Condition expressions: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#conditional-expressions
 
 ### Sequences
