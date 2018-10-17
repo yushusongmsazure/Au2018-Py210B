@@ -1,4 +1,5 @@
-#Series 1
+"""
+# Series 1
 # setting up the fruit list
 fruit_list = ["Apples", "Pears", "Oranges", "Peaches"]
 
@@ -16,7 +17,7 @@ fruit_number = input("What fruit number would you like to see? ")
 
 print("Here is your fruit: {}\n".format(fruit_list[int(fruit_number)-1]))
 
-#add more fruit to the beginning of the list
+# add more fruit to the beginning of the list
 fruit_list = ["Strawberries"] + fruit_list
 
 print("This is the new fruit list after '+': {}".format(fruit_list))
@@ -31,7 +32,7 @@ for fruit in fruit_list:
     if fruit.startswith("P"):
         print(fruit)
 
-#Series 2
+# Series 2
 print("This is the fruit list for series 2: {}\n".format(fruit_list))
 
 fruit_list = fruit_list[:-1]
@@ -50,3 +51,31 @@ while True:
     else:
         print("Fruit not found.\n")
 
+# Series 3
+fruit_list3 = ["Apples", "Pears", "Oranges", "Peaches"]
+new_list = []
+for fruit in fruit_list3:
+    while True:
+        answer = input("Do you like {}? ".format(fruit.lower()))
+        if answer == "no":
+            break
+        elif answer == "yes":
+            new_list.append(fruit)
+            break
+        else:
+            print("Please answer yes or no.")
+
+print("This is the fruit list: {}\n".format(new_list))
+"""
+# Series 4
+fruit_list4 = ["Apples", "Pears", "Oranges", "Peaches"]
+series4_list = []
+for fruit in fruit_list4:
+    series4_list.append(fruit[::-1])
+
+#directions say delete last item of original list but from which list to delete? Doing both lists.
+fruit_list4.pop()
+series4_list.pop()
+
+print("This is the original list: {}\n".format(fruit_list4))
+print("This is the new list: {}\n".format(series4_list))
