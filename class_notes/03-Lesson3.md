@@ -10,11 +10,11 @@
   * Instructor: Tuesday 7:30-9pm online only through [Zoom](https://washington.zoom.us/my/python2018)
   * TA: Optional or TBA
 * Due dates for week 3
-  * Lesson 3 Exercises by 11:59pm, Tuesday, Oct. 23, 2018 (5 points each, Canvas submissions of your source files required, one single PR for the entire week 3 should include source files for all the exercises)
+  * Lesson 3 Exercises by 11:59pm, Tuesday, Oct. 23, 2018 (5 points each, Canvas submissions of your source files required, one single PR for all the week 3 submissions should include source files for all the exercises)
     * Slicing Lab: https://canvas.uw.edu/courses/1231462/modules/items/8758994
     * List Lab: https://canvas.uw.edu/courses/1231462/modules/items/8758995
     * String Formatting Lab: https://canvas.uw.edu/courses/1231462/modules/items/8758996
-  * Lesson 3 Assignment by 11:59pm, Tuesday, Oct. 23, 2018 (15 points, Canvas submission of your source files required, one single PR for the entire week 3 should include source files for this assignment as well)
+  * Lesson 3 Assignment by 11:59pm, Tuesday, Oct. 23, 2018 (15 points, Canvas submission of your source files required, one single PR for all the week 3 submissions should include source files for this assignment as well)
     * Mailroom, Part 1: https://canvas.uw.edu/courses/1231462/modules/items/8758997
 
 ### Git & Github exercises
@@ -27,14 +27,25 @@
     * `git commit -m "Your commit message"`. The commit message should be descriptive and also succinct.
   * At the end of every work session, push your new commits to your remote (`origin`) mostly for backup purpose
     * `git push origin master`
-  * For assignment submission purpose, make only 1 github PR nearing the due time
+  * For assignment submission purpose, make only 1 github PR (for all the submissions on that week) nearing the due time
     * No command line for github PR creation. Use the web interface.
-  * If you'd like to have your intermediate code reviewed, feel free to send a PR, but add notes asking for suchintermediate review and email us as a reminder.
+  * If you'd like to have your non-final code reviewed, feel free to send a PR, but add notes asking for an intermediate review and email us as a reminder.
+
+### Miscellaneous
+
+* VSCode run selection
+  * Start a terminal and run `ipython`
+  * Select a block of Python code in your editor
+  * `Ctrl-Shift-p`, then enter `Run Selected Text In Active Terminal` (will pop up and allow you to pick)
+  * Still have to press Enter in the ipython session on the terminal (that's why this is still not ideal)
+  * Next time you enter `Ctrl-Shift-p`, you don't have to enter the command name, but should see it at the top and select it.
+* Github PR merge conflict resolution
+  * If your PR says there's a merge conflict with your PR, let us know and resolve the conflict.
 
 ### Boolean
 
 * Truthiness: Need to remember the rules [What is False?](https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#what-is-false)
-* `and` and `or` shortcircuiting: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#shortcutting
+* `and` and `or` short-circuiting: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#shortcutting
 * Condition expressions: https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Booleans.html#conditional-expressions
 
 ### Sequences
