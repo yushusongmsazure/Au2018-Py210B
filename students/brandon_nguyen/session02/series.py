@@ -34,12 +34,13 @@ def sum_series(n,n0=0,n1=1):
 
     """
     #ask the instructor which is the best way to check args.
+    '''
     if (n0==0 and n1==1):
     #do fibonacci
         if (n==0 or n==1): 
             return n
         else:
-            return fibonacci(n-1) + fibonacci(n-2)
+            return fibbonacci(n-1) + fibbonacci(n-2)
     elif(n0==2 and n1==1):
     #do lucas    
         if (n==0 or n == 1):
@@ -48,6 +49,17 @@ def sum_series(n,n0=0,n1=1):
             return lucas(n-1) + lucas(n-2)
     else:
         print("TODO - Other Series sum to do")
+
+    '''
+    #correction after reviewed by instructor
+    if n==0:
+        return n0
+    elif n==1:
+        return n1
+    elif n >=2:
+        return sum_series(n-1,n0=n0,n1=n1) + sum_series(n-2,n0=n0,n1=n1)
+
+
 
 
 #unit test using assert do ask about assertEqual as I am unable to make use of it
