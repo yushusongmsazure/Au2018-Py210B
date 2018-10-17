@@ -29,38 +29,15 @@ print (lucas(10))
 print ('Done with lucas series')
 
 def sum_series(n, a=0, b=1):
-    ''' function within a functions, Function should have a three arguments, one positional and two keyword arguments.
-        two keyword agruments decides the return value.  The default values of keyword arguments be 1 and 0.
-        The default keyword arguments results in fibonacci series and return nth position of based on positional arguments'''
+    
+    list_sum_series = [a,b]
+    if n ==0: return 0
+    elif n ==1: return 1
+    for x in range (2,n+1):
+        y = list_sum_series[-2] + list_sum_series[-1]
+        list_sum_series.append(y)
+    return list_sum_series[-1]
 
-    if a ==0 and b ==1:
-        list_sum_series = [a,b]
-        if n ==0: return 0
-        elif n ==1: return 1
-        for x in range (2,n+1):
-            y = list_sum_series[-2] + list_sum_series[-1]
-            list_sum_series.append(y)
-        return list_sum_series[-1]
-    '''when keyword arguments were 2 and 1, the function return Lucas series
-        for any other value entered should results sum of all the enters'''
-    if a==2 and b ==1:
-        list_sum_series = [a,b]
-        if n == 0: return 2
-        elif n == 1: return 1
-        for x in range(2, n + 1):
-            y = list_sum_series[-2] + list_sum_series[-1]
-            list_sum_series.append(y)
-        return list_sum_series[-1]
-    else:
-        return n+a+b
-
-''' my previous code:
-    if a ==0 and b==1:
-        print (fibo(n))
-    elif a==2:
-        print (lucas(n))
-    else:
-        print (n+a+b)'''
 
 print (sum_series (10))
 print (sum_series(10,2))
