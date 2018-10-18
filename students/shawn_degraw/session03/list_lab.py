@@ -1,6 +1,6 @@
-"""
 # Series 1
-# setting up the fruit list
+# setting up the fruit lista
+print("**Series 1**")
 fruit_list = ["Apples", "Pears", "Oranges", "Peaches"]
 
 print("This is the fruit list for series 1: {}".format(fruit_list))
@@ -33,26 +33,29 @@ for fruit in fruit_list:
         print(fruit)
 
 # Series 2
-print("This is the fruit list for series 2: {}\n".format(fruit_list))
+print("**Series 2**")
+fruit_list2 = fruit_list[:]
+print("This is the fruit list for series 2: {}\n".format(fruit_list2))
 
-fruit_list = fruit_list[:-1]
+fruit_list2 = fruit_list2[:-1]
 
-print("This is the fruit list after removing last element: {}\n".format(fruit_list))
+print("This is the fruit list after removing last element: {}\n".format(fruit_list2))
 
 # loop until user provides a valid fruit to delete
 while True:
 
     fruit_to_delete = input("What fruit would you like to delete? ")
 
-    if fruit_list.count(fruit_to_delete):
-        fruit_list.remove(fruit_to_delete)
-        print("This is the fruit list after removing the requested fruit: {}\n".format(fruit_list))
+    if fruit_list2.count(fruit_to_delete):
+        fruit_list2.remove(fruit_to_delete)
+        print("This is the fruit list after removing the requested fruit: {}\n".format(fruit_list2))
         break
     else:
         print("Fruit not found.\n")
 
 # Series 3
-fruit_list3 = ["Apples", "Pears", "Oranges", "Peaches"]
+print("**Series 3**")
+fruit_list3 = fruit_list[:]
 new_list = []
 for fruit in fruit_list3:
     while True:
@@ -66,9 +69,10 @@ for fruit in fruit_list3:
             print("Please answer yes or no.")
 
 print("This is the fruit list: {}\n".format(new_list))
-"""
+
 # Series 4
-fruit_list4 = ["Apples", "Pears", "Oranges", "Peaches"]
+print("**Series 4**")
+fruit_list4 = fruit_list[:]
 series4_list = []
 for fruit in fruit_list4:
     series4_list.append(fruit[::-1])
