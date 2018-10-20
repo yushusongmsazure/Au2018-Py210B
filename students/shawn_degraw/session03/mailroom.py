@@ -7,6 +7,12 @@ donor_db = [("John Smith", [500.00, 150.00, 20.00]),
             ("John Wick", [1000.00]),
             ("GI Jane", [150.00, 60.00])
            ]
+
+thankyouletter = "\n".join(("","Dear {name},","","Thank you for your generous donation of ${amount:.2f} to our cause.","Your donations help keep Python great!","","Sincerely","","The Python Project",""))
+
+def printthankyou(donoridx):
+    print(thankyouletter.format(name=donor_db[donoridx][0], amount=donor_db[donoridx][1][len(donor_db[donoridx][1])-1]))
+
 def adddonation(donoridx):
     donationammount = input("Enter donation amount> ")
     donor_db[donoridx][1].append(float(donationammount))
@@ -21,10 +27,12 @@ def handlename(namechoice):
     if nameidx:
         print("Using this person: {}".format(donor_db[nameidx[0]-1]))
         adddonation(nameidx[0]-1)
+        printthankyou(nameidx[0]-1)
     else:
         print("Adding name to DB.")
         donor_db.append((namechoice, []))
         adddonation(len(donor_db)-1)
+        printthankyou(len(donor_db)-1)
 
 def exit_program():
     print("Thank you. Bye")
