@@ -70,5 +70,5 @@ def create_report():
         print(mystr.format(name=item[0].title(), total=sum(item[1]), count=len(item[1]), avg=(sum(item[1])/len(item[1]))))
     user_menu()
 
-while __name__ == "__main__":
+if __name__ == "__main__":
     user_menu()
