@@ -56,11 +56,23 @@ f"The weight of an {fruits[0][:-1].upper()} is {fruits[1] * 1.2} and the weight 
 # age and a cost. Make sure some of the costs are in the hundreds and thousands 
 # to test your alignment specifiers. 
 
+my_colnames = ("NAME", "AGE", "COST")
+my_contents = (("Apple", 22, 1234567.89), ("Peach", 1, 200), ("Pear", 14, 12345.00), ("Plum", 170, 2.25), ("Brontosaurus", "old", 2000000.99))
+
+def tabler(colnames, contents):
+    fstring = "{name:>12}{age:>6}{cost:>15,.2f}"
+    print("{name:>12}{age:>6}{cost:>15}".format(name=colnames[0], age=colnames[1], cost=colnames[2]))
+    for i in contents:
+        print(fstring.format(name=i[0], age=i[1], cost=i[2]))
+
+tabler(my_colnames, my_contents)
 
 
 # And for an extra task, given a tuple with 10 consecutive numbers, can you 
 # work how to quickly print the tuple in columns that are 5 charaters wide? It 
 # can be done on one short line!
+
+numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 
 # Here are some tests.
