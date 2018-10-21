@@ -10,6 +10,8 @@ value1=2
 value2=123.4567
 value3=10000
 value4=12345.67
+#?? trying to get significance of 3
+getcontext().prec = 3 
 #??not sure about 3 significant figures for value4
 print(f"File_{str(value1).zfill(3)} :  {round(value2,2)}, {Decimal(value3):.2e}, {Decimal(value4):.2e}")
 
