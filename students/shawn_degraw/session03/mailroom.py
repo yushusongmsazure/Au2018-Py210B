@@ -25,24 +25,26 @@ def handlename(namechoice):
     #getting the name index starting from 1 to use truthiness in if statement
     nameidx = [idx for idx, nametuple in enumerate(donor_db,1) if nametuple[0] == namechoice]
     if nameidx:
-        print("Using this person: {}".format(donor_db[nameidx[0]-1]))
+        #print("Using this person: {}".format(donor_db[nameidx[0]-1]))
         adddonation(nameidx[0]-1)
         printthankyou(nameidx[0]-1)
     else:
-        print("Adding name to DB.")
+        #print("Adding name to DB.")
         donor_db.append((namechoice, []))
         adddonation(len(donor_db)-1)
         printthankyou(len(donor_db)-1)
 
 def printreport():
+    print()
     print("{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("{:-<67}".format(""))
     for name, donation in donor_db:
-        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/2))
+        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/len(donation)))
+    print()
 
 def exit_program():
     print("Thank you. Bye")
-    print(donor_db)
+    #print(donor_db)
     sys.exit()
 
 def main():
@@ -68,7 +70,7 @@ def main():
         elif choice == '3':
             exit_program()
         else:
-            print("bad choice")
+            print("Incorrect Entry\n")
 
 if __name__ == "__main__":
     main()
