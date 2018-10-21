@@ -10,6 +10,12 @@ donor_db = [("John Smith", [500.00, 150.00, 20.00]),
 
 thankyouletter = "\n".join(("","Dear {name},","","Thank you for your generous donation of ${amount:.2f} to our cause.","Your donations help keep Python great!","","Sincerely","","The Python Project",""))
 
+def sumdbkey(donorlist):
+    return sum(donorlist[1])
+
+def sortdb():
+    return sorted(donor_db, key=sumdbkey, reverse=True)
+
 def printthankyou(donoridx):
     print(thankyouletter.format(name=donor_db[donoridx][0], amount=donor_db[donoridx][1][len(donor_db[donoridx][1])-1]))
 
@@ -35,10 +41,11 @@ def handlename(namechoice):
         printthankyou(len(donor_db)-1)
 
 def printreport():
+    newdb = sortdb()
     print()
     print("{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("{:-<67}".format(""))
-    for name, donation in donor_db:
+    for name, donation in newdb:
         print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/len(donation)))
     print()
 
