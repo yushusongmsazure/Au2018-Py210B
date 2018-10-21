@@ -34,6 +34,12 @@ def handlename(namechoice):
         adddonation(len(donor_db)-1)
         printthankyou(len(donor_db)-1)
 
+def printreport():
+    print("{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
+    print("{:-<67}".format(""))
+    for name, donation in donor_db:
+        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/2))
+
 def exit_program():
     print("Thank you. Bye")
     print(donor_db)
@@ -58,7 +64,7 @@ def main():
             else:
                 handlename(name)
         elif choice == '2':
-            print("Selected 21")
+            printreport()
         elif choice == '3':
             exit_program()
         else:
