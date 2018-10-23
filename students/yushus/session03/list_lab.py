@@ -47,14 +47,27 @@ def series_2():
     new_fruits = fruits + fruits
     found = False
     while(not found):
-        fruit_to_delete = input("Please try again: ")
+        fruit_to_delete = input("Please try again: ").strip()
         for f in new_fruits:
-            if f.lower() == fruit_to_delete.strip().lower():
+            if f.lower() == fruit_to_delete.lower():
                 new_fruits.remove(f)
                 found = True
     print(new_fruits)
 
+def series_3():
+    fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
+    fruits = [f.lower() for f in fruits]
 
+    keep = []
+    for fruit in fruits:
+        while True:
+            ans = input(f'Do you like {fruit}? Please enter "yes" or "no" ').strip().lower()
+            if ans.lower() == 'yes':
+                keep.append(fruit)
+                break
+            elif ans.lower() == 'no':
+                break
+    print(keep)
 
 def series_4():
     fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
@@ -65,6 +78,7 @@ def series_4():
     print(fruits)
     print(fruits_copy)
     
-#series_1()
-#series_2()
+series_1()
+series_2()
+series_3()
 series_4()
