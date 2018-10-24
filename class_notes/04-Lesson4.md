@@ -15,8 +15,8 @@
   * In person classroom attendance is still possible/encouraged. TA will be present for anyone who'll attend in person.
 * Due dates for week 4
   * Lesson 4 Activities by 11:59pm, Friday, Oct. 26, 2018 (No points, no submissions)
-    * Dict lab, set, file processing: https://canvas.uw.edu/courses/1231462/modules/items/8759002
-  * Lesson 4 Assignment by 11:59pm, Tuesday, Oct. 23, 2018 (15 points each, Canvas submission of your source files required, one single PR for all the week 4 submissions should include source files for this assignment as well)
+    * Dict, set labs, file processing lab: https://canvas.uw.edu/courses/1231462/modules/items/8759002
+  * Lesson 4 Assignments by 11:59pm, Tuesday, Oct. 23, 2018 (15 points each, Canvas submission of your source files required, one single PR for all the week 4 submissions should include source files for this assignment as well)
     * Mailroom, Part 2: https://canvas.uw.edu/courses/1231462/modules/items/8758997
     * Kata Fourteen: Tom Swift Under Milk Wood: https://canvas.uw.edu/courses/1231462/modules/items/8759003
 
@@ -40,7 +40,7 @@
 
 * Just a lot of syntax/idioms to remember...
 * `d[k]` throws if `k not in d`
-  * `d.get(k)` never throws. Returns `None` if `k not in d`. Can specify the desired default: `d.get(k, def)`
+  * `d.get(k)` never throws. Returns `None` if `k not in d`. Can specify the desired default: `d.get(k, default)`
 * Auto initialization of a dict item value
   * Common code pattern
     ``` Python
@@ -51,7 +51,7 @@
     Or
     ``` Python
     if word not in book_index_dict:
-    book_index_dict[word] = []
+        book_index_dict[word] = []
     book_index_dict[word].append(page)
     ```
   * Can use `d.setdefault()` for the second case:
@@ -81,7 +81,7 @@
     Counter({'blue': 3, 'red': 2, 'green': 1})
     >>>
     ```
-* Sets: Probably used more later
+* Sets: Probably used later
   * See examples like [this](https://realpython.com/python-sets/)
   * Remember the set operations: union, intersection, set difference, ...
     * Set theory in mathematics
