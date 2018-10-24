@@ -1,5 +1,5 @@
 # Series 1
-# setting up the fruit lista
+# setting up the fruit list
 print("**Series 1**")
 fruit_list = ["Apples", "Pears", "Oranges", "Peaches"]
 
