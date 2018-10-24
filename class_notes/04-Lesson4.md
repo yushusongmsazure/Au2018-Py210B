@@ -38,6 +38,7 @@
 
 ### Dictionaries and Sets
 
+* https://uwpce-pythoncert.github.io/PythonCertDevel/modules/DictsAndSets.html
 * Just a lot of syntax/idioms to remember...
 * `d[k]` throws if `k not in d`
   * `d.get(k)` never throws. Returns `None` if `k not in d`. Can specify the desired default: `d.get(k, default)`
@@ -89,6 +90,7 @@
 
 ### File Reading and Writing
 
+* https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Files.html
 * Not many gotchas, just another lot of syntax/idioms to learn and remember
   * Use `with`!
 * Do practice file handling with the [lab](https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/file_lab.html), though no submission's required/accepted.
