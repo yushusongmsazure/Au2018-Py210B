@@ -32,6 +32,19 @@ def send_ty():
     response = input("\nPlease enter donor full names or \"list\": " )
     if response.strip() == 'list':
         list_donors()
+   #elif response.strip() in donor_db:
+    else:
+        print(response.strip())
+        for name in donor_db:
+            print(name[0])
+            if name[0] == response.strip():
+                indx = donor_db.index(name)
+                donation = input("Please enter donation amount for " + name[0] + ": ")
+                donor_db[indx][1].append(donation)
+            else:
+                donor_db.append((response.strip(),[0]))
+
+        
 
 def add_donor():
     pass
