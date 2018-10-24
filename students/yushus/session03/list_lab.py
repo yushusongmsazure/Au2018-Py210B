@@ -39,20 +39,22 @@ def series_2():
     print(fruits)
 
     fruit_to_delete = input("Please choose a fruit to delete: ")
+    fruits_copy = fruits[:]
     for f in fruits:
         if f.lower() == fruit_to_delete.strip().lower():
-            fruits.remove(f)
-    print(fruits)
+            fruits_copy.remove(f)
+    print(fruits_copy)
 
-    new_fruits = fruits + fruits
+    new_fruits = fruits*2
+    new_fruits_copy = new_fruits[:]
     found = False
-    while(not found):
+    while not found:
         fruit_to_delete = input("Please try again: ").strip()
         for f in new_fruits:
             if f.lower() == fruit_to_delete.lower():
-                new_fruits.remove(f)
+                new_fruits_copy.remove(f)
                 found = True
-    print(new_fruits)
+    print(new_fruits_copy)
 
 def series_3():
     fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']

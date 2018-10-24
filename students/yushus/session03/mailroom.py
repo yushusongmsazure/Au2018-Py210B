@@ -26,12 +26,12 @@ def print_donor():
 
 def print_email(name, amount):
     letter = '''
-        "Dear {name},
-         Thank you for your generous donation of ${amount}. Your kindness is really making the world different!
+        Dear {name},
+        Thank you for your generous donation of ${amount}. Your kindness is really making the world different!
 
-         Sincerely,
-         Mailroom Bot
-         '''
+        Sincerely,
+        Mailroom Bot
+        '''
     print(letter.format(name=name, amount=amount))
 
 def send_a_thank_you():
