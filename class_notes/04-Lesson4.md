@@ -17,8 +17,8 @@
   * Lesson 4 Activities by 11:59pm, Friday, Oct. 26, 2018 (No points, no submissions)
     * Dict, set labs, file processing lab: https://canvas.uw.edu/courses/1231462/modules/items/8759002
   * Lesson 4 Assignments by 11:59pm, Tuesday, Oct. 23, 2018 (15 points each, Canvas submission of your source files required, one single PR for all the week 4 submissions should include source files for this assignment as well)
-    * Mailroom, Part 2: https://canvas.uw.edu/courses/1231462/modules/items/8758997
-    * Kata Fourteen: Tom Swift Under Milk Wood: https://canvas.uw.edu/courses/1231462/modules/items/8759003
+    * Mailroom, Part 2: https://canvas.uw.edu/courses/1231462/modules/items/8759003
+    * Kata Fourteen: Tom Swift Under Milk Wood: https://canvas.uw.edu/courses/1231462/modules/items/8759004
 
 ### Git & Github exercises
 
