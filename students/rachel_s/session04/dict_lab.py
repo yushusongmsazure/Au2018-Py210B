@@ -37,8 +37,8 @@ d.values()
 # case?).
 d2 = {}
 
-for key in d:
-    d2[key] = d[key].lower().count("t")
+for key, value in d.items():
+    d2[key] = value.lower().count("t")
 
 d2
 
