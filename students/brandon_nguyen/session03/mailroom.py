@@ -38,21 +38,21 @@ def send_ty():
         for name in donor_db:
             #print(name[0])
             if name[0] == response.strip():
-                print("get here")
                 indx = donor_db.index(name)
                 donation = input("Please enter donation amount for " + name[0] + ": ")
                 donor_db[indx][1].append(donation)
+                print("Hello {},\nThank you so much for the generious donation of {}!\n\n".format(name[0],float(donation)))
                 break
         else:
-            donor_db.append((response.strip(),[0]))
-            
+            donor_db.append((response.strip(),[0])) #adding new name with $0 donation.
+    #print(donor_db)       
 
         
 
-def add_donor():
-    pass
 
-def fmt_email():
+
+def fmt_email(donor):
+
     pass
 
 def get_add_donation():
