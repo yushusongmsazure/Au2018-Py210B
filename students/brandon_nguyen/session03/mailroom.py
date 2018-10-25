@@ -36,13 +36,16 @@ def send_ty():
     else:
         print(response.strip())
         for name in donor_db:
-            print(name[0])
+            #print(name[0])
             if name[0] == response.strip():
+                print("get here")
                 indx = donor_db.index(name)
                 donation = input("Please enter donation amount for " + name[0] + ": ")
                 donor_db[indx][1].append(donation)
-            else:
-                donor_db.append((response.strip(),[0]))
+                break
+        else:
+            donor_db.append((response.strip(),[0]))
+            
 
         
 
