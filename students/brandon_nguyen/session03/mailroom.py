@@ -1,5 +1,6 @@
 import sys
 import unittest
+from decimal import Decimal
 
 #!/usr/bin/env python3
 #Week3 Excercise mailroom part 1
@@ -39,9 +40,9 @@ def send_ty():
             #print(name[0])
             if name[0] == response.strip():
                 indx = donor_db.index(name)
-                donation = input("Please enter donation amount for " + name[0] + ": ")
+                donation = float(input("Please enter donation amount for " + name[0] + ": "))
                 donor_db[indx][1].append(donation)
-                print("Hello {},\nThank you so much for the generious donation of {}!\n\n".format(name[0],float(donation)))
+                print("\n\nHello {},\nThank you so much for the generious donation of {}!\n\n".format(name[0],float(donation)))
                 break
         else:
             donor_db.append((response.strip(),[0])) #adding new name with $0 donation.
@@ -49,20 +50,30 @@ def send_ty():
 
         
 
-
-
-def fmt_email(donor):
-
-    pass
-
-def get_add_donation():
-    pass
-
 def sort_seq(seq):
     pass
 
 def create_rpt():
-    pass
+    newList = sort_sum()
+    header_string = "Donor Name               | Total Given | Num Gifts | Average Gift"
+    line = '-'*len(header_string)
+    print(header_string)
+    print(line)
+    for donor, total, num, avg in newList:
+        print(donor, "\t\t", "$  ",total[0], "\t    ",num[0], "\t\t$  {0:.2f}".format(avg[0])   )
+
+
+
+def sort_sum():
+    #creating a new list with computed value for easy printing.
+    """
+    This function returned a sorted list of by on order amount3
+    """
+    dbSum = []
+    for name, donation in donor_db:
+        dbSum.append((name,[sum(donation)],[len(donation)],[sum(donation)/len(donation)]),)
+    return sorted(dbSum, key=lambda donor: donor[1], reverse=True)
+    
 
 def list_donors():
     lst = []
