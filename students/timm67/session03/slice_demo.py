@@ -87,6 +87,6 @@ def main():
             pass
         else:
             print("Invalid response entered\n")
-        
+
 if __name__ == "__main__":
     main()
