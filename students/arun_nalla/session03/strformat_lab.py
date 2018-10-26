@@ -11,8 +11,7 @@ print ("Task1: ", s1)
 
 #task2
 # alternative formating
-s2 = '(file_00%s : %.2f, %.2e, %.2e)'%s
-print ('Task2')
+s2 = '(file_00%s: %.2f, %.2e, %.2e)'%s
 print ("Task2: ", s2)
 s3 = f"(file_00{s[0]}: {s[1]:.2f}, {s[2]:.2e}, {s[3]:.2e})"
 print ("Task2: ", s3)
@@ -20,6 +19,7 @@ print ("Task2: ", s3)
 #Task3
 s4 = ('xyz', 15, 11,60, 200,20)
 l = len(s4)
+
 num = ', '.join(["{}"]*l)
 s6 = ('The {} number are: '+ num).format(l,*s4)
 print ("Task3: ", s6)
@@ -41,3 +41,10 @@ print ("Task5: ",s)
 print ("Task5: ",s1_2)
 
 #Task6
+print ('{:<10}{:>10}{:^20}{:>8}'.format('First', 'xxxxCost', 'Second', 'Cost'))
+print ('{:<50}'.format('-'*50))
+print ('{:<10}{:>10}{:^20}{:>8}'.format('First', '$99.01', 'Second', '$88.09'))
+print ('{:<10}{:>10}{:^20}{:>8}'.format('First', '$999.01', 'Second', '$888.09'))
+print ('{:<10}{:>10}{:^20}{:>8}'.format('First', '$9.01', 'Second', '$8.09'))
+
+
