@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import csv
+import os
+import datetime
 
 # Import donor data
 
@@ -14,7 +16,7 @@ with open('mailroom/donors.csv') as csv_file:
         else:
             donor_info[line[0].lower()].append(int(line[1]))
 
-csv_file.close
+csv_file.closed
 
 
 def user_menu():
@@ -64,7 +66,15 @@ def generate_letter(donor):
 
 # Send thank you letters to all donors
 def all_donor_letters():
-    pass
+    user_dir = input("What directory do you want to write to?\n\n>  ")
+    dest = "{user_dir}/{date}_{name}.txt"
+    date = datetime.datetime.today().strftime("%Y-%m-%d")
+    if not os.path.isdir(user_dir):
+        os.makedirs(user_dir)
+    for name, donations in donor_info.items():
+        path = dest.format(user_dir=user_dir, name=name, date=date)
+        with open(path, "w") as f:
+            f.write(generate_letter(name))
 
 
 # Create a report
