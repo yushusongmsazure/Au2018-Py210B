@@ -5,8 +5,6 @@ import string
 with open("sherlock_small.txt") as f:
     words = f.read().strip().replace("\n", " ").split()
 
-f.close
-
 
 def build_trigrams(words):
     """
@@ -24,7 +22,7 @@ def build_trigrams(words):
         if not pair in trigrams:
             trigrams[pair] = [follower]
         else:
-            trigrams[pair] += [follower]
+            trigrams[pair].append(follower)
 
     return trigrams
 

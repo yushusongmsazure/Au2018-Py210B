@@ -16,13 +16,15 @@ with open('mailroom/donors.csv') as csv_file:
 
 csv_file.close
 
+
 def user_menu():
-    menu = {1: send_thank_you, 2: create_report, 3: quit}
-    response = input("Select an option:\n  1  Send a thank you\n  2  Create a report\n  3  Quit\n\n> ")
+    menu = {1: send_thank_you, 2: create_report, 3: all_donor_letters, 4: quit}
+    response = input("Select an option:\n  1  Send a thank you to a single donor\n  2  Create a report\n  3  Send letters to all donors\n  4  Quit\n\n> ")
     if int(response) in menu.keys():
         menu.get(int(response))()
     else:
-        response = input("Please select 1, 2, or 3.\n> ")
+        response = input("Please select 1, 2, 3, or 4.\n> ")
+
 
 # Send a thank you
 def send_thank_you():
@@ -33,23 +35,36 @@ def send_thank_you():
         user_menu()
     else:
         donation = int(input("Please enter the donation amount.\n> "))
-        if donor_name in donor_info:
-            donor_info[donor_name].append(donation)
-        else:
-            donor_info[donor_name] = [donation]
-        donation_count = len(donor_info.get(donor_name))
-        donation_total = sum(donor_info.get(donor_name))
-        thank_you_note = "Dear {name},\nThank you for your recent donation in the amount of ${amount:.2f}. "
-        
-        if donation_count > 1:
-            thank_you_note += "You have donated {count} times for a total of ${total:.2f}! "
-        else:
-            thank_you_note += "We greatly appreciate your generous contribution to our cause! "
-        thank_you_note += "We will ensure that these funds are put to good use defending the universe.\nSincerely,\nThe Bravest Warriors"
-        print(thank_you_note.format(name=donor_name.title(), amount=donation, count=donation_count, total=donation_total))
-        print(donor_name)
-        print(donation_count)
-        print(donation_total)
+        add_donor(donor_name, donation)
+        print(generate_letter(donor_name))
+
+
+def add_donor(name, amount):
+    name = name.lower()
+    if name in donor_info:
+        donor_info[name].append(amount)
+    else:
+        donor_info[name] = [amount]
+
+
+def generate_letter(donor):
+    donor = donor.lower()
+    name = donor.title()
+    if len(donor_info.get(donor)) > 1:
+        donation_count = len(donor_info.get(donor))
+        donation_total = sum(donor_info.get(donor))
+        middle = "You have donated {count} times for a total of ${total:.2f}! ".format(count=donation_count, total=donation_total)
+    else:
+        middle = "We greatly appreciate your generous contribution to our cause! "
+
+    letter = "Dear {name},\nThank you for your recent donation in the amount of ${amount:.2f}. {middle} We will ensure that these funds are put to good use defending the universe.\nSincerely,\nThe Bravest Warriors"
+
+    return letter.format(name=name, amount=donor_info.get(donor)[-1], middle=middle)
+
+
+# Send thank you letters to all donors
+def all_donor_letters():
+    pass
 
 
 # Create a report
@@ -61,6 +76,7 @@ def create_report():
     print("---------------------|---------------|--------------|--------------")
     for name, donations in donor_info.items():
         print(mystr.format(name=name.title(), total=sum(donations), count=len(donations), avg=(sum(donations)/len(donations))))
+        print()
     user_menu()
 
 if __name__ == "__main__":
