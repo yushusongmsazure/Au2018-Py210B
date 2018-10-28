@@ -1,3 +1,4 @@
+import random
 words = "I wish I may I wish I might".split()
 
 def build_trigrams(words):
@@ -20,29 +21,35 @@ def build_trigrams(words):
 
     return trigrams
 
-"""
-    for i in range(len(words)-2):
-        if trigrams.get(tuple(words[i:i+2])):
-            trigrams[tuple(words[i:i+2])].append(words[i + 2]) 
-        else: 
-            trigrams[tuple(words[i:i+2])] = [words[i + 2]]
-    
+def build_text(trigrams):
+    """
+    create a new story from the existing words
 
-    for i in range(len(words)-2):
-        if trigrams.get((words[i],words[i+1])):
-            trigrams[(words[i],words[i+1])].append(words[i + 2])
+    takes the trigrams dictionary and return a list with new text
+    """
+    next_key = random.choice(list(trigrams))
+    print(next_key)
+    new_creation = list(next_key)
+    print(new_creation)
+
+    while True:
+        new_creation.append(random.choice(trigrams[next_key]))
+        print(new_creation)
+        if tuple(new_creation[-2:]) in trigrams and tuple(new_creation[-2:]) != next_key:
+            next_key = tuple(new_creation[-2:])
         else:
-            trigrams[(words[i],words[i+1])] = [words[i + 2]]
-"""
-
-
-
-
-
+            break
+    
+    return new_creation
 
 
 
 
 if __name__ == "__main__":
     
-    print(build_trigrams(words))
+    word_pairs = build_trigrams(words)
+
+    new_text = build_text(word_pairs)
+
+    print(new_text)
+    print(" ".join(new_text))
