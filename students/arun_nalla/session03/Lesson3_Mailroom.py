@@ -5,24 +5,26 @@ def thanks_email(seq):
     while True:
         name_input = input("Enter full name of a donor>>>").title()
         if name_input == 'List':
-            name_list = [x for x,y in seq]
-            print (name_list)
+            name_list = [x for x, y in seq]
+            print(name_list)
         else:
             for i, v in enumerate(seq):
                 if name_input == seq[i][0]:
                     donation_amount = float(input('Enter donation amount: '))
                     seq[i][1].append(donation_amount)
                     print("Dear {},\n\nThis message is regarding the recent donation of ${:.2f} you made to ZYX charity.\n"
-                    "We highly appreciate your kindness. Till date you have donate a total of ${:.2f}.\n\n"
-                    "With Regards\n\nXYZ\n".format(name_input, donation_amount,sum(seq[i][1])))
+                            "We highly appreciate your kindness. Till date you have donate a total of ${:.2f}.\n\n"
+                            "With Regards\n\nXYZ\n".format(name_input, donation_amount, sum(seq[i][1])))
                     return seq
-                elif name_input != seq[i][0]:
+            for i, v in enumerate(seq):
+                if name_input != seq[i][0]:
                     donation_amount = float(input('Enter donation amount: '))
                     seq.append((name_input, [donation_amount]))
                     print("Dear {},\nThis message is regarding the recent donation of ${:.2f} you made to ZYX charity.\n"
                     "We highly appreciate your kindness and making a contribution.\n\n"
-                    "With Regards\n\nXYZ\n".format(name_input,donation_amount))
+                    "With Regards\n\nXYZ\n".format(name_input, donation_amount))
                     return seq
+
 def sort_key(sorting):
     return sorting[1]
 def create_report(seq):
