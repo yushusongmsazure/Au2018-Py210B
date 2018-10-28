@@ -28,14 +28,15 @@ def send_thanks():
     for i in range(len(donor_db)):
         if name.lower() ==  donor_db[i][0].lower():
             donor_db[i][1].append(donation)
-            return
-    donor_db.append((name, [donation]))
+        
+    # added unique else block to handle donors that are already in the list           
+    else:
+        donor_db.append((name, [donation]))
 
     print("\nDear {},".format(name))
-    print("\nThank you for the donation of ${}".format(donation))
-    print("\nSincerely,")
-    print("The Mailroom Foundation\n\n")
-
+    print("Thank you for the donation of ${}".format(donation))
+    print("Sincerely,")
+    print("The Mailroom Foundation\n")
 
 def donor_rpt():
     print('\n\n')
@@ -65,3 +66,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
