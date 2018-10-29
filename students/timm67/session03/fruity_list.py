@@ -10,7 +10,7 @@ List Lab
 # Series 1
 #
 
-print("Series 1\n")
+print("\nSeries 1\n")
 fruits = ['Apples', 'Pears', 'Oranges', 'Peaches']
 print("Original List: {}".format(fruits))
 fruits1 = fruits.copy()
@@ -36,27 +36,28 @@ for x in fruits1[:]:
 #
 
 fruits2 = fruits.copy()
-print("Series 2\n")
+print("\nSeries 2\n")
 print("Starting List: {}".format(fruits2))
-fruits2.remove(fruits2[-1:])
+fruits2.remove(fruits2[-1])
 print("Remove last element: {}".format(fruits2))
 response = input("Enter a fruit to remove: ")
 try:
         fruits2.remove(response)
 except ValueError:
         print("Fruit {} not found in list".format(response))
+print("Fruit removed List 2: {}".format(fruits2))
 
 #
 # Series 3
 #
 
 fruits3 = fruits.copy()
-print("Series 3\n")
+print("\nSeries 3\n")
 print("Starting List: {}".format(fruits3))
 for f in fruits3:
         print("Do you like {} (yes/no)? ".format(f)) # lowercase?
         response = ""
-        while (response != "no") or (response != "yes"):
+        while (response != "no") and (response != "yes"):
                 response = input()
         if (response == "no"):
                 fruits3.remove(f)
@@ -67,11 +68,12 @@ print("List after removals: {}".format(fruits3))
 #
 
 fruits4 = fruits.copy()
-print("Series 4\n")
+print("\nSeries 4\n")
 print("Starting List: {}".format(fruits4))
+revfruits = []
 for f in fruits4:
-        f = f[::-1] #Extended slice syntax
-print("List after item reversal: {}".format(fruits4))
+        revfruits.append(f[::-1]) #Extended slice syntax
+print("List after per-item reversal: {}".format(revfruits))
 print("Original List before removing last element: {}".format(fruits))
 fruits.remove(fruits[-1])
 print("Original List after removing last element: {}".format(fruits))
