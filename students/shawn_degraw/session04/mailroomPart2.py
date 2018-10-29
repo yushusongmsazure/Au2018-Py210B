@@ -42,18 +42,21 @@ def printdonorlist():
     for name in donor_db.keys():
         print(name)
 
-def handlename(namechoice):
+def handlenames():
     """Determines if name provided is existing donor or new donor. Calls function to add donation to DB and calls function to print thank you letter
     :param namechoice: name of the donor entered by user
     """
+    name = input("Please enter full name or list> ")
+    if name == "list":
+        printdonorlist()
     #getting the name index starting from 1 to use truthiness in if statement
-    if namechoice in donor_db:
-        adddonation(namechoice)
-        printthankyou(namechoice)
+    elif name in donor_db:
+        adddonation(name)
+        printthankyou(name)
     else:
-        donor_db[namechoice] = []
-        adddonation(namechoice)
-        printthankyou(namechoice)
+        donor_db[name] = []
+        adddonation(name)
+        printthankyou(name)
 
 
 def printreport():
@@ -69,12 +72,18 @@ def printreport():
 def exit_program():
     print("Thank you. Bye")
     #print(donor_db)
-    sys.exit()
+    return "exit"
 
 def main():
     """Mailroom main program loop with menu"""
 
-    menu = "\n".join(("Welcome to the mailroom!",
+    menudict = {
+            '1': handlenames,
+            '2': printreport,
+            '3': exit_program
+    }
+
+    mainmenu = "\n".join(("Welcome to the mailroom!",
           "Please choose from below options:",
           "1 - Send a Thank You",
           "2 - Create a Report",
@@ -82,19 +91,12 @@ def main():
           ">>> "))
 
     while True:
-        choice = input(menu)
-        if choice == '1':
-            name = input("Please enter full name or list> ")
-            if name == "list":
-                printdonorlist()
-            else:
-                handlename(name)
-        elif choice == '2':
-            printreport()
-        elif choice == '3':
-            exit_program()
-        else:
-            print("Incorrect Entry\n")
+        choice = input(mainmenu)
+
+        if menudict.get(choice)() == "exit":
+            break
+
+
 
 if __name__ == "__main__":
     main()
