@@ -78,7 +78,7 @@ def printreport():
     print()
 
 def sendletters():
-    """Write a letter to a file for each donor"""
+    """Write a letter to a file for each donor. Letters put in Windows subdirectory called letters."""
 
     for donorname in donor_db:
         filename = "letters\\" + donorname.replace(' ', '_') + ".txt"
