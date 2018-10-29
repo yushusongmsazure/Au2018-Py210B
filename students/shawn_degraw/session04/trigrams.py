@@ -1,7 +1,7 @@
-import random
-words = "I wish I may I wish I might".split()
+import random, string
 
-def build_trigrams(words):
+
+def build_trigrams(fileinput):
     """
     build up the trigrams dict from the list of words
 
@@ -10,14 +10,19 @@ def build_trigrams(words):
        values: list of followers
     """
     trigrams = {}
+    cleaning = str.maketrans('','',string.punctuation)
 
-    # build up the dict here!
+    #but no error handling yet
+    with open(fileinput, 'r') as filehandle:
+        #read file, clean newlines and puncuation, put into list
+        words = ((filehandle.read().replace('\n', ' ')).translate(cleaning)).split()
 
-    for i in range(len(words)-2):
-        if tuple(words[i:i+2]) in trigrams:
-            trigrams[tuple(words[i:i+2])].append(words[i + 2]) 
-        else: 
-            trigrams[tuple(words[i:i+2])] = [words[i + 2]]
+        #populate trigrams dictionary
+        for i in range(len(words)-2):
+            if tuple(words[i:i+2]) in trigrams:
+                trigrams[tuple(words[i:i+2])].append(words[i + 2]) 
+            else: 
+                trigrams[tuple(words[i:i+2])] = [words[i + 2]]
 
     return trigrams
 
@@ -27,16 +32,22 @@ def build_text(trigrams):
 
     takes the trigrams dictionary and return a list with new text
     """
+    #use random to find a starting key in the dictionary
     next_key = random.choice(list(trigrams))
-    print(next_key)
+
+    #add the new key as the first two words to the new list
     new_creation = list(next_key)
-    print(new_creation)
+
 
     while True:
+        #add one of the values from the key to the new list
         new_creation.append(random.choice(trigrams[next_key]))
-        print(new_creation)
+
+        #check if new key exists in dictionary and prevent loop if matching old key
         if tuple(new_creation[-2:]) in trigrams and tuple(new_creation[-2:]) != next_key:
             next_key = tuple(new_creation[-2:])
+            if len(new_creation) > 200:    #control the length of the new text
+                break
         else:
             break
     
@@ -46,10 +57,11 @@ def build_text(trigrams):
 
 
 if __name__ == "__main__":
-    
-    word_pairs = build_trigrams(words)
 
+    filename = input("Please enter filename to process> ")
+
+    word_pairs = build_trigrams(filename)
+ 
     new_text = build_text(word_pairs)
 
-    print(new_text)
     print(" ".join(new_text))
