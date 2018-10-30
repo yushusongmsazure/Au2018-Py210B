@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
-#session04, mailroom2
+"""session04, assignment mailroom2, Ying Guo"""
 
 from collections import defaultdict
-data = defaultdict(list)
-Sample = {"Tom":[100,200], "Tim":[3000], "Ken": [888,888,888], "Ted":[8000,5000,500], "Jon":[1000,6000]}
-for key in Sample.keys():
-    data[key] = Sample[key]
+
+data =defaultdict(list, {"Tom":[100,200], "Tim":[3000], "Ken": [888,888,888], "Ted":[8000,5000,500], "Jon":[1000,6000]})
 
 #Send a thank you function 
 def thank_you(data):
@@ -23,7 +21,7 @@ def thank_you(data):
 			data[user_input.capitalize()] += [amount1]
 			print("Thank you {} for your donation {}!".format(user_input.capitalize(), amount1))
 			return data
-			break
+
 
 
 #Creat a report function
@@ -50,7 +48,7 @@ def report(data):
 def all_letter(data):
     """Try to use a dict and the .format() method to produce the letter as one big template, the write into a txt file named with donor's name"""
     for name in data.keys():
-        with open("{}".format(name),"w") as f:
+        with open(name,"w") as f:
             f.write("Dear {},\n  Thank you for your very kind donation of {}.\n\
             It will be put to very good use.\n\
                                Sincerely,\n\

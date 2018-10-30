@@ -39,11 +39,7 @@ for x, y in dict1.items():
 
 dict2 = {}
 for x, y in dict1.items():
-    count = {"t":0}
-    for i in list(y):
-        if i == "t":
-            count["t"] = count["t"] +1
-    dict2[x] = count["t"]
+    dict2[x] = y.count["t"]
 
 print(dict2)
 
