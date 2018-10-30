@@ -14,9 +14,9 @@ def build_trigrams(fileinput):
 
     #but no error handling yet
     with open(fileinput, 'r') as filehandle:
-        #read file, clean newlines and puncuation, put into list
-        words = ((filehandle.read().replace('\n', ' ')).translate(cleaning)).split()
-
+        #read file, clean newlines and puncuation, make everything lower case for more word matching, put into list
+        words = (((filehandle.read().replace('\n', ' ')).translate(cleaning)).lower()).split()
+        
         #populate trigrams dictionary
         for i in range(len(words)-2):
             if tuple(words[i:i+2]) in trigrams:
@@ -61,7 +61,8 @@ if __name__ == "__main__":
     filename = input("Please enter filename to process> ")
 
     word_pairs = build_trigrams(filename)
- 
+    #print(word_pairs.values())
+    #print(word_pairs)
     new_text = build_text(word_pairs)
 
     print(" ".join(new_text))
