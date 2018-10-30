@@ -13,22 +13,25 @@ donor_db = [("Brandon Nguyen", [4500.33,350.87,300.05]),
           ("Jacqueline Lee",[4300.00,3200.00,230.13]),
           ("Aidan Nguyen", [4300.00,200.00,238.23]),
           ]
-promptTxt = "\n".join(("Welcome to the mailroom program!",
-          "Please choose from below 3 options:",
-          "1 - Send a Thank You",
-          "2 - Create a Report",
-          "3 - Quit",
+promptTxt = "\n".join(("\nWelcome to the mailroom program!\n",
+          "Please choose an options:\n\n",
+          "1 - Send a Thank You to a single donor.",
+          "2 - Create a Report.",
+          "3 - Send letters to all donors.",
+          "q - Quit",
           ">>> "))
+#building switch case menu with dictionary
+
+
 #The script should prompt the user (you) to choose from a menu of 3 actions: “Send a Thank You”, “Create a Report” or “quit”.
 
 #think about a main menu function that can be called any where.
-def main_menu():
-    promptTxt = "\n".join(("Welcome to the mailroom program!",
-          "Please choose from below 3 options:",
-          "1 - Send a Thank You",
-          "2 - Create a Report",
-          "3 - Quit",
-          ">>> "))
+def show_menu(promptxt, select_dict):
+    while True:
+        menu_selected = input(promptTxt)
+        if select_dict[menu_selected]() == "Exit Menu":
+            break
+
 
 def send_ty():
     while True:
@@ -54,7 +57,10 @@ def send_ty():
                     return
             else:
                 donor_db.append((response.strip(),[0.00])) #adding new name with $0 donation. avoiding div/0 issue
-      
+
+def send_ty_all():
+    pass
+
 def create_rpt():
     """
     This function is to print the report of donor.  
@@ -91,10 +97,21 @@ def list_donors():
     print()
     for name in lst: print(name)
     print()
+#breaking down to sub function
+def update_donation(db):
+    """
+    
+    """
+    pass
 
 def quit_program():
     print("Thank you for trying mailroom!")
     sys.exit()  # reason to import sys
+#a better way to exit
+def exit_menu():
+    print("\nExiting the menu.")
+    return "Exit Menu"
+
 
 def main():
     while True:
@@ -109,7 +126,15 @@ def main():
         else:
             print("\nNot a valid option! Please enter value 1,2 or 3.\n")
 
+#lesson learned - the value as function need to be below the defined function otherwise error - NameError 'send_ty' is not defined.
+select_dict = {
+                "1": send_ty, 
+                "2": create_rpt, 
+                "3": send_ty_all, 
+                "q": exit_menu
+                }
 
 if __name__ == '__main__':
     #ask the intend of the comment in class
-    main() 
+    #main()
+    show_menu(promptTxt, select_dict) 
