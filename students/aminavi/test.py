@@ -1,74 +1,112 @@
-'  abc  '.strip()
-
-if x =='abc':
-    print(x)
-
-if 1 and 2:
+d = {'name': 'alex', 'score': 43}
+d['name']
+d['score']
 
 
-x,y = 0,1
-x or y 
+d = {'one:': 1, 'two':2, 'three': 3}
+str(d)
+d.keys()
 
-def my_or(x,y):
-    if x == False:
-        return y
-    else:
-        return x
-my_or(0,1)
+d = {}
+d['one'] = 1
+d['two'] = 2
+d['three'] = 3
+d['four'] = 4
+# str(d)
+# d.keys()
+# for x in d:
+# print(x)
+# d.values()
+# d
+# 'one' in d
+# 'five' in d
+# 'five' not in d
+# d.get('one')
+# d.get('five', 'haha')
 
-tup = (1,2,3)
-tup[0]
+# for i in d:
+#     print(i)
 
+# for i in d.values():
+#     print(i)
 
-tup([1,2,3],4,'acy')
-tup[0] = [1,2,3,4]
-tup[0].append(4)
-print(tup)
+# d.pop('one')
 
+# d = {}
+# d.setdefault('somthing', 'value')
+# d['something else'] = 'another value'
+# d['another thing'] =  'different value'
+# item_copy = d
 
+# set()
 
-l = [1,2,3]
-l.append(4)
-l
+# set([1,2,3])
 
-l = [1,2,3]
-l.extend([12,11,10])
-l
+# s = set()
 
-l = [1,2,3]
-l = l + [4,5,6]
-l
+# s.update([1,2,3])
 
-l = [1,2,3]
-l.insert(0,123)
-l
-
-
-for x in range(10):
-    if x == 5:
-        break
-    else :
-        print('finished')
-
-
-it_did_break = False
-for x in range(9):
-    if x == 11:
-        it_did_break = True
-        break
-if not it_did_break:
-    print('finished')
+# s = 'This is an arbitrary string'
+# s.count('i')
 
 
-for x in range(100):
-    print(x)
+# for i in range(0,21):
+#     if i % 12 == 0:
+#         print(i)
 
-for x in range(1,101):
-    print(x)
 
-a = ['apple', 'banana']
-a =[y[::-1] for y in a]
-print(a)
+# words = "I wish I may I wish I might".split()
 
-# '{:^10}{:^10}{:^10}{:^10}'.format('First', '$99.01', 'Second', '$88.09')
+# def build_trigram(words):
+#     d = {}
+#     for i in range(len(words)-2):
+#         pair = tuple(words[i:i + 2])
+#         follower = words[i + 2]    
+#         d.setdefault(pair,[]).append(follower)
 
+#     trigrams = {}
+#     import random
+#     trigrams = list(random.choice(list(d.keys())))
+
+#     wordcnt = 10
+#     while len(trigrams) < wordcnt:
+#         cur_pair = trigrams[-2:]
+#         if tuple(cur_pair) not in d:
+#             cur_pair = list(random.choice(list(d.keys())))
+#         trigrams.extend(d.setdefault(tuple(cur_pair),[]))
+#         return trigrams
+
+#     print(trigrams)
+
+
+
+
+
+import sys
+
+donor_list = {
+    'William': [653772.32 , 953772.32,100000],
+    'Jeff': [8888777.22 ,877.33],
+    'Paul': [663.23, 43.87 ,1.32],
+    'Mark': [1663.23, 4300.87, 10432.00],
+    'Nigel': [5000000 , 10]
+    }
+'Nigel' in donor_list.keys.lower():
+# print(donor_list.)
+
+
+# for key, value in donor_list.items():
+#     print(f'{key:13}', f'${sum(value):>10.2f}', f'{len(value):>10}', f'${(sum(value)/len(value)):>10.2f}')
+#     print(len(value))
+
+name = ''
+while not name or name.lower() == 'list':
+        name = input("Please enter the full name: ")
+        if name.lower() == 'list':
+            print(' '.join(x[0] for x in donor_list))
+    donation = int(input("Please enter the donation amount: "))
+    for i in range(len(donor_list)):
+        if name.lower() in donor_list.keys.lower():
+            donor_list.keys.append(donation)
+            return
+    donor_list.append((name, [donation]))

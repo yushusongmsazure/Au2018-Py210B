@@ -1,6 +1,6 @@
 import sys
 
-donor_list = [('William',[ 653772.32 , 953772.32,100000]),('Jeff', [ 8888777.22 ,877.33 ]),('Paul', [663.23, 43.87 ,1.32 ]),('Mark', [1663.23, 4300.87, 10432.00]),('Nigel',[5000000 , 10])]
+donor_list = {'William': (653772.32 , 953772.32,100000),'Jeff', (8888777.22 ,877.33),'Paul', (663.23, 43.87 ,1.32),'Mark', ([)1663.23, 4300.87, 10432.00),'Nigel',(5000000 , 10)}
 
 thank_you_action = "Send a Thank You"
 create_a_report = "Create a Report"
