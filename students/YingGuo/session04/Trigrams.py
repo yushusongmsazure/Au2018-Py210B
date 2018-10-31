@@ -17,8 +17,8 @@ def build_trigrams(words):
         trigrams[pair] += [follower]
     
     print("This is the Trigrams:")
-    for i in trigrams.keys():
-        print(i, ": ", trigrams[i])
+    for k, v in trigrams.items():
+        print(k, ":", v)
 
     return trigrams
         
