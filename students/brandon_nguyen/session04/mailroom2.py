@@ -8,11 +8,12 @@ from decimal import Decimal
 
 
 #global define data structure
-donor_db = [("Brandon Nguyen", [4500.33,350.87,300.05]),
-          ("Shawn DeGraw", [5500.00, 345.05,571.33]),
-          ("Jacqueline Lee",[4300.00,3200.00,230.13]),
-          ("Aidan Nguyen", [4300.00,200.00,238.23]),
-          ]
+#dictionary {peron:[donations]}
+donor_db = {"Brandon Nguyen": [4500.33,350.87,300.05],
+          "Shawn DeGraw": [5500.00, 345.05,571.33],
+          "Jacqueline Lee":[4300.00,3200.00,230.13],
+          "Aidan Nguyen" : [4300.00,200.00,238.23],
+        }
 promptTxt = "\n".join(("\nWelcome to the mailroom program!\n",
           "Please choose an options:\n\n",
           "1 - Send a Thank You to a single donor.",
@@ -42,10 +43,10 @@ def send_ty():
         elif response.strip() == 'Q':
             return
         else:
-            for name in donor_db:
+            for person in donor_db:
             #print(name[0])
-                if name[0] == response.strip():
-                    indx = donor_db.index(name)
+                if person == response.strip():
+                    #indx = donor_db.index(name)
                     while True:
                         donation = input("Please enter donation amount for " + name[0] +". Q to quit. :>>")
                         if donation.strip() == 'Q':
@@ -56,7 +57,8 @@ def send_ty():
                     print("\n\nHello {},\nThank you so much for the generious donation of {}!\n\n".format(name[0],float(donation)))
                     return
             else:
-                donor_db.append((response.strip(),[0.00])) #adding new name with $0 donation. avoiding div/0 issue
+                #donor_db.update((response.strip(),[0.00])) #adding new name with $0 donation. avoiding div/0 issue
+                addNew_person(response.strip(),donor_db)
 
 def send_ty_all():
     pass
@@ -98,11 +100,14 @@ def list_donors():
     for name in lst: print(name)
     print()
 #breaking down to sub function
-def update_donation(db):
-    """
-    
-    """
-    pass
+def addNew_person(newName, db):
+    newRcd = {newName:[0.00]}
+    db.update(newRcd)
+
+def update_donation(name,newDonation,db):
+    cur_donation = db.get(name)
+    db[name] = cur_donation.append(newDonation)    
+
 
 def quit_program():
     print("Thank you for trying mailroom!")
