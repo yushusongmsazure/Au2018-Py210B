@@ -21,6 +21,9 @@
     * Exceptions and modules exercises: https://canvas.uw.edu/courses/1231462/modules/items/8759008
   * Lesson 5 Assignments by 11:59pm, Tuesday, Oct. 23, 2018 (15 points each, Canvas submission of your source files required, one single PR for all the week 4 submissions should include source files for this assignment as well)
     * Mailroom, Part 3: https://canvas.uw.edu/courses/1231462/modules/items/8759009
+  * No-submission/grade labs that are not mentioned:
+    * [Exception lab](https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/exceptions_lab.html)
+    * [Comprehension lab](https://uwpce-pythoncert.github.io/PythonCertDevel/exercises/comprehensions_lab.html)
 
 ### Modules and Packages
 
