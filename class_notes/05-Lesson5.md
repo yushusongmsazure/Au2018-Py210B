@@ -15,7 +15,7 @@
     * **Poll:** Who will attend in person?
 * Time to do some checkpointing on overall grades
   * Note that 80% or higher weighted total percentage score is required to pass this course, in addition to 80% or higher attendance.
-  * If your Canvas gradebook shows less than 80% weighted total percentage score, please submit your delayed assignments ASAP and also submit your corrected/improved assignments (you should let us know in that case so that we can regrade your new submissions).
+  * We'll need to think about how to handle retried/improved submissions.
 * Due dates for week 5
   * Lesson 5 Exercises by 11:59pm, Tuesday, Nov. 6, 2018 (5 points, Canvas submission of your source files required, one single PR for all the week 4 submissions should include source files for this assignment as well)
     * Exceptions and modules exercises: https://canvas.uw.edu/courses/1231462/modules/items/8759008
