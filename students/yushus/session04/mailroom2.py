@@ -1,3 +1,11 @@
+#!/usr/bin/env/python3
+
+"""
+Yushu Song
+Au2018-Py210B
+Mailroom2 assignment
+"""
+
 import os
 import random
 import sys
@@ -52,8 +60,6 @@ def send_a_thank_you():
     amount = float(input("How much do you want to donate? "))
     donor_db[name].append(amount)
     print_email(name, amount)
-
-    return
 
 def send_letters_to_all():
     for name in donor_db:

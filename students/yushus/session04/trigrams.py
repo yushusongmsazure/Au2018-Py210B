@@ -1,7 +1,14 @@
+#!/usr/bin/env/python3
 
+"""
+Yushu Song
+Au2018-Py210B
+Trigrams assignment
+"""
 import collections
 import os
 import random
+import string
 import sys
 
 # Return a string of words read from file
@@ -10,7 +17,9 @@ def read_in_data(filename):
     with open(filename, "r") as file:
         in_data = file.read()
     
-    return in_data
+    # Remove punctuations 
+    table = str.maketrans("","", string.punctuation)
+    return in_data.translate(table)
 
 # Return a list of words
 def make_words(in_data):
@@ -31,24 +40,23 @@ def build_text(words_dict):
     txt = random.choice(list(words_dict.keys()))
 
     # Maintain a list of current words list
-    l = txt.split()
+    word_list = txt.split()
 
     # The new text won't be longer than the length of dict
     i = len(words_dict)
 
     while(i > 0):
-        next_values = list(words_dict[" ".join(l[-2:])])
+        next_values = list(words_dict[" ".join(word_list[-2:])])
 
         # if followers exist, pick a random one
         if next_values:
             cur = random.choice(next_values)
-            l.append(cur)
-            txt = txt + " " + cur
+            word_list.append(cur)
             i -= 1
         else:
             break
 
-    return txt
+    return " ".join(word_list)
 
 if __name__ == "__main__":
     # get the filename from the command line
