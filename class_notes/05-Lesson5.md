@@ -25,7 +25,7 @@
 ### Modules and Packages
 
 * https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Modules.html
-* Do `git pull upstream master` and browse source files `examples/modules_and_packages` directory
+* Do `git pull upstream master` and browse source files in the `examples/modules_and_packages` directory
 * Understand diferences between:
   * A module and a package
   * `import abc` and `from abc import xyz`
@@ -36,7 +36,7 @@
 * In PYTHON210, we may not need to create our own modules/packages.
   * Our source code size is not that big -- Mostly nicely fitting in a single source file (for each exercise/assignment).
   * Still encouraged to modularize any software project using modules/packages
-  * See how built-in modules/packages are referenced
+  * See how standard library modules/packages are referenced
     * In VSCode, right-click on any imported module/package and click `Go to Definition`. On the opened module/package source file tab, right-click on the tab and click `Reveal in Explorer`.
       * Try doing this on `import random` and see where `random.py` is.
       * Note that this doesn't work on `import math` -- on any **built-in** modules
@@ -53,18 +53,19 @@
   * `else` is unique in Python
 * Exception handling mechanism:
   * A statement may raise ("throw" in most other programming languages) an exception when it's executed.
-  * If the statement is inside a `try` block, its `except` block is searched for the raised exception type.
+  * If the statement is inside a `try` block, its `except` blocks are searched for the raised exception type.
   * If a matching `except` block is found, then the statements in the `except` block will be executed.
     * The subsequent statements in the `try` block (after the statement where the exception was raised) will NOT be executed! -- It's an unexpected disruption of normal execution.
   * Statements in `else` block will be executed if no statement in the `try` block raised any exception.
     * Useful in minimizing the scope of the `try: ... except: ...` block (which is considered a good practice)
   * Statements in `finally` block will be executed regardless of whether any exception was raised or not.
-    * Intended to do any necessary clean-up (e.g., closing open file/database/network connections), which is very important
+    * Intended to do any necessary clean-up that should happend regardless (e.g., closing open file/database/network connections), which is very important
   * Any of `except`, `else`, and `finally` are optional.
     * But of course you'd want at least one of these 3 to make your `try: ...` block meaningful.
   * If a raised exception is not handled (caught) by an `except` block, the exception is propagated.
     * The execution of the current call stack frame (either the function where the `try: ...` block is located--let's call this `callee`--or the top-level REPL loop) will be interrupted.
     * The funciton `callee` will return immediately to the function that called `callee` (let's call this function `caller`).
+      * Note that the `finally` block statements are still executed, right before `callee` returns to `caller`.
     * The `caller` might have `try: ...` block that might handle the exception.
       * In that case, that exception is handled there.
       * If not, the exception keeps propagating along the call stack, until it's handled, or there's no more call stack frame (at which time your program crashes).
