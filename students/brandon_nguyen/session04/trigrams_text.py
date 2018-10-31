@@ -6,10 +6,10 @@ import unittest
 
 
 
-words = "I wish I may I wish I might".split()
+words = "I wish I may I wish I might"
 
 
-def build_trigrams(words):
+def build_trigrams(textInput):
     """
     build up the trigrams dict from the list of words
 
@@ -17,15 +17,14 @@ def build_trigrams(words):
        keys: word pairs
        values: list of followers
     """
-    trigrams = {}
-
-    # build up the dict here!
-    words = "I wish I may I wish I might".split()
-    # dictionary = {} concept -> dictionary.setdefault("list", []).append("list_item"): to initilize 
     
-    for i in range(len(words)-2): # why -2 : avoiding out of bound via the +2 below???
-        pair = tuple(words[i:i + 2]) #list cannot be key! conversion needed.
-        follower = words[i + 2]
+    trigrams = {}
+    strTx = textInput.split()
+    # build up the dict here!"
+    # dictionary = {} concept -> dictionary.setdefault("list", []).append("list_item"): to initilize   
+    for i in range(len(strTx)-2): # why -2 : avoiding out of bound via the +2 below???
+        pair = tuple(strTx[i:i + 2]) #list cannot be key! conversion needed.
+        follower = strTx[i + 2]
         trigrams.setdefault(pair,[]).append(follower)
     return trigrams
 
