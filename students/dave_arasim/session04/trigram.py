@@ -3,6 +3,7 @@
 Written by David K. Arasim - 10/30/18'''
 
 #Imported modules
+import sys
 import random
 import string
 from collections import defaultdict
@@ -74,18 +75,25 @@ def build_text_str():
     text_str = ''
     translator = str.maketrans('', '', string.punctuation)
 
-    with open('sherlock_small.txt', 'r') as textfile:
-        while True:
-            text_line = textfile.readline()
-            if not text_line: break
+    print('Enter text file name for text string build: ', end='')
+    text_file = input()
 
-            text_line = text_line.strip()
-            text_line = text_line.translate(translator)
+    try:
+        with open(text_file, 'r') as textfile:
+            while True:
+                text_line = textfile.readline()
+                if not text_line: break
 
-            if text_str != '': text_str += ' '
-            text_str += text_line
+                text_line = text_line.strip()
+                text_line = text_line.translate(translator)
 
-        textfile.close()
+                if text_str != '': text_str += ' '
+                text_str += text_line
+
+            textfile.close()
+    except FileNotFoundError:
+        print('File not found')
+        sys.exit('Exiting program...')
 
     return text_str
 
