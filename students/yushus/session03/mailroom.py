@@ -35,8 +35,7 @@ def print_email(name, amount):
     print(letter.format(name=name, amount=amount))
 
 def send_a_thank_you():
-    print(random.choice(donor_db)[0])
-
+    
     # maintain a donor list which contains donor names only
     donors = [x[0] for x in donor_db]
     name = ""
@@ -51,7 +50,7 @@ def send_a_thank_you():
         else:
             break
 
-    amount = float(input("How much you want to donate? "))
+    amount = float(input("How much do you want to donate? "))
 
     for donar_name, amounts in donor_db:
         if donar_name == name:
@@ -61,24 +60,7 @@ def send_a_thank_you():
 
     return
 
-def create_a_report():
-    header = "Donor Name                | Total Given | Num Gifts | Average Gift"
-    line   = "------------------------------------------------------------------"  
-    print(header)
-    print(line)
 
-    # sort the donors based on the total amount of money they donated
-    donor_sorted = sorted(donor_db, key=sort_key, reverse=True)
-    donor_table = []
-
-    # allocate another list which contains a list of records like:
-    # donor name, total, num of donation, average of donations
-    for d in donor_sorted:
-        donor_table.append([d[0], sum(d[1]), len(d[1]), sum(d[1]) / float(len(d[1]))])
-
-    # format the donor table 
-    for t in donor_table:
-        print("{:26} ${:12.2f} {:10d} ${:13.2f}".format(*t))
 
 def exit_program():
     print("Bye!")
