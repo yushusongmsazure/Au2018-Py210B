@@ -12,15 +12,14 @@ def thanks_email(donors_dict):
         if name_input == 'List':
             print(list(donors_dict.keys()))
         else:
-            for name in donors_dict.keys():
-               if name_input == name:
-                   d = {}
-                   d['name'] = name
-                   donation_amount = int(input('Enter donation amount: '))
-                   donors_dict[name].append(donation_amount)
-                   d['donation'] = donation_amount
-                   print("Dear {name},\n\tThank you for generous donation of ${donation:.2f} to ZYX charity\nSincerely,\nZYX Team".format(**d))
-                   return
+            if name_input in donors_dict:
+                d = {}
+                d['name'] = name_input
+                donation_amount = int(input('Enter donation amount: '))
+                donors_dict[name_input].append(donation_amount)
+                d['donation'] = donation_amount
+                print("Dear {name},\n\tThank you for generous donation of ${donation:.2f} to ZYX charity\nSincerely,\nZYX Team".format(**d))
+                return
             else:
                 d = {}
                 d['name'] = name_input
@@ -57,7 +56,7 @@ def email_donors(donors_dict):
     for a in donors_dict:
         message = ('Dear {},\n\n\tThank you for your very kind donation of ${:0.2f}.\n\tIt will be put '
                    'to very good use.\n\n\t\tSincerely,\n\t\t-The Team'.format(a, sum(donors_dict[a])))
-        with open (r'C:\Users\Arun\Au2018-Py210B\students\arun_nalla\session04\Mailroom_messages\e_mail_{}.txt'.format(a), 'w') as f:
+        with open (r'session04\Mailroom_messages\e_mail_{}.txt'.format(a), 'w') as f:
             f.write(message)
 
 def main (donors_dict):

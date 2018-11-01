@@ -1,15 +1,21 @@
 ﻿#! usr/bin/env python 3
+import random
+import string
+from collections import defaultdict
+
 #words = 'I wish I may I wish I might'.split()
 def trigram_dict (words):
-    trilist = {}
+    trilist = defaultdict(list)
     for i in range(len(words)-2):
         a = tuple(words[i:i+2])
         b = words[i+2]
-        if a not in trilist:
+        trilist[a].append(b)
+        """if a not in trilist:
             trilist[a] = [b]
         else:
-            trilist[a].append(b)
+            trilist[a].append(b)"""
     return trilist
+
 def new_data(old_data):
     word_list = ''
     with open(filename, 'r') as file_name:
@@ -19,19 +25,19 @@ def new_data(old_data):
             word_list+=words
     list_of_words = word_list.split()
     return list_of_words
-import random
-import string
+
 def build_new_story(story):
-    keys_first = random.choice(list(trigram_dict(words)))
+    trigrams = trigram_dict(words)
+    keys_first = random.choice(list(trigrams))
     #print (keys_first, "key first")
     my_list = list(keys_first)
     #print (my_list, "new list")
-    my_list.append(random.choice(trigram_dict(words)[keys_first]))
+    my_list.append(random.choice(trigrams[keys_first]))
     #print (my_list, "first full")
     while len(my_list)<=100:
         key_next = tuple(my_list[-2:])
-        if key_next in trigram_dict(words):
-            my_list.append(random.choice(trigram_dict(words)[key_next]))
+        if key_next in trigrams:
+            my_list.append(random.choice(trigrams[key_next]))
         else:
             break
         new_story = ' '.join(my_list)
