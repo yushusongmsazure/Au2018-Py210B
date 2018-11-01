@@ -3,6 +3,7 @@
 #Student: Brandon Nguyen - Au2018
 import sys
 import unittest
+import random
 
 
 
@@ -12,7 +13,6 @@ words = "I wish I may I wish I might"
 def build_trigrams(textInput):
     """
     build up the trigrams dict from the list of words
-
     returns a dict with:
        keys: word pairs
        values: list of followers
@@ -28,6 +28,13 @@ def build_trigrams(textInput):
         trigrams.setdefault(pair,[]).append(follower)
     return trigrams
 
+def build_text(word_pairs_dict):
+    key = random.choice(list(word_pairs_dict))
+    the_list_of_words = list(key)
+    the_list_of_words.append(word_pairs_dict.get(key))
+
+    #return " ".join(the_list_of_words)
+    return the_list_of_words
 
 if __name__ == "__main__":
     trigramTest = {("I", "wish"): ["I", "I"],
@@ -38,8 +45,11 @@ if __name__ == "__main__":
     assert build_trigrams(words) == trigramTest
     print("test pass")
 
-    trigrams1 = build_trigrams(words)
-    print(trigrams1)
+    word_pairs_dict = build_trigrams(words)
+    print(word_pairs_dict)
+    print()
+    new_text = build_text(word_pairs_dict)
+    print(new_text)
 
 '''if __name__ == "__main__":
     # get the filename from the command line
@@ -51,9 +61,8 @@ if __name__ == "__main__":
 
     in_data = read_in_data(filename)
     words = make_words(in_data)
-    word_pairs = build_trigram(words)
-    new_text = build_text(word_pairs)
-
+    word_pairs_dict = build_trigram(words)
+    new_text = build_text(word_pairs_dict)
     print(new_text)
 
 '''    

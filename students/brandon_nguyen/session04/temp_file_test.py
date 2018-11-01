@@ -4,6 +4,7 @@ import unittest
 import tempfile
 from decimal import Decimal
 from datetime import datetime
+from random import shuffle
 
 #test ting tempfile
 
@@ -12,4 +13,5 @@ def creat_tmp_file():
     file_name = tempfile.TemporaryDirectory()
 
     #need to study more
-    
+ def shuffle():
+     pass   
