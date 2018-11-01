@@ -16,8 +16,6 @@ with open('mailroom/donors.csv') as csv_file:
         else:
             donor_info[line[0].lower()].append(int(line[1]))
 
-csv_file.closed
-
 
 def user_menu():
     menu = {1: send_thank_you, 2: create_report, 3: all_donor_letters, 4: quit}
@@ -80,12 +78,14 @@ def all_donor_letters():
 # Create a report
 def create_report():
     colnames = ["Donor Name", "Total Given", "Num Gifts", "Avg Gift"]
-    title = "{:<21}| {:>13} |{:>13} |{:>14}".format(colnames[0], colnames[1], colnames[2], colnames[3])
+    title = "{:<21}| {:>13} |{:>13} |{:>14}".format(colnames[0], colnames[1],
+     colnames[2], colnames[3])
     mystr = "{name:20} | ${total:>12.2f} | {count:>12} | ${avg:>12.2f}"
     print(title)
     print("---------------------|---------------|--------------|--------------")
     for name, donations in donor_info.items():
-        print(mystr.format(name=name.title(), total=sum(donations), count=len(donations), avg=(sum(donations)/len(donations))))
+        print(mystr.format(name=name.title(), total=sum(donations), count=len
+        (donations), avg=(sum(donations)/len(donations))))
         print()
     user_menu()
 

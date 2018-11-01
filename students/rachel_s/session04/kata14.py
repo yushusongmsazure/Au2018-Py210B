@@ -76,4 +76,12 @@ if __name__ == "__main__":
     word_pairs = build_trigrams(words)
     new_text = build_text(word_pairs)
 
-    print(" ".join(new_text))
+    output = ""
+    for word in new_text:
+        if word in [".", ",", "!", "?", ";"]:
+            output += word
+        else:
+            output += " "
+            output += word
+
+    print(output)
