@@ -29,12 +29,24 @@ def build_trigrams(textInput):
     return trigrams
 
 def build_text(word_pairs_dict):
+    #initial set of words
+  
     key = random.choice(list(word_pairs_dict))
     the_list_of_words = list(key)
-    the_list_of_words.append(word_pairs_dict.get(key))
+    the_list_of_words.append(random.choice(word_pairs_dict.get(key)))
 
-    #return " ".join(the_list_of_words)
-    return the_list_of_words
+    #loops thru the second times and so forth
+    #newKey=tuple(the_list_of_words[-2:])
+    #print(the_list_of_words)
+  
+    while len(the_list_of_words) < 1000:
+        newKey=tuple(the_list_of_words[-2:])
+        if newKey in word_pairs_dict:
+           the_list_of_words.append(random.choice(word_pairs_dict.get(newKey)))
+           #print(word_pairs_dict.get(newKey))
+        the_list_of_words.append(random.choice(the_list_of_words)) #if not just add a random word from existing list
+    return " ".join(the_list_of_words)
+    #return the_list_of_words
 
 if __name__ == "__main__":
     trigramTest = {("I", "wish"): ["I", "I"],
