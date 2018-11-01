@@ -14,7 +14,7 @@ donor_db = {"John Smith": [500.00, 150.00, 20.00],
 #Thank you letter template
 thankyouletter = "\n".join(("","Dear {name},","","Thank you for your generous donation of ${amount:.2f} to our cause.","Your donations help keep Python great!","","Sincerely","","The Python Project",""))
 
-generaldonationletter ="\n".join(("","Dear {},","","Thank you for your generosity in supporting us with ${:.2f} in donations.", "We hope to have your continued support.", "","With great thanks", "", "The Python Project"))
+generaldonationletter ="\n".join(("","Dear {name},","","Thank you for your generosity in supporting us with ${totaldonation:.2f} in donations.", "We hope to have your continued support.", "","With great thanks", "", "The Python Project"))
 
 def sumdbkey(donorlist):
     """Used by function sortdb to generate sort key
@@ -27,7 +27,7 @@ def sortdb():
     return sorted(donor_db.items(), key=sumdbkey, reverse=True)
 
 def printthankyou(donorname):
-    """Prints the thank you letter to standard output3
+    """Prints the thank you letter to standard output in mailroom part 1 format
     :param donoridx: the index to the donor in the database the letter should be addressed too
     """
     print(thankyouletter.format(name=donorname, amount=donor_db[donorname][-1]))
@@ -75,8 +75,10 @@ def sendletters():
 
     for donorname in donor_db:
         filename = "letters\\" + donorname.replace(' ', '_') + ".txt"
+        #create a new dictionary just for the format mailroom part 2
+        formatdict = {"name": donorname, "totaldonation": sum(donor_db[donorname])}
         with open(filename, 'w') as outfile:
-            outfile.write(generaldonationletter.format(donorname, sum(donor_db[donorname])))
+            outfile.write(generaldonationletter.format(**formatdict))
     print("\nLetters printed to files.\n")
 
 def exit_program():
