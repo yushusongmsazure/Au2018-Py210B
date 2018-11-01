@@ -15,7 +15,8 @@ prompt = "\n".join(("Welcome to James Dot Donations!",
           "Please choose from below options:",
           "1 - Send a Thank you",
           "2 - Create a report",
-          "3 - To Exit",
+          "3 - Send Letter",
+          "4 - To Exit",
           ">>> "))
 
 
@@ -63,6 +64,14 @@ def user_Report():
         print ('{0:<15}   {1:^10}     {2:^6}     {3:8}'.format(name, total_given, num_of_gift, average_gift))
         
 
+def send_letters():
+    for donor_name in donor_db:
+        letter = open('{}.txt'.format(donor_name), "w+")
+        email_letter = '''Hello %s,
+          Thank you for your donation to the organization, this is a thank you emailto show our appreciation.
+          ''' % (donor_name)
+        letter.write(email_letter)
+
 
 
 
@@ -80,6 +89,8 @@ def main():
         elif response == "2":
             user_Report()
         elif response == "3":
+            send_letters()
+        elif response == "4":
             exit_program()
         else:
             print("Not a valid option!")
