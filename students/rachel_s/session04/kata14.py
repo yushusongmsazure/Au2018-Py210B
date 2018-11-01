@@ -5,21 +5,21 @@ import re
 import random
 import sys
 
-def make_words(filename):
+def gutenberg_make_words(filename):
     with open(filename) as f:
-        words = re.findall(r"[\w']+|[.,!?;]", f.read().lower().strip().
-        replace("\n", " "))
-    return words
-
-# def gutenberg_cleaner(filename):
-#     with open(filename) as f:
-#         output = []
-#         for line in f.readlines():
-#             if "***" in lines:
-#                 for l in 
-#             line = re.findall(r"[\w']+|[.,!?;]", line.lower().strip().replace("\n", " "))
-#             output += line
-#         return output
+        output = []
+        found_start = False
+        for line in f.readlines():
+            if not found_start:
+                if "***" in line:
+                    found_start = True
+            else:
+                if "***" in line:
+                    break
+                line = re.findall(r"[\w']+|[.,!?;]", line.lower().strip()
+                .replace("\n", " "))
+                output += line
+    return output
 
 def build_trigrams(words):
     """
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         print("You must pass in a filename")
         sys.exit(1)
 
-    words = make_words(filename)
+    words = gutenberg_make_words(filename)
     word_pairs = build_trigrams(words)
     new_text = build_text(word_pairs)
 
