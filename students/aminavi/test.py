@@ -82,31 +82,11 @@ d['four'] = 4
 
 
 
-import sys
 
 donor_list = {
-    'William': [653772.32 , 953772.32,100000],
-    'Jeff': [8888777.22 ,877.33],
-    'Paul': [663.23, 43.87 ,1.32],
-    'Mark': [1663.23, 4300.87, 10432.00],
-    'Nigel': [5000000 , 10]
+    'william': [653772.32 , 953772.32,100000],
+    'jeff': [8888777.22 ,877.33],
+    'paul': [663.23, 43.87 ,1.32],
+    'mark': [1663.23, 4300.87, 10432.00],
+    'nigel': [5000000 , 10]
     }
-'Nigel' in donor_list.keys.lower():
-# print(donor_list.)
-
-
-# for key, value in donor_list.items():
-#     print(f'{key:13}', f'${sum(value):>10.2f}', f'{len(value):>10}', f'${(sum(value)/len(value)):>10.2f}')
-#     print(len(value))
-
-name = ''
-while not name or name.lower() == 'list':
-        name = input("Please enter the full name: ")
-        if name.lower() == 'list':
-            print(' '.join(x[0] for x in donor_list))
-    donation = int(input("Please enter the donation amount: "))
-    for i in range(len(donor_list)):
-        if name.lower() in donor_list.keys.lower():
-            donor_list.keys.append(donation)
-            return
-    donor_list.append((name, [donation]))

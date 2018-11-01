@@ -25,11 +25,8 @@ def trigrams(x,n,m):
     return " ".join(result)
 
 
-if __name__ == '__main__':
-    x = 'hello moto' #words
-    n = 2 #word count
-    m = 25 #sentence length
 
+def read_file():
     fp = ".\\students\\aminavi\\session04\\"
     fn = 'pg20151.txt'
     f = open(str(fp+ fn)) # Open file
@@ -47,5 +44,7 @@ if __name__ == '__main__':
             break
         block_of_lines.append(line)
 
-    trigram = trigrams(x,n,m)
-    print(trigram)
+
+if __name__ == '__main__':
+    trigram = trigrams(read_file,n,m)
+        print(trigram)

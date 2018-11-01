@@ -1,5 +1,6 @@
 import sys
 
+
 donor_list = [('William',[ 653772.32 , 953772.32,100000]),('Jeff', [ 8888777.22 ,877.33 ]),('Paul', [663.23, 43.87 ,1.32 ]),('Mark', [1663.23, 4300.87, 10432.00]),('Nigel',[5000000 , 10])]
 
 thank_you_action = "Send a Thank You"
@@ -46,8 +47,7 @@ def create_report():
                                         y[1][2]))
     print('\n\n')
 
-
-if __name__ == '__main__':
+def main():
     prompt = ("Select an action: \n1.{}\n2.{}\n3.{}\n".format(thank_you_action, create_a_report, quit_action))
     while True:
         response = input(prompt)  # continuously collect user selection
@@ -60,3 +60,7 @@ if __name__ == '__main__':
             sys.exit()
         else:
             print("Not a valid option!")
+
+
+if __name__ == '__main__':
+    main()
