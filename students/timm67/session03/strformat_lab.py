@@ -28,8 +28,7 @@ print(format_str_two.format(file_num=2, arg0=123.4567, arg1=10000, arg2=12345.67
 def formatter(in_tuple):
     tuple_len = len(in_tuple)
     fmt_string = "The {:d} numbers are: ".format(tuple_len)
-    for x in range(1, tuple_len+1):
-        fmt_string += "{:d}, "
+    fmt_string += tuple_len * '{:d}, '
     return fmt_string.format(*in_tuple)
 
 tuple_three = (1,2,3,4,5)
