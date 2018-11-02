@@ -15,12 +15,10 @@ def send_thank_you():
     while not name or name.lower() == 'list':
         name = input("Please enter the full name: ")
         if name.lower() == 'list':
-        donor_list.setdefault(name.lower(),[])
+            print(''.join(donor_list))
     donation = int(input("Please enter the donation amount: "))
-    for i in range(len(donor_list.keys())):
-        if name.lower() in  donor_list.keys():
-            donor_list[name.lower()].append(donation)
-    
+    donor_list.setdefault(name.lower(),[]).append(donation)
+
     print("\nDear {},".format(name))
     print("Thank you for your generous donation of ${}".format(donation))
     print("You have our sincere gratitude.\nThank you\n\n")

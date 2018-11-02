@@ -4,10 +4,10 @@ import random
 # file name pg20151.txt
 
 def read_file():
-    # fp = input("please enter the path ")
-    # fn = input("please enter the file name ")
-    fp = 'C:\\Users\\AMinavi1\\Au2018-Py210B\\students\\aminavi\\session04\\'
-    fn = 'pg20151.txt'
+    fp = input("please enter the path ")
+    fn = input("please enter the file name ")
+    # fp = 'C:\\Users\\AMinavi1\\Au2018-Py210B\\students\\aminavi\\session04\\'
+    # fn = 'pg20151.txt'
     f = open(str(fp + fn)) # Open file
     words = f.read() # Read file
     f.close() # Close file
@@ -48,8 +48,6 @@ def trigrams(words,n,m):
 
 Trigram_Biogram = input("please enter a number for Trigram Biogram ")
 lenght_of_sentence = input("please enter a number for lenght of sentence ")
-
-
 
 if __name__ == '__main__':
     trigrams(read_file(),int(Trigram_Biogram),int(lenght_of_sentence))

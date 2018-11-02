@@ -78,15 +78,16 @@ d['four'] = 4
 
 #     print(trigrams)
 
+# create a temporary file and write some data to it
+
+import tempfile
+
+path = tempfile.gettempdir()
+output_file = open("{}\\{}".format(path,"Jeff.txt"),"w")
+output_file.write("Hello World") 
+output_file.write("This is our new text file") 
+output_file.write("and this is another line.") 
+output_file.write("Why? Because we can.") 
+output_file.close()
 
 
-
-
-
-donor_list = {
-    'william': [653772.32 , 953772.32,100000],
-    'jeff': [8888777.22 ,877.33],
-    'paul': [663.23, 43.87 ,1.32],
-    'mark': [1663.23, 4300.87, 10432.00],
-    'nigel': [5000000 , 10]
-    }
