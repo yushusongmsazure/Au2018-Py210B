@@ -48,6 +48,18 @@ def build_text(word_pairs_dict):
     return " ".join(the_list_of_words)
     #return the_list_of_words
 
+def read_in_data(filename):
+    """
+    This function takes a file of text a break it down into a comsumable data using .split() 
+    """
+    with open(filename, 'r') as book:
+        for line in book.readlines():
+            newData = line.split()
+    book.close()
+
+    return newData
+
+
 if __name__ == "__main__":
     trigramTest = {("I", "wish"): ["I", "I"],
             ("wish", "I"): ["may", "might"],
@@ -55,14 +67,24 @@ if __name__ == "__main__":
             ("I", "may"): ["I"],
             }
     assert build_trigrams(words) == trigramTest
-    print("test pass")
+    #print("test pass")
 
+    # get the filename from the command line
+    try:
+        filename = sys.argv[1]
+    except IndexError:
+        print("You must pass in a filename")
+        sys.exit(1)
+    in_data = read_in_data(filename)  
+
+    print(in_data)
+    '''
     word_pairs_dict = build_trigrams(words)
     print(word_pairs_dict)
     print()
     new_text = build_text(word_pairs_dict)
     print(new_text)
-
+    '''
 '''if __name__ == "__main__":
     # get the filename from the command line
     try:
