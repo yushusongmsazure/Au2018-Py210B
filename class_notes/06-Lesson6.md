@@ -26,7 +26,6 @@
 
 * Go over [the whole page](https://uwpce-pythoncert.github.io/PythonCertDevel/modules/Testing.html)
   * `pip install pytest` (or `pip3 install pytest` on Linux or Mac) before trying pytest
-  * The `IntroPython-2017\Examples\Session06` directory should be read as [`examples/testing`](../examples/testing)
   * TDD with `cigar_party.py` and `test_cigar_party.py`
 * Go over code examples in [`examples/testing`](../examples/testing)
 * [Unit testing in VS Code](https://code.visualstudio.com/docs/python/unit-testing)
