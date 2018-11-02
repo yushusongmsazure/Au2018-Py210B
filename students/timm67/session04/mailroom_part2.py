@@ -10,38 +10,46 @@ import collections
 from collections import defaultdict
 
 #
-# donors dictionary has a key equal to the donor's name and value is an array of donations
-#
+# Revised donors database is an array of dictionaries with appropriate keynames. 
+# 'amounts' remains a list of donation values 
+# 
 
-donors = {
-    {'fname' : 'Jim',  'lname' : 'Tillson',  'amounts': [5.00, 20.00]},
-    {'fname' : 'Barb', 'lname' : 'Langley',  'amounts': [10.00, 20.00, 100.00]},
-    {'fname' : 'Jen',  'lname' : 'Garfield', 'amounts': [10.00, 20.00, 5.00]},
-    {'fname' : 'Rex',  'lname' : 'Miller',   'amounts': [20.00, 20.00, 5.00]},
-    {'fname' : 'Tony', 'lname' : 'Blake',    'amounts': [20.00, 20.00, 10.00]}
-}
+donors = [
+    { 'fname' : 'Jim',  'lname' : 'Tillson',  'amounts' : [5.00, 20.00]},
+    { 'fname' : 'Barb', 'lname' : 'Langley',  'amounts' : [10.00, 20.00, 100.00]},
+    { 'fname' : 'Jen',  'lname' : 'Garfield', 'amounts' : [10.00, 20.00, 5.00]},
+    { 'fname' : 'Rex',  'lname' : 'Miller',   'amounts' : [20.00, 20.00, 5.00]},
+    { 'fname' : 'Tony', 'lname' : 'Blake',    'amounts' : [20.00, 20.00, 10.00]},
+]
 
 def send_thankyou_task():
+    donor_found = False
     donor_name = input("Enter donor name ('list' for all donors) : ")
     if (donor_name == 'list'):
-        for name in donors.keys():
-            print(name)
-        donor_name = input("Enter donor name : ")
+        for donor in donors:
+            print("{}, {} ",donor['lname'], donor['fname'])
+        donor_fname = input("Enter donor first name : ")
+        donor_lname = input("Enter donor last  name : ")
     donor_amt = input("Enter donation value: ")
     try:
         donor_amt = float(donor_amt)
     except ValueError:
         print("Please enter a numeric value")
         return
-    if donor_name in donors.keys():
-        print("{0} found in dictionary".format(donor_name))
-        # add to donations for existing donor (key)
-        donors[donor_name].append(donor_amt)
-    else:
-        # create a new donor (key)
-        print("{0} NOT found in dictionary, creating...".format(donor_name))
-        donors[donor_name] = [donor_amt]
-    print(donors[donor_name])
+    
+    for donor in donors:
+        if donor['fname'] == donor_fname and donor['lname'] == donor_lname:
+            print("{0}, {1} FOUND in dictionary".format(donor_lname, donor_fname))
+            donor['amounts'].append(donor_amt)
+            donor_found = True
+            break
+
+    # if we got to here, donor is not in dictionary, so create a new donor
+    if donor_found == False:
+        print("{0}, {1} NOT found in dictionary, creating...".format(donor_lname, donor_fname))
+        new_donor = { 'fname' : str(donor_fname), 'lname' : str(donor_lname), [].append(donor_amt) }
+        donors.append(new_donor)
+
     a = 0.0
     donations = donors[donor_name]
     for x in donations:
