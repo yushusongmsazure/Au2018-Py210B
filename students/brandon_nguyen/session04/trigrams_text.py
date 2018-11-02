@@ -6,9 +6,7 @@ import unittest
 import random
 
 
-
 words = "I wish I may I wish I might"
-
 
 def build_trigrams(textInput):
     """
@@ -48,16 +46,21 @@ def build_text(word_pairs_dict):
     return " ".join(the_list_of_words)
     #return the_list_of_words
 
-def read_in_data(filename):
-    """
-    This function takes a file of text a break it down into a comsumable data using .split() 
-    """
-    with open(filename, 'r') as book:
-        for line in book.readlines():
-            newData = line.split()
-    book.close()
 
-    return newData
+def readFile_buildTrigrams(filename_in):
+    trigrams = {}
+    
+    with open(filename_in, 'r') as book:
+            newData = (book.read().replace('\n', ' ')).split()
+
+    #book.close()
+    for i in range(len(newData)-2): # why -2 : avoiding out of bound via the +2 below???
+        pair = tuple(newData[i:i + 2]) #list cannot be key! conversion needed.
+        follower = newData[i + 2]
+        trigrams.setdefault(pair,[]).append(follower)
+    return trigrams
+
+    #return newData
 
 
 if __name__ == "__main__":
@@ -67,36 +70,21 @@ if __name__ == "__main__":
             ("I", "may"): ["I"],
             }
     assert build_trigrams(words) == trigramTest
+
+    #testing basic functions
+    #newSTring = build_trigrams(words)
+    #new_text = build_text(newSTring)
+    #print(new_text)
+
     #print("test pass")
 
-    # get the filename from the command line
+    # get the filename from the command line passing in by : trigrams_text.py filename.txt
     try:
         filename = sys.argv[1]
     except IndexError:
         print("You must pass in a filename")
         sys.exit(1)
-    in_data = read_in_data(filename)  
-
-    print(in_data)
-    '''
-    word_pairs_dict = build_trigrams(words)
-    print(word_pairs_dict)
-    print()
-    new_text = build_text(word_pairs_dict)
+    in_data = readFile_buildTrigrams(filename)  
+    new_text = build_text(in_data)
     print(new_text)
-    '''
-'''if __name__ == "__main__":
-    # get the filename from the command line
-    try:
-        filename = sys.argv[1]
-    except IndexError:
-        print("You must pass in a filename")
-        sys.exit(1)
-
-    in_data = read_in_data(filename)
-    words = make_words(in_data)
-    word_pairs_dict = build_trigram(words)
-    new_text = build_text(word_pairs_dict)
-    print(new_text)
-
-'''    
+    #print(in_data)
