@@ -53,17 +53,21 @@ def printdonorlist():
 
 def handlenames():
     """Determines if name provided is existing donor or new donor. Calls function to add donation to DB and calls function to print thank you letter"""
-
-    name = input("Please enter full name or list> ")
-    if name == "list":
-        printdonorlist()
-    elif name in donor_db:
-        adddonation(name)
-        printthankyou(name)
-    else:
-        donor_db[name] = []
-        adddonation(name)
-        printthankyou(name)
+    while True:
+        name = input("Please enter full name or list> ")
+        if name =="":
+            print("Please enter valid name.\n")
+        elif name == "list":
+            printdonorlist()
+        elif name in donor_db:
+            adddonation(name)
+            printthankyou(name)
+            break
+        else:
+            donor_db[name] = []
+            adddonation(name)
+            printthankyou(name)
+            break
 
 
 def printreport():
