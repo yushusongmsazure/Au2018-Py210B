@@ -64,7 +64,8 @@ l3 = copy.deepcopy(l)
 For each “no”, delete that fruit from the list.
 For any answer that is not “yes” or “no”, prompt the user to answer with one of those two values (a while loop is good here)
 Display the list."""
-for x in l3:
+#iterate one sequence and make changes on a deep copy of the string. or you don't need any copy, you iterate one sequence and create a new sequence
+for x in l:
    while True:
         user_input3 = input("Do you like{}? answer Yes or No".format(x))
         if user_input3.capitalize() == "No":
