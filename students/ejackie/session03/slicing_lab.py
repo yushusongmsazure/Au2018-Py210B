@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 
 ##################################################
 ## Author: Jackie Cheung
@@ -36,7 +36,7 @@ def new_order_last_third_first_third_middle_third(seq):
     """ with the last third, then first third, then the middle third in the new order """
 
     # number of items for a third of the sequence
-    num_third = int(len(seq)/3)
+    num_third = len(seq)//3
 
     # Note: first third and middle third are already in sequence, so only need to find out first third
     last_third = seq[-num_third:]

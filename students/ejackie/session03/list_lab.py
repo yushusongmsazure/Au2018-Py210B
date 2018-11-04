@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python
 
 ##################################################
 ## Author: Jackie Cheung
@@ -8,7 +8,6 @@
 ## Description: List Lab - Booleans, Sequences, Iteration, and Strings
 ##################################################
 
-
 print("\n----- Series 1 -----\n")
 
 fruits = ["Apples", "Pears", "Oranges", "Peaches"]
@@ -16,7 +15,7 @@ print("The list has the following", len(fruits), "items:", fruits)
 newfruit = input("what new fruit should be added to the list? ")
 fruits.append(newfruit)
 print("The list has the following", len(fruits), "items:", fruits)
-num = input("Please enter a number between 1 and ", (len(fruits), ": ")
+num = input("Please enter a number between 1 and " + str(len(fruits)) + ": ")
 print("You have entered the number:", num, "which is corresponding to:", fruits[int(num)-1])
 print("Adding Cantaloupes to the beginning of the list")
 fruits = ["Cantaloupes"] + fruits
@@ -42,14 +41,21 @@ print("The list has the following", len(fruits), "items:", fruits)
 
 
 print("\n----- Series 3 -----\n")
-
+# covert all fruits into lower case
+for i, item in enumerate(fruits):
+        fruits[i] = item.lower()
 fruits_iteration = fruits[:]
 print("The list has the following", len(fruits), "items:", fruits)
-for i, item in enumerate(fruits_iteration):
-    fruits[item] = item.lower()
-    answer = input("Do you like " + fruits[item] + "? ")
-    if(answer == "no"):
-        del fruits[item]
+for item in fruits_iteration:
+        while True:
+                answer = input("Do you like " + item + "? ")
+                if answer == "no":
+                        print("no " + item)
+                        fruits.remove(item)
+                        break
+                elif answer == "yes":
+                        print("yes " + item)
+                        break
 print("The list has the following", len(fruits), "items:", fruits)
 
 
