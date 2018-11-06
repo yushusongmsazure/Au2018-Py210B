@@ -75,11 +75,16 @@ def send_a_thank_you():
         else:
             break
 
+# Send thank you letters to all donors
+# Capture FileNotFoundError
 def send_letters_to_all():
     for name in donor_db:
-        with open(os.path.join(os.getcwd(), f"{name}.txt"), "w") as file:
-            # Take the last donation made by the donor
-            file.write(format_letter().format(name=name, amount=donor_db[name][-1]))
+        try:
+            with open(os.path.join(os.getcwd(), f"{name}.txt"), "w") as file:
+                # Take the last donation made by the donor
+                file.write(format_letter().format(name=name, amount=donor_db[name][-1]))
+        except FileNotFoundError as fnf_error:
+            print(fnf_error)
 
 def create_a_report():
     header = "Donor Name                | Total Given | Num Gifts | Average Gift"
