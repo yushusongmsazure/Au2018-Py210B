@@ -52,10 +52,10 @@ def send_a_thank_you():
         name = input("Who do you want to send this to, use a full name: ")
         if name.lower() == 'list':
             print_donor()
-        elif name.lower() not in donors:
+        elif name.lower() not in donors: # New donor
             donor_db[name]=[]
             break
-        else:
+        else: # Existing donor; find the correct donor name from DB
             for donor_name in donor_db:
                 if donor_name.lower() == name.lower():
                     name = donor_name
@@ -68,11 +68,12 @@ def send_a_thank_you():
             if amount <= sys.maxsize and amount > 0:
                 donor_db[name].append(amount)
                 print_email(name, amount)
-                break
             else:
                 raise ValueError()
         except ValueError:
-            print("Please enter a valid donation!") 
+            print("Please enter a valid donation!")
+        else:
+            break
 
 def send_letters_to_all():
     for name in donor_db:
