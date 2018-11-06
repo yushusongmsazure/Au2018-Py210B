@@ -4,18 +4,19 @@ import csv
 import os
 import datetime
 import sys
+from collections import defaultdict
 
 # Import donor data
-
-donor_info = {}
-
-with open('mailroom/donors.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    for line in csv_reader:
-        if not line[0].lower() in donor_info:
-            donor_info[line[0].lower()] = [int(line[1])]
-        else:
+def data_import(filename):
+    donor_info = defaultdict(list)
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for line in csv_reader:
             donor_info[line[0].lower()].append(int(line[1]))
+    return donor_info
+
+
+donor_info = data_import('mailroom/donors.csv')
 
 
 def user_menu():
@@ -26,7 +27,7 @@ def user_menu():
     "\n  4  Quit\n\n> ")
     try:
         menu.get(int(response))()
-    except KeyError:
+    except(KeyError, ValueError):
         print("Please select 1, 2, 3, or 4.")
 
 
@@ -39,18 +40,10 @@ def send_thank_you():
     else:
         try:
             donation = int(input("Please enter the donation amount.\n> "))
-            add_donor(donor_name, donation)
+            donor_info[donor_name.lower()].append(donation)
             print(generate_letter(donor_name))
         except ValueError:
             print("Please enter a numeric donation amount.")
-
-
-def add_donor(name, amount):
-    name = name.lower()
-    if name in donor_info:
-        donor_info[name].append(amount)
-    else:
-        donor_info[name] = [amount]
 
 
 def generate_letter(donor):
@@ -59,16 +52,16 @@ def generate_letter(donor):
     if len(donor_info.get(donor)) > 1:
         donation_count = len(donor_info.get(donor))
         donation_total = sum(donor_info.get(donor))
-        middle = "You have donated {count} times for a total of "
-        "${total:.2f}! ".format(count=donation_count, total=donation_total)
+        middle = ("You have donated {count} times for a total of "
+        "${total:.2f}! ").format(count=donation_count, total=donation_total)
     else:
-        middle = "We greatly appreciate your generous contribution to "
-        "our cause! "
+        middle = ("We greatly appreciate your generous contribution to "
+        "our cause! ")
 
-    letter = "Dear {name},\nThank you for your recent donation in the "
+    letter = ("Dear {name},\nThank you for your recent donation in the "
     "amount of ${amount:.2f}. {middle} We will ensure that these funds "
     "are put to good use defending the universe.\nSincerely,\nThe Bravest "
-    "Warriors"
+    "Warriors")
 
     return letter.format(name=name, amount=donor_info.get(donor)[-1], 
     middle=middle)
