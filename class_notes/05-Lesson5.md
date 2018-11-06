@@ -88,5 +88,5 @@
 * Know the difference between a generator and a list
   * `range(10)` vs `list(range(10))`
   * Get/use a generator if you will immediately iterate over the result using `for`
-  * To get a list from a generator `gen`, use `list(gen)`.
-    * `[list(gen)]` won't work!
+  * To get a list from a generator object `gen`, use `list(gen)`.
+    * `[gen]` won't work!

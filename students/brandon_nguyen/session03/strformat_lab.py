@@ -40,6 +40,20 @@ def strTask5b():
 #unit test
 #turn in and TODO task6 after.
 
+def prt_table():
+    lst=[i for i in range(25,36)]
+    lstStp = [('Andrew Nguyen', [12], [2000]),
+              ('Andy Smith', [25], [300]),
+               ('First Last', [0], [1000],)
+            ]
+    print("{:^20} {:^5} {:>10}".format("FULL Name","AGE","COST"))
+    print("-"*40)
+    for name, age, cost in lstStp:
+        print("{:^20} {:^5}   ${:>10}".format(name,age[0],cost[0]) )
+                
+
+
+
 if __name__ == '__main__':
     #turn the function to return and compare
     #assert strTask12() == 'file_002:   123.46, 1.00e+4, 1.23e+4'
