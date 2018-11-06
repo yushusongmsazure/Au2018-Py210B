@@ -88,15 +88,18 @@ def printreport():
     """Obtains new sorted DB and prints report"""
     newdb = sortdb()
     print()
-    print("{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
+    print("{:<26}|{:^13}|{:^11}|{:^14}"
+          .format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
     print("{:-<67}".format(""))
     for name, donation in newdb:
-        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/len(donation)))
+        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}"
+              .format(name, sum(donation), len(donation), sum(donation)/len(donation)))
     print()
 
 
 def sendletters():
-    """Write a letter to a file for each donor. Letters put in Windows subdirectory called letters."""
+    """Write a letter to a file for each donor.
+       Letters put in Windows subdirectory called letters."""
 
     for donorname in donor_db:
         filename = "letters\\" + donorname.replace(' ', '_') + ".txt"
