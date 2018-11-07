@@ -9,10 +9,12 @@ from collections import defaultdict
 # Import donor data
 def data_import(filename):
     donor_info = defaultdict(list)
+    csv_list = []
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        for line in csv_reader:
-            donor_info[line[0].lower()].append(int(line[1]))
+        csv_list = [line for line in csv_reader]
+        for item in csv_list:
+            donor_info[item[0].lower()].append(int(item[1]))
     return donor_info
 
 
