@@ -35,10 +35,10 @@ def menu_selection(prompt, dispatch_dict):
 def send_a_thank_you():
     name = input("Please enter the full name of the donor: ")
     if name == "list":
-        for key in donor_dict.keys():
+        for key in donor_dict:
             print(" ".join(key))
         print()
-    elif tuple(name.split()) in donor_dict.keys():
+    elif tuple(name.split()) in donor_dict:
         print("Adding donation to existing donor")
         print("Before adding donation:\n", donor_dict)
         amount = float(input("Please enter the amount of donation: "))
@@ -57,7 +57,8 @@ def send_a_thank_you():
 # Creating a nicely formatted Thank you email as String
 def send_email(name, amount):
     email = ('Dear {},'.format(name) + 
-             '\n\n\tThank you for your very kind donation of ${:,}.'.format(amount) + 
+             #'\n\n\tThank you for your very kind donation of ${:,}.'.format(amount) + 
+             '\n\n\tThank you for your very kind donation of ${:,.2f}.'.format(amount) + 
              '\n\n\tIt will be put to very good use.'
              '\n\n\t\tSincerely,'
              '\n\t\t   -The Mailroom'
