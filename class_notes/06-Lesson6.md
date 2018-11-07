@@ -17,7 +17,7 @@
 
 ## Modules and Packages
 
-* More examples in [`examples/modules`](../examples/modules) and [`examples/packaging`](../examples/packaing)
+* More examples in [`examples/modules`](../examples/modules) and [`examples/packaging`](../examples/packaging)
   * Do `git pull upstream master` and browse source files in the `examples/*` directory
   * Go over a practical example in [`examples/packaging/capitalize`](../examples/packaging/capitalize)
     * There's also a good pytest example at [`test_capital_mod.py`](../examples/packaging/capitalize/test_capital_mod.py)
