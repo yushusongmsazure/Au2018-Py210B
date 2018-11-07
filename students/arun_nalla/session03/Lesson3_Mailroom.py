@@ -16,14 +16,13 @@ def thanks_email(seq):
                             "We highly appreciate your kindness. Till date you have donate a total of ${:.2f}.\n\n"
                             "With Regards\n\nXYZ\n".format(name_input, donation_amount, sum(seq[i][1])))
                     return seq
-            for i, v in enumerate(seq):
-                if name_input != seq[i][0]:
-                    donation_amount = float(input('Enter donation amount: '))
-                    seq.append((name_input, [donation_amount]))
-                    print("Dear {},\nThis message is regarding the recent donation of ${:.2f} you made to ZYX charity.\n"
+            else:
+                donation_amount = float(input('Enter donation amount: '))
+                seq.append((name_input, [donation_amount]))
+                print("Dear {},\nThis message is regarding the recent donation of ${:.2f} you made to ZYX charity.\n"
                     "We highly appreciate your kindness and making a contribution.\n\n"
                     "With Regards\n\nXYZ\n".format(name_input, donation_amount))
-                    return seq
+                return seq
 
 def sort_key(sorting):
     return sorting[1]
@@ -32,11 +31,11 @@ def create_report(seq):
     list_sorting = (sorted(list_sort,key=sort_key,reverse = True))
     print (list_sorting)
     print ("\nList of donors and Contribution to XYZ Charity\n")
-    print ("{:<10}\t\t{:<10}\t\t{:<10}\t\t{:<10}".format('Donors-name','Total','Num gifts', 'Average gift'))
-    print ('_ '*30)
+    print ("{:<20}\t\t{:<10}\t\t{:<10}\t\t{:<10}".format('Donors-name','Total','Num gifts', 'Average gift'))
+    print ('_ '*40)
     for a,b,c in list_sorting:
-        print ("{:<10}\t\t${:<10.2f}\t\t{:^10}\t\t${:<10.2f}".format(a,b,c,b/c))
-    print('_ ' * 30)
+        print ("{:20}\t\t${:<10.2f}\t\t{:^10}\t\t${:<10.2f}".format(a,b,c,b/c))
+    print('_ ' * 40)
     print ('End of Report\n')
 
 def quit_program(seq):
