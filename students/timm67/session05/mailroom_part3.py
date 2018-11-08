@@ -26,9 +26,9 @@ def send_thankyou_single_donor_task():
     global donors
     donor_found = False
     donor_fname = input("Enter donor first name ('list' for all donors) : ")
+    # Optimized with List Comprehension
     if donor_fname == 'list':
-        for name in donors.keys():
-            print("{}, {} ".format(name[0], name[1]))
+        [print("{}, {} ".format(name[0], name[1])) for name in donors.keys()]
         donor_fname = input("Enter donor first name : ")
     donor_lname = input("Enter donor last name : ")
     while True:
@@ -39,18 +39,18 @@ def send_thankyou_single_donor_task():
         except ValueError:
             print("Please enter a numeric donation value")
 
+    # Not optimal for optimization via list comprehension
     for donor in donors.keys():
         if donor[0] == donor_fname and donor[1] == donor_lname:
             print("{0}, {1} FOUND".format(donor_fname, donor_lname))
+            donors[donor].append(donor_amt)
             donor_found = True
             break
-
+            
     if not donor_found:
         print("{0}, {1} NOT found, creating".format(donor_fname, donor_lname))
         donor = (donor_fname, donor_lname)
-
-    # Add the donor's donation
-    donors[donor].append(donor_amt)
+        donors[donor] = [donor_amt]
 
     fmtline0 = "\n\nDear {0},\n\n"
     fmtline1 = "Many thanks for your recent donation of {0:6.2f}.\n\n"
@@ -95,8 +95,8 @@ def create_report_task():
     global donors
     report_fmt_str_hdr = "{0:15} {1:15} {2:10}"
     print(report_fmt_str_hdr.format('First Name', 'Last Name', ' Donations'))
-    for key in donors.keys():
-        print(formatter(key[0], key[1], donors[key]))
+    # Optimized with List Comprehension
+    [print(formatter(key[0], key[1], donors[key])) for key in donors.keys()]
 
 
 def print_menu():
