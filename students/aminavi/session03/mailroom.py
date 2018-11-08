@@ -47,8 +47,7 @@ def create_report():
                                         y[1][2]))
     print('\n\n')
 
-
-if __name__ == '__main__':
+def main():
     prompt = ("Select an action: \n1.{}\n2.{}\n3.{}\n".format(thank_you_action, create_a_report, quit_action))
     while True:
         response = input(prompt)  # continuously collect user selection
@@ -61,3 +60,7 @@ if __name__ == '__main__':
             sys.exit()
         else:
             print("Not a valid option!")
+
+
+if __name__ == '__main__':
+    main()
