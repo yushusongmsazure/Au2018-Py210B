@@ -1,0 +1,162 @@
+#!/usr/bin/env python
+
+from os import makedirs
+
+# donor_db definition and default values
+
+donor_db = {"John Smith": [500.00, 150.00, 20.00],
+            "Jane Doe": [340.00, 30.00, 200.00],
+            "Jason Bourne": [240.00, 140.00],
+            "John Wick": [1000.00],
+            "GI Jane": [150.00, 60.00]}
+
+
+# Thank you letter template
+THANK_YOU_LETTER = "\n".join(("", "Dear {name},", "", "Thank you for your "
+                              "generous donation of ${amount:.2f} to our "
+                              "cause.", "Your donations help keep Python "
+                              "great!", "", "Sincerely", "", "The Python "
+                              "Project", ""))
+
+GENERAL_DONATION_LETTER = "\n".join(("", "Dear {name},", "", "Thank you for "
+                                     "your generosity in supporting us with "
+                                     "${totaldonation:.2f} in donations.",
+                                     "We hope to have your continued support.",
+                                     "", "With great thanks", "", "The Python "
+                                     "Project"))
+
+
+def sumdbkey(donorlist):
+    """Used by function sortdb to generate sort key
+    :param donorlist: iterate through donordb tuples
+    """
+    return sum(donorlist[1])
+
+
+def sortdb():
+    """Returns a new db sorted on the sum of donations"""
+    return sorted(donor_db.items(), key=sumdbkey, reverse=True)
+
+
+def printthankyou(donorname):
+    """Prints the thank you letter to standard output in mailroom part 1 format
+    :param donoridx: the index to the donor in the database the letter should
+                     be addressed too
+    """
+    print(THANK_YOU_LETTER.format(name=donorname, amount=donor_db[donorname][-1]))
+
+
+def adddonation(donorname):
+    """Gets donation amount from user and adds it to the donor's entry in db
+    :param donoridx: the index to the donor in the database that the donation
+                     should be added too
+    """
+    while True:
+        donationammount = input("Enter donation amount> ")
+        try:
+            donor_db[donorname].append(float(donationammount))
+        except ValueError:
+            print("Error: Please enter a numeric dollar amount.\n")
+        else:
+            break
+
+
+def printdonorlist():
+    """Prints a list of all donors in the db"""
+    for name in donor_db:
+        print(name)
+
+
+def handlenames():
+    """Determines if name provided is existing donor or new donor.
+    Calls function to add donation to DB and calls function to
+    print thank you letter"""
+
+    while True:
+        name = input("Please enter full name or list> ")
+        if name == "":
+            print("Please enter valid name.\n")
+        elif name == "list":
+            printdonorlist()
+            break
+        elif name in donor_db:
+            adddonation(name)
+            printthankyou(name)
+            break
+        else:
+            donor_db[name] = []
+            adddonation(name)
+            printthankyou(name)
+            break
+
+
+def printreport():
+    """Obtains new sorted DB and prints report"""
+    newdb = sortdb()
+    print()
+    print("{:<26}|{:^13}|{:^11}|{:^14}"
+          .format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
+    print("{:-<67}".format(""))
+    for name, donation in newdb:
+        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}"
+              .format(name, sum(donation), len(donation), sum(donation)/len(donation)))
+    print()
+
+
+def sendletters():
+    """Write a letter to a file for each donor.
+       Letters put in Windows subdirectory called letters."""
+
+    for donorname in donor_db:
+        filename = "letters\\" + donorname.replace(' ', '_') + ".txt"
+        # create a new dictionary just for the format mailroom part 2
+        formatdict = {"name": donorname, "totaldonation": sum(donor_db[donorname])}
+        try:
+            with open(filename, 'w') as outfile:
+                outfile.write(GENERAL_DONATION_LETTER.format(**formatdict))
+        except FileNotFoundError:
+            try:
+                makedirs("letters")
+                sendletters()
+                break
+            except FileExistsError:
+                print("Error: Cannot create letters directory.\n")
+                break
+
+
+def exit_program():
+    """Prints good bye and returns exit to end the loop"""
+
+    print("Thank you. Bye")
+    return "exit"
+
+
+def main():
+    """Mailroom main program loop with menu"""
+
+    menudict = {
+        '1': handlenames,
+        '2': printreport,
+        '3': sendletters,
+        '4': exit_program}
+
+    mainmenu = "\n".join(("Welcome to the mailroom!",
+                          "Please choose from below options:",
+                          "1 - Send a Thank You",
+                          "2 - Create a Report",
+                          "3 - Send letters to all donors",
+                          "4 - Quit",
+                          ">>> "))
+
+    while True:
+        choice = input(mainmenu)
+
+        try:
+            if menudict.get(choice)() == "exit":
+                break
+        except TypeError:
+            print("\nPlease enter a valid menu choice.\n")
+
+
+if __name__ == "__main__":
+    main()
