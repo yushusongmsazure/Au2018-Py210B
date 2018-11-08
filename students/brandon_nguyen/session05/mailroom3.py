@@ -86,7 +86,7 @@ def list_donors():
     """
     lst = []
     print()
-    [lst.append(person) for person in donor_db]
+    [lst.append(person) for person in donor_db]  # list comprehension converted
     lst.sort()
     for name in lst:
         print(name)
@@ -99,9 +99,10 @@ def update_donation():
             try:
                 input_donation = float(input("Please enter donation amount for " +
                                        input_person + ":>> "))
+                break
             except ValueError:
                 print("\nPlease Reenter amount in float.")
-                continue
+
         # existing people add to donation
         if input_person in donor_db:
             new_Donation = donor_db.get(input_person)
