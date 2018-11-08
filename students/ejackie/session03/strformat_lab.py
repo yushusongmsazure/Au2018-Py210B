@@ -26,9 +26,10 @@ print("\n----- Task Three -----\n")
 
 # make a form_string that was the right length for an arbitrary tuple
 def formatter(in_tuple):
-    do_something_here_to_make_a_format_string
+    l = len(in_tuple)
+    print(("the {} numbers are: " + ", ".join(["{}"] * l)).format(l, *in_tuple))
 
-    return form_string.format(in_tuple)
+formatter((2,3,5,7,9))
 
 
 print("\n----- Task Four -----\n")

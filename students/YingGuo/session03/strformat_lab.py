@@ -65,4 +65,4 @@ print(string06)
 #extra task: a tuple with 10 consecutive numbers, print in columns that are 5 charaters wide.
 tuple_10nums = tuple(range(1,11))
 for i in tuple_10nums:
-	print("{:>5}".format(i))
+	print("{:>5}".format(i), end = "")
