@@ -1,1 +1,0 @@
-Hello world, this is Ying Guo at class Python 210B
