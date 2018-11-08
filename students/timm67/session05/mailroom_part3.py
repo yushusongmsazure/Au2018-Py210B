@@ -46,7 +46,7 @@ def send_thankyou_single_donor_task():
             donors[donor].append(donor_amt)
             donor_found = True
             break
-            
+
     if not donor_found:
         print("{0}, {1} NOT found, creating".format(donor_fname, donor_lname))
         donor = (donor_fname, donor_lname)
