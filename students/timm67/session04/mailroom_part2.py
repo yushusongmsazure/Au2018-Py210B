@@ -39,7 +39,6 @@ def send_thankyou_single_donor_task():
         except ValueError:
             print("Please enter a numeric donation value")
 
-    # Not optimal for optimization via list comprehension
     for donor in donors.keys():
         if donor[0] == donor_fname and donor[1] == donor_lname:
             print("{0}, {1} FOUND".format(donor_fname, donor_lname))
@@ -97,6 +96,7 @@ def create_report_task():
     print(report_fmt_str_hdr.format('First Name', 'Last Name', ' Donations'))
     for key in donors.keys():
         print(formatter(key[0], key[1], donors[key]))
+
 
 def print_menu():
     print("Mailroom Tasks")
