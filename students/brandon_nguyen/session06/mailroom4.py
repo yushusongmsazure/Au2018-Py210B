@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Week5 Excercise mailroom part 3 - Exception, List comprehension
+# Week6 Excercise mailroom part 4 - Exception, List comprehension
 # Student: Brandon Nguyen - Au2018
 import sys
 import unittest
