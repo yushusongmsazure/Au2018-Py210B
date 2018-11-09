@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Week6 Excercise mailroom part 4 - Exception, List comprehension
+# Week6 Excercise mailroom part 4 - Refactor functions to test.
 # Student: Brandon Nguyen - Au2018
 import sys
 import unittest
