@@ -65,3 +65,18 @@ list(enumerate(l)) # generates indexes from list
 
 'Hello {}!'.format('J') # Use this instead
 
+d = {}
+d[1]  #Throw
+d.get(1) #Runs
+
+d[1] = 'one'
+d.get(1, 'x')
+
+d.get(2,)
+
+counts_dict = {}
+counts_dict.setdefault('a', 0) += 1 # will not run because cannot place assignement value on left side of function
+
+d = {}
+d['key1'] = 3
+d
