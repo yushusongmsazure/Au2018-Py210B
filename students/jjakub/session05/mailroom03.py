@@ -1,4 +1,5 @@
 
+
 import sys
 import tempfile
 
@@ -27,10 +28,14 @@ def send_thanks():
         name = input("Please enter the full name: ").lower()
         if name.lower() == 'list':
             print(' '.join(donor_db))
-    amt = int(input("Please enter the donation amount: "))
-    donor_db.setdefault(name,[]).append(amt)
-
-    print(f'\nDear {name.capitalize()},\nThank you for the donation of ${amt:.2f}.\nSincerely, \nThe Mailroom Foundation')
+    while True:
+        try:
+            amt = int(input("Please enter the donation amount: "))
+            donor_db.setdefault(name,[]).append(amt)
+            print(f'\nDear {name.capitalize()},\nThank you for the donation of ${amt:.2f}.\nSincerely, \nThe Mailroom Foundation')\
+            return
+        except ValueError:
+            print("\nWarning: Donation amount must be an integer")
 
 def donor_rpt():
     header = ['Donor Name', 'Total Given', 'Num Gifts', 'Average Gift']
