@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from os import makedirs
+from os import makedirs,path
+from pathlib import Path
 
 # donor_db definition and default values
 
@@ -46,19 +47,29 @@ def printthankyou(donorname):
     print(THANK_YOU_LETTER.format(name=donorname, amount=donor_db[donorname][-1]))
 
 
-def adddonation(donorname):
+def getdonationamount(donorname):
+    while True:
+        donationamount = input("Enter donation amount> ")
+        if adddonation(donorname, donationamount):
+            break
+
+
+def adddonation(donorname, donationammount):
     """Gets donation amount from user and adds it to the donor's entry in db
     :param donoridx: the index to the donor in the database that the donation
                      should be added too
     """
-    while True:
-        donationammount = input("Enter donation amount> ")
-        try:
-            donor_db[donorname].append(float(donationammount))
-        except ValueError:
-            print("Error: Please enter a numeric dollar amount.\n")
-        else:
-            break
+    try:
+        donor_db[donorname].append(float(donationammount))
+    except ValueError:
+        print("Error: Please enter a numeric dollar amount.\n")
+        return False
+    else:
+        return True
+
+
+def addnewdonordonation(name):
+    donor_db[name] = []
 
 
 def printdonorlist():
@@ -80,48 +91,57 @@ def handlenames():
             printdonorlist()
             break
         elif name in donor_db:
-            adddonation(name)
+            getdonationamount(name)
             printthankyou(name)
             break
         else:
-            donor_db[name] = []
-            adddonation(name)
+            addnewdonordonation(name)
+            getdonationamount(name)
             printthankyou(name)
             break
 
 
 def printreport():
-    """Obtains new sorted DB and prints report"""
+    """Prints the report content"""
+    report = createreport()
+    print(report[0])
+    print(report[1])
+    print(report[2])
+
+
+def createreport():
+    """Create report content"""
     newdb = sortdb()
-    print()
-    print("{:<26}|{:^13}|{:^11}|{:^14}"
-          .format("Donor Name", "Total Given", "Num Gifts", "Average Gift"))
-    print("{:-<67}".format(""))
+    reporttitle = "\n{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift")
+    reportseperator = "{:-<67}".format("")
+    reportbody = ""
     for name, donation in newdb:
-        print("{:<27}${:>11.2f} {:>11d}  ${:>12.2f}"
-              .format(name, sum(donation), len(donation), sum(donation)/len(donation)))
-    print()
+        reportbody += "{:<27}${:>11.2f} {:>11d}  ${:>12.2f}".format(name, sum(donation), len(donation), sum(donation)/len(donation))
+        reportbody += "\n"
+    print(reportbody)
+    return (reporttitle, reportseperator, reportbody)
 
 
 def sendletters():
     """Write a letter to a file for each donor.
        Letters put in Windows subdirectory called letters."""
 
-    for donorname in donor_db:
-        filename = "letters\\" + donorname.replace(' ', '_') + ".txt"
-        # create a new dictionary just for the format mailroom part 2
-        formatdict = {"name": donorname, "totaldonation": sum(donor_db[donorname])}
-        try:
-            with open(filename, 'w') as outfile:
-                outfile.write(GENERAL_DONATION_LETTER.format(**formatdict))
-        except FileNotFoundError:
+    basedirectory = path.dirname(path.abspath(__file__))
+    letterdirectory = Path(path.join(basedirectory, "letters"))
+
+    if letterdirectory.is_dir():
+        for donorname in donor_db:
+            filename = path.join(letterdirectory, (donorname.replace(' ', '_') + ".txt"))
+            # create a new dictionary just for the format mailroom part 2
+            formatdict = {"name": donorname, "totaldonation": sum(donor_db[donorname])}
             try:
-                makedirs("letters")
-                sendletters()
+                with open(filename, 'w') as outfile:
+                    outfile.write(GENERAL_DONATION_LETTER.format(**formatdict))
+            except PermissionError:
+                print("Error: Cannot create letters.")
                 break
-            except FileExistsError:
-                print("Error: Cannot create letters directory.\n")
-                break
+    else:
+        print("Error: letters directory must exist.")
 
 
 def exit_program():
