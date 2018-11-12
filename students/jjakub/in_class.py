@@ -80,3 +80,26 @@ counts_dict.setdefault('a', 0) += 1 # will not run because cannot place assignem
 d = {}
 d['key1'] = 3
 d
+
+import random
+import datetime
+
+random.shuffle()
+from random import shuffle # will keep shuffle in memory, no need to reference module name
+shuffle()
+
+from random import * # inputs all from module, could result in name conflict
+
+import math as m
+m.sign # alias for module name
+
+names =[]
+for name in names:
+    if names:
+        names.append.(name)
+
+names = [name for name in names.split('\n') if names]
+
+range(0,10) # generator object, produces object not a list, only when the next item is need is the object used
+list(range(0,10)) # produces list object
+[range(0:10)] # does not work
