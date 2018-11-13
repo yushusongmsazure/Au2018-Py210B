@@ -12,7 +12,7 @@ donor_db = {"John Smith": [500.00, 150.00, 20.00],
             "GI Jane": [150.00, 60.00]}
 
 
-# Thank you letter template
+# Thank you letter templates
 THANK_YOU_LETTER = "\n".join(("", "Dear {name},", "", "Thank you for your "
                               "generous donation of ${amount:.2f} to our "
                               "cause.", "Your donations help keep Python "
@@ -41,13 +41,16 @@ def sortdb():
 
 def printthankyou(donorname):
     """Prints the thank you letter to standard output in mailroom part 1 format
-    :param donoridx: the index to the donor in the database the letter should
+    :param donorname: the index to the donor in the database the letter should
                      be addressed too
     """
     print(THANK_YOU_LETTER.format(name=donorname, amount=donor_db[donorname][-1]))
 
 
 def getdonationamount(donorname):
+    """User input function to collect donation amount from user
+    :param donorname: the name of the donor to add the donation too
+    """
     while True:
         donationamount = input("Enter donation amount> ")
         if adddonation(donorname, donationamount):
@@ -55,9 +58,10 @@ def getdonationamount(donorname):
 
 
 def adddonation(donorname, donationammount):
-    """Gets donation amount from user and adds it to the donor's entry in db
-    :param donoridx: the index to the donor in the database that the donation
+    """Adds the donationamount to the supplied donorname
+    :param donorname: the index to the donor in the database that the donation
                      should be added too
+    :param donationamount: dollar amount to be added for the supplied donor
     """
     try:
         donor_db[donorname].append(float(donationammount))
@@ -69,6 +73,9 @@ def adddonation(donorname, donationammount):
 
 
 def addnewdonordonation(name):
+    """Creates a new donor in the donor_DB
+    :param name: name of the new donor
+    """
     donor_db[name] = []
 
 
@@ -110,7 +117,7 @@ def printreport():
 
 
 def createreport():
-    """Create report content"""
+    """Creates report content"""
     newdb = sortdb()
     reporttitle = "\n{:<26}|{:^13}|{:^11}|{:^14}".format("Donor Name", "Total Given", "Num Gifts", "Average Gift")
     reportseperator = "{:-<67}".format("")
@@ -140,6 +147,7 @@ def sendletters():
             except PermissionError:
                 print("Error: Cannot create letters.")
                 break
+        print("Letters printed.\n")
     else:
         print("Error: letters directory must exist.")
 
