@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Pytest unit tests for the mailroompart4.py module."""
+
 import mailroompart4
 from os import makedirs,path
 from pathlib import Path
