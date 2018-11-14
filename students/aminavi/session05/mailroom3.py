@@ -15,16 +15,18 @@ def send_thank_you():
     while not name or name.lower() == 'list':
         name = input("Please enter the full name: ")
         if name.lower() == 'list':
-            print(''.join(donor_list))
+            print(' '.join(donor_list))
+    while True:
         try:
             donation = int(input("Please enter the donation amount: "))
             donor_list.setdefault(name.lower(),[]).append(donation)
             print("\nDear {},".format(name))
             print("Thank you for your generous donation of ${}".format(donation))
             print("You have our sincere gratitude.\nThank you\n\n")
+            return
         except ValueError:
             print("\n Input must be an integer, try again. \n")
-            continue
+
 
 def create_a_report():
     print('\n\n')
@@ -83,12 +85,3 @@ def Main():
 
 if __name__ == '__main__':
    Main()
-
-# def divide(a,b):
-#     if b == 0:
-#         raise ZeroDivisionError("b can not be zero")
-#     else:
-#         return a / b
-# divide(2,2)
-
-# actions = {"send": "Send a Thank You to a single donor.", 'create': "create a report. ", "all": "Send letters to all donors.", 'quit': "quit program"}
