@@ -64,4 +64,15 @@ def test_send_letters():
     assert os.path.isfile('thisisatest/' + today + '_decimal.txt') == True
     os.remove('thisisatest/' + today + '_decimal.txt')
     os.rmdir('thisisatest')
-    
+
+def test_create_report():
+    out = create_report(db)
+    assert len(out) == 7
+    assert out[0] == ('\n\nDonor Name           |   Total Given |    Num Gifts'
+    ' |      Avg Gift')
+    assert out[2] == ('One                  | $        1.00 |            1 |'
+    ' $        1.00')
+    assert out[4] == ('Three                | $        6.00 |            3 |'
+    ' $        2.00')
+    assert out[6] == ('Decimal              | $        4.94 |            2 |'
+    ' $        2.47')

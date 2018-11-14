@@ -113,7 +113,7 @@ def menu_all_donor_letters(db):
 def create_report(db):
     output = []
     colnames = ["Donor Name", "Total Given", "Num Gifts", "Avg Gift"]
-    title = "\n\4n{:<21}| {:>13} |{:>13} |{:>14}".format(colnames[0], 
+    title = "\n\n{:<21}| {:>13} |{:>13} |{:>14}".format(colnames[0], 
     colnames[1], colnames[2], colnames[3])
     mystr = "{name:20} | ${total:>12.2f} | {count:>12} | ${avg:>12.2f}"
     output.append(title)
