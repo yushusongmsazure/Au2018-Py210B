@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Mailroom part 4 exercise. Contains the refactored code for doing unit testing."""
+
 from os import makedirs,path
 from pathlib import Path
 
