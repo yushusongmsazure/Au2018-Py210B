@@ -4,12 +4,24 @@
 
 from collections import defaultdict
 
-data =defaultdict(list, {"Tom":[100,200], "Tim":[3000], "Ken": [888,888,888], "Ted":[8000,5000,500], "Jon":[1000,6000]})
+data ={"Tom":[100,200], "Tim":[3000], "Ken": [888,888,888], "Ted":[8000,5000,500], "Jon":[1000,6000]}
 
 #function of print donor list
 def donor_list(data):
     print(data.keys())
     return list(data.keys())
+
+#function to print a thank you letter
+def letter_print(name, amount):
+    message = "Thank you {} for your donation {}!".format(name, amount)
+    return message
+
+#add new donor func
+def add_new_donor(data,name, amount):
+    data = defaultdict(list,data)
+    data[name.capitalize()] += [amount]
+    return data
+
 
 #Send a thank you function 
 def thank_you(data):
@@ -25,8 +37,8 @@ def thank_you(data):
         else:
             try:
                 amount1 = int(input("how much would you like to donat?"))
-                data[user_input.capitalize()] += [amount1]
-                print("Thank you {} for your donation {}!".format(user_input.capitalize(), amount1))
+                add_new_donor(data, user_input, amount1)
+                print(letter_print(user_input.capitalize(), amount1))
                 return data
             except ValueError:
                 print("The value entered is invalid")
@@ -52,14 +64,17 @@ def report(data):
     
     return report_list
 
+#print thank you letter for exisitng donors
+def letter_all(name, total_donation):
+    message = "Dear {}, Thank you for your total donation of {}".format(name, total_donation)
+    return message
+
 def all_letter(data):
     """Try to use a dict and the .format() method to produce the letter as one big template, the write into a txt file named with donor's name"""
     for name in data.keys():
         with open(name,"w") as f:
-            f.write("Dear {},\n  Thank you for your very kind donation of {}.\n\
-            It will be put to very good use.\n\
-                               Sincerely,\n\
-                               - The Team".format(name,sum(data[name])))
+            f.write(letter_all(name,sum(data[name])))
+
 
 
 if __name__ == "__main__":

@@ -5,12 +5,32 @@
 from mailroom4 import report
 from mailroom4 import all_letter
 from mailroom4 import donor_list
+from mailroom4 import letter_print
+from mailroom4 import add_new_donor
+from mailroom4 import letter_all
 
-#test donor list in send a thank you func
+#test donor list 
 def test_donor_list():
     data = {"Tom":[100,200], "Tim":[3000]}
     expected = ["Tom", "Tim"]
     actual = donor_list(data)
+    assert expected == actual
+
+#test letter print
+def test_letter_print():
+    name = "Ying"
+    amount = 8888
+    expected = "Thank you Ying for your donation 8888!"
+    actual = letter_print(name, amount)
+    assert expected == actual
+
+#test new donor func
+def test_add_new_donor():
+    data = {"Tom":[100,200]}
+    name = "Ying"
+    amount = 8888
+    expected = {"Tom":[100,200], "Ying":[8888]}
+    actual = add_new_donor(data, name, amount)
     assert expected == actual
 
 #test report func
@@ -20,6 +40,12 @@ def test_report():
     actual = report(data)
     assert expected == actual
 
-#how to test all_letters func?
+#test all letter:
+def test_letter_all():
+    name = "Ying"
+    total_donation = 8888
+    expected = "Dear Ying, Thank you for your total donation of 8888"
+    actual = letter_all(name, total_donation)
+    assert expected == actual
 
-
+#how to test if a file exists in folder?
