@@ -53,7 +53,7 @@ def create_rpt():
     # Currently need more work on the format as 0.0 problem not yet solved.
     print()
     # creating new list with sorted total in reverse already for easy printing.
-    newList = sort_sum()
+    newList = sort_sum4Report()
     header_string = ("Donor Name              |  Total Given | Num Gifts |"
                      " Average Gift")
     line = '-'*len(header_string)
@@ -65,7 +65,7 @@ def create_rpt():
     print("\n\n")
 
 
-def sort_sum():
+def sort_sum4Report():
     # creating a new list with computed value for easy printing.
     """
     This function returned a sorted list of by on order amount3
@@ -109,7 +109,7 @@ def update_donation():
             new_Donation.append(input_donation)
             donor_db[input_person] = new_Donation
         else:
-            donor_db.update({input_person: [input_donation]}) 
+            donor_db.update({input_person: [input_donation]})
         print()
         print(email_template(input_person, input_donation))
 
