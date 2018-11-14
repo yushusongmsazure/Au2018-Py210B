@@ -8,6 +8,8 @@ from mailroom4 import donor_list
 from mailroom4 import letter_print
 from mailroom4 import add_new_donor
 from mailroom4 import letter_all
+from mailroom4 import all_letter
+import os
 
 #test donor list 
 def test_donor_list():
@@ -25,7 +27,7 @@ def test_letter_print():
     assert expected == actual
 
 #test new donor func
-def test_add_new_donor():
+def test_add_update_new_donor():
     data = {"Tom":[100,200]}
     name = "Ying"
     amount = 8888
@@ -40,7 +42,7 @@ def test_report():
     actual = report(data)
     assert expected == actual
 
-#test all letter:
+#test letter_all which send thank you letter to existing donors
 def test_letter_all():
     name = "Ying"
     total_donation = 8888
@@ -48,4 +50,8 @@ def test_letter_all():
     actual = letter_all(name, total_donation)
     assert expected == actual
 
-#how to test if a file exists in folder?
+#test all_letter which creats file
+def test_created_file():
+    data = {"Tom":[100,200]}
+    all_letter(data)
+    assert os.path.isfile("Tom")
