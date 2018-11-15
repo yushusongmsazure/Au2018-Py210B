@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Week6 Excercise mailroom part 4 - Refactor functions to test.
+# Week6 Excercise mailroom part 4a - Refactor functions to test.
 # Student: Brandon Nguyen - Au2018
 import sys
 import unittest
@@ -53,7 +53,7 @@ def create_rpt():
     # Currently need more work on the format as 0.0 problem not yet solved.
     print()
     # creating new list with sorted total in reverse already for easy printing.
-    newList = sort_sum4Report()
+    newList = sort_sum4_report(donor_db)
     header_string = ("Donor Name              |  Total Given | Num Gifts |"
                      " Average Gift")
     line = '-'*len(header_string)
@@ -65,7 +65,8 @@ def create_rpt():
     print("\n\n")
 
 
-def sort_sum4Report():
+# Test1
+def sort_sum4_report(dict_db):
     # creating a new list with computed value for easy printing.
     """
     This function returned a sorted list of by on order amount3
@@ -74,7 +75,7 @@ def sort_sum4Report():
     dbSum = []
     # quick way to convert back to list to reuse existing code.
     # list comprehension
-    [dblist.append((i, j)) for i, j in donor_db.items()]
+    [dblist.append((i, j)) for i, j in dict_db.items()]
     [dbSum.append((name, [round(sum(donation), 2)], [len(donation)],
      [round(sum(donation)/len(donation), 2)]),) for name, donation in dblist]
     return sorted(dbSum, key=lambda donor: donor[1], reverse=True)
