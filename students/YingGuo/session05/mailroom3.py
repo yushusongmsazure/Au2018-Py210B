@@ -10,21 +10,21 @@ data =defaultdict(list, {"Tom":[100,200], "Tim":[3000], "Ken": [888,888,888], "T
 def thank_you(data):
     """record a new donation and send thank you letter to the donator"""
     while True:
-        try:
-            user_input = input("please enter the name of donor. You can enter list to see the exisitng list of donors. Or enter quit to exist current function")
-            if user_input.lower() == "list":
-                print(data.keys())
+        user_input = input("please enter the name of donor. You can enter list to see the exisitng list of donors. Or enter quit to exist current function")
+        if user_input.lower() == "list":
+            print(data.keys())
 
-            elif user_input.lower() == "quit":
-                break
+        elif user_input.lower() == "quit":
+            break
             
-            else:
+        else:
+            try:
                 amount1 = int(input("how much would you like to donat?"))
                 data[user_input.capitalize()] += [amount1]
                 print("Thank you {} for your donation {}!".format(user_input.capitalize(), amount1))
                 return data
-        except ValueError:
-            print("The value entered is invalid")
+            except ValueError:
+                print("The value entered is invalid")
 
 
 #Creat a report function
@@ -63,5 +63,5 @@ if __name__ == "__main__":
                 break
             dct_opt = {1:thank_you, 2:report, 3:all_letter}
             dct_opt.get(user_input)(data)
-        except TypeError:
+        except (TypeError, ValueError):
             print("please pick from 1 to 4")
