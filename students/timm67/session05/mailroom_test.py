@@ -9,10 +9,11 @@ Mailroom Part 4 assignment
 import pytest
 from mailroom_part4 import create_report_task
 from mailroom_part4 import send_thankyou_multiple_donors_task
-from mailroom_part4 import test_send_thankyou_single_donor_task
+from mailroom_part4 import send_thankyou_single_donor_task_test
+from mailroom_part4 import add_single_donor_test
 from pathlib import Path
 
-thankyou_filelist = []
+thankyou_file_list = []
 
 def test_report():
     outlines = create_report_task()
@@ -20,8 +21,8 @@ def test_report():
 
 def test_thankyou_files():
     global thankyou_file_list
-    thankyou_filelist = send_thankyou_multiple_donors_task()
-    for test_file in thankyou_filelist:
+    thankyou_file_list = send_thankyou_multiple_donors_task()
+    for test_file in thankyou_file_list:
         try:
             test_file_path = Path(test_file)
             assert(test_file_path.is_file())
@@ -29,12 +30,15 @@ def test_thankyou_files():
             assert(False)
 
 def test_single_thankyou():
-    test_donor = {('Jim', 'Smith'): [50.0, 100.0]}
-    thankyou_lines = test_send_thankyou_single_donor_task(test_donor)
-    assert 'Jim' in thankyou_lines[0]
-    assert '100.00' in thankyou_lines[1]
-    assert '150.00' in thankyou_lines[2]
-    assert '75.00' in thankyou_lines[2]
+    fname = 'Jim'
+    lname = 'Smith'
+    amount = 50.0
+    key = (fname, lname)
+    add_single_donor_test(fname, lname, amount)
+    thankyou_lines = send_thankyou_single_donor_task_test(key)
+    assert fname in thankyou_lines[0]
+    assert str(amount) in thankyou_lines[1]
+    assert str(amount) in thankyou_lines[2]
 
 
 

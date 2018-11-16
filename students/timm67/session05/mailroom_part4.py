@@ -59,11 +59,14 @@ def send_thankyou_single_donor_task():
     return generate_thankyou_single_donor_task(donor)
 
 
-def test_send_thankyou_single_donor_task(donor):
+def send_thankyou_single_donor_task_test(donor):
     return generate_thankyou_single_donor_task(donor)
 
-def test_add_single_donor(donor):
+
+def add_single_donor_test(donor_fname, donor_lname, donor_amt):
     global donors
+    donor_found = False
+
     for donor in donors.keys():
         if donor[0] == donor_fname and donor[1] == donor_lname:
             print("{0}, {1} FOUND".format(donor_fname, donor_lname))
@@ -93,6 +96,7 @@ def generate_thankyou_single_donor_task(donor):
     outlines.append(fmtline3.format())
     [print(outline) for outline in outlines]
     return outlines
+
 
 def send_thankyou_multiple_donors_task():
     global donors
