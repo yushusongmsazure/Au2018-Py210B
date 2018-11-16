@@ -59,7 +59,7 @@ def send_thankyou_single_donor_task():
     return generate_thankyou_single_donor_task(donor)
 
 
-def send_thankyou_single_donor_task_test(donor):
+def send_thankyou_single_donor_test(donor):
     return generate_thankyou_single_donor_task(donor)
 
 

@@ -9,7 +9,7 @@ Mailroom Part 4 assignment
 import pytest
 from mailroom_part4 import create_report_task
 from mailroom_part4 import send_thankyou_multiple_donors_task
-from mailroom_part4 import send_thankyou_single_donor_task_test
+from mailroom_part4 import send_thankyou_single_donor_test
 from mailroom_part4 import add_single_donor_test
 from pathlib import Path
 
@@ -35,7 +35,7 @@ def test_single_thankyou():
     amount = 50.0
     key = (fname, lname)
     add_single_donor_test(fname, lname, amount)
-    thankyou_lines = send_thankyou_single_donor_task_test(key)
+    thankyou_lines = send_thankyou_single_donor_test(key)
     assert fname in thankyou_lines[0]
     assert str(amount) in thankyou_lines[1]
     assert str(amount) in thankyou_lines[2]
