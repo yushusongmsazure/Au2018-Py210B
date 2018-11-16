@@ -11,13 +11,6 @@ from collections import defaultdict
 this_os = platform.system()
 quit_option = False
 
-# Form letter text
-form_text = ['Dear {form_name},\n',
-             'Thank you for your generous donation of ${form_amt:.2f}\n',
-             'Please consider this e-mail as record of your donation for tax deduction purposes.\n',
-             'Sincerely, Your Local Charity']
-form_text_str = ''.join(x for x in form_text) # Comprehension
-
 #############################################################################################
 # Function section
 
@@ -28,12 +21,15 @@ def main():
     donor_dict = defaultdict(list)
     build_donor_dict(donor_dict)
 
+    # Build the 'thank you' form letter text string
+    build_form_text()
+
     # Build switch_dict with a dict comprehension
     switch_options = [1, 2, 3, 4]
     switch_functions = [send_thank_you, create_report, send_all_thanks, quit_option_true]
-    switch_dict = {option: function for option, function in zip(switch_options, switch_functions)}
+    switch_dict = {sw_opt: sw_fun for sw_opt, sw_fun in zip(switch_options, switch_functions)}
 
-    while not(quit_option):
+    while not quit_option:
         clear_screen()
 
         print('*'*10,'  Main Menu  ','*'*10)
@@ -64,13 +60,13 @@ def main():
             print('Quitting process...')
         else:
             print('<cr> to continue... ', end='')
-            cont_input = input()  # cont_input for pause (variable not used)
+            input()  # input() for pause
 
-    build_donor_text(donor_dict)  # Export the Donor Dictionary back to a text file
+    build_donor_text_file(donor_dict)  # Export the Donor Dictionary back to a text file
 
 
 def clear_screen():
-    '''Clear the screen based on operating system in use'''
+    # Clear the screen based on operating system in use
     global this_os
 
     if this_os == 'Windows':
@@ -105,7 +101,19 @@ def build_donor_dict(donor_dict):
         print()
 
 
-def build_donor_text(donor_dict):
+def build_form_text():
+    '''Build the 'thank you' form letter text string'''
+    global form_text_str
+
+    form_text = ['Dear {form_name},\n',
+                 'Thank you for your generous donation of ${form_amt:.2f}\n',
+                 'Please consider this e-mail as record of your donation for tax deduction purposes.\n',
+                 'Sincerely, Your Local Charity']
+    form_text_str = ''.join(x for x in form_text) # Comprehension
+    return form_text_str
+
+
+def build_donor_text_file(donor_dict):
     '''Export the Donor Dictionary data back to a text file'''
     with open('donor_dict.txt', 'w') as dictfile:
         for this_name, this_amts in donor_dict.items():
@@ -123,16 +131,17 @@ def send_thank_you(donor_dict):
 
     clear_screen()
 
-    while not(quit_thank_you):
+    while not quit_thank_you:
         print("Enter Donor's name, type 'list' for existing Donors (<cr> to exit): ", end='')
 
-        thank_you_choice = input()
+        donor_choice = input()
         print()
 
-        if thank_you_choice == '': quit_thank_you = True
-        elif thank_you_choice == 'list': show_donor_list(donor_dict)
+        if donor_choice == '': quit_thank_you = True
+        elif donor_choice == 'list': print(show_donor_list(donor_dict))
         else:
-            find_donor(donor_dict, thank_you_choice)
+            donation_amt = find_donor(donor_dict, donor_choice)
+            thank_donor(donor_choice, donation_amt)
             quit_thank_you = True
 
 
@@ -143,28 +152,28 @@ def show_donor_list(donor_dict):
 
     # Donor list header
     list_nom = (donor_list, donor_list_w)
-    print('{:{}}'.format(*list_nom))
-    print('-'*donor_list_w)
-    
+    list_out = '{:{}}\n'.format(*list_nom)
+    list_out += '-'*donor_list_w + '\n'
+
     # Donor list body
     for this_name in donor_dict:
         # Data line
         this_line = (this_name, donor_list_w)
-        print('{:{}}'.format(*this_line))
+        list_out += '{:{}}\n'.format(*this_line)
 
-    print()
+    list_out += '\n'
+
+    return list_out
 
 
-def find_donor(donor_dict, thank_you_choice):
-    '''Finds an existing Donor OR installs a new Donor and records donation amount.
-    It then sends a thank you letter to that Donor for the current donation.'''
-    global form_text_str
-
+def find_donor(donor_dict, donor_choice, donation_amt = None):
+    '''Finds an existing Donor OR installs a new Donor and records donation amount'''
     valid_amt = False
 
-    while not(valid_amt):
-        print('Please enter donation amount for ', thank_you_choice, ': $', sep='', end='')
-        donation_amt = input()
+    while not valid_amt:
+        if donation_amt is None:
+            print('Please enter donation amount for ', donor_choice, ': $', sep='', end='')
+            donation_amt = input()
 
         try:
             donation_amt = float(donation_amt)
@@ -174,43 +183,46 @@ def find_donor(donor_dict, thank_you_choice):
         else:
             valid_amt = True
 
-    donor_dict[thank_you_choice].append(donation_amt)
+    donor_dict[donor_choice].append(donation_amt)
 
-    form_dict = {'form_name': thank_you_choice, 'form_amt': donation_amt}
+    return donation_amt
 
+
+def thank_donor(donor_choice, donation_amt):
+    '''Send a thank you letter to current Donor for current donation only'''
     print()
     print('E-mail form letter output:')
     print()
-    print(form_text_str.format(**form_dict))
+    print(build_form_text_out(donor_choice, donation_amt))
     print()
     print('End e-mail form letter output, <cr> to continue... ', end='')
-    cont_input = input()  # cont_input for pause (variable not used)
+    input()  # input() for pause
+
+
+def build_form_text_out(form_name, form_amt):
+    '''Builds form text output from form_text_str and its related format values'''
+    global form_text_str
+
+    form_dict = {'form_name': form_name, 'form_amt': form_amt}
+    return form_text_str.format(**form_dict)
 
 
 def send_all_thanks(donor_dict):
     '''Send thank you letters to all donors as text files named as donor_name.txt'''
-    global form_text_str
-
     for this_name, this_amts in donor_dict.items():
-        thank_you_text = ''
-
         this_tot = sum(this_amts)
         this_file = this_name.replace(' ', '_') + '.txt'
 
-        form_dict = {'form_name': this_name, 'form_amt': this_tot}
-
-        thank_you_text = form_text_str.format(**form_dict)
-
         with open(this_file, 'w') as thank_you_file:
-            thank_you_file.write(thank_you_text)
+            thank_you_file.write(build_form_text_out(this_name, this_tot))
 
         thank_you_file.close()
 
         print('Created Thank You letter: ', this_file)
 
 
-def create_report(donor_dict):
-    '''Show report of Donor Names and their donation summary: Total Given|Number of Gifts|Average Gift Amount'''
+def create_report(donor_dict, report_rtn = None):
+    '''Report of Donors with donation summary: Total Given|Number of Gifts|Average Gift Amount'''
     donor_name = 'Donor Name'
     tot_given = 'Total Given'
     num_gifts = 'Num Gifts'
@@ -224,9 +236,11 @@ def create_report(donor_dict):
     sep_char_w = len(sep_char)
 
     # Report header
-    header_nom = (donor_name, donor_name_w, sep_char, tot_given, tot_given_w, sep_char, num_gifts, num_gifts_w, sep_char, avg_gift, avg_gift_w)
-    print('{:{}}{}{:>{}}{}{:>{}}{}{:>{}}'.format(*header_nom))
-    print('-'*donor_name_w, '-'*sep_char_w, '-'*tot_given_w, '-'*sep_char_w, '-'*num_gifts_w, '-'*sep_char_w, '-'*avg_gift_w, sep='')
+    header_nom = donor_name, donor_name_w, sep_char, tot_given, tot_given_w, sep_char
+    header_nom += num_gifts, num_gifts_w, sep_char, avg_gift, avg_gift_w
+    report_out = '{:{}}{}{:>{}}{}{:>{}}{}{:>{}}\n'.format(*header_nom)
+    report_out += '-'*donor_name_w + '-'*sep_char_w + '-'*tot_given_w + '-'*sep_char_w
+    report_out += '-'*num_gifts_w + '-'*sep_char_w + '-'*avg_gift_w + '\n'
 
     # Report body
     for this_name, this_amts in donor_dict.items():
@@ -240,8 +254,14 @@ def create_report(donor_dict):
             this_avg = 0
 
         # Data line
-        this_line = (this_name, donor_name_w, this_tot, (tot_given_w - 1), this_cnt, num_gifts_w, this_avg, (avg_gift_w - 1))
-        print('{:{}} ${:{}.2f} {:{}} ${:{}.2f}'.format(*this_line))
+        this_line = this_name, donor_name_w, this_tot, (tot_given_w - 1)
+        this_line += this_cnt, num_gifts_w, this_avg, (avg_gift_w - 1)
+        report_out += '{:{}} ${:{}.2f} {:{}} ${:{}.2f}\n'.format(*this_line)
+
+    if report_rtn is None:
+        print(report_out)
+    else:
+        return report_out
 
 #############################################################################################
 # Main section
