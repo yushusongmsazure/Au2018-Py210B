@@ -65,7 +65,7 @@ def create_rpt():
     print("\n\n")
 
 
-# Test1
+# Test1 DONE
 def sort_sum4_report(dict_db):
     # creating a new list with computed value for easy printing.
     """
@@ -81,6 +81,70 @@ def sort_sum4_report(dict_db):
     return sorted(dbSum, key=lambda donor: donor[1], reverse=True)
 
 
+# Test 2: business logic of updating the donor db
+def update_donation(input_val, dict_db):
+    """
+    To use this function please pass in two argument:
+    input_val is a list with two set of value, donor_name, donation_value.
+    db_dict is a replication of donor_db
+    """
+    # existing people add to donation
+    if input_val[0] in dict_db:
+        new_donation = dict_db.get(input_val[0])
+        new_donation.append(input_val[1])
+        dict_db[input_val[0]] = new_donation
+    else:
+        dict_db.update({input_val[0]: [input_val[1]]})
+    return dict_db  # to support testing only so far
+
+
+def get_donation_input():
+    """
+    This func returns a list of two values: person name and donation amount.
+    """
+    input_person = input("\nPlease enter donor full names: ")
+    while True:
+        try:
+            input_donation = float(input("Please enter donation amount for " +
+                                   input_person + ":>> "))
+            break
+        except ValueError:
+            print("\nPlease Reenter amount in float.")
+    return [input_person, input_donation]
+
+
+def email_template(input_val):  # NEED TO redo this ASAP
+    e_frmt = {
+                  0: 'Dear',
+                  1: 'Thank you for your kind donation of ',
+                  2: 'It will be put to very good use',
+                  3: 'Sincerely, ',
+                  4: '-The Team'
+                  }
+    # Not the best way to do this.
+    txt = ("\n{} {},\n\n {:>45}${:.2f}.\n\n {: >40}.\n\n{:>40}\n"
+           "{:>42}".format(e_frmt.get(0), input_val[0], e_frmt.get(1),
+                           input_val[1], e_frmt.get(2), e_frmt.get(3),
+                           e_frmt.get(4)))
+    return txt  # this way we can print to file
+
+
+# NEED TODO here 
+def send_ty_all():
+    donor_letter = []
+    #[donor_letter.append((i, j)) for i, j in donor_db.items()]
+    for personName in donor_db:
+        donor_letter.append(personName, donor_db[personName[-1]])
+    for personName in donor_db:
+        # assuming that the last donation appended to last
+        #letter = email_template(personName, donor_db[personName][-1])
+        letter = email_template(**donor_letter)
+        textfile = (personName.replace(" ", "_") + "_" +
+                    str(datetime.now()).replace(" ", "_")+".txt")
+        with open(textfile, 'w') as file_object:
+            file_object.write(letter)
+
+
 def list_donors():
     """
     Basic Name of donor return in Order by First Name
@@ -94,50 +158,12 @@ def list_donors():
     print()
 
 
-def update_donation():
-        input_person = input("\nPlease enter donor full names: ")
-        while True:
-            try:
-                input_donation = float(input("Please enter donation amount for " +
-                                       input_person + ":>> "))
-                break
-            except ValueError:
-                print("\nPlease Reenter amount in float.")
-
-        # existing people add to donation
-        if input_person in donor_db:
-            new_Donation = donor_db.get(input_person)
-            new_Donation.append(input_donation)
-            donor_db[input_person] = new_Donation
-        else:
-            donor_db.update({input_person: [input_donation]})
-        print()
-        print(email_template(input_person, input_donation))
-
-
-def email_template(name, newAmout):
-    e_frmt = {
-                  0: 'Dear',
-                  1: 'Thank you for your kind donation of ',
-                  2: 'It will be put to very good use',
-                  3: 'Sincerely, ',
-                  4: '-The Team'
-                  }
-    # Not the best way to do this.
-    txt = ("\n{} {},\n\n {:>45}${:.2f}.\n\n {: >40}.\n\n{:>40}\n"
-           "{:>42}".format(e_frmt.get(0), name, e_frmt.get(1), newAmout,
-                           e_frmt.get(2), e_frmt.get(3), e_frmt.get(4)))
-    return txt  # this way we can print to file
-
-
-def send_ty_all():
-    for personName in donor_db:
-        # assuming that the last donation appended to last
-        letter = email_template(personName, donor_db[personName][-1])
-        textfile = (personName.replace(" ", "_") + "_" +
-                    str(datetime.now()).replace(" ", "_")+".txt")
-        with open(textfile, 'w') as file_object:
-            file_object.write(letter)
+def input_donation_call():
+    x = []
+    x = get_donation_input()
+    update_donation(x, donor_db)
+    print()
+    print(email_template(x))
 
 
 # a better way to exit from Chris video
@@ -149,7 +175,7 @@ def exit_menu():
 # otherwise error - NameError 'send_ty' is not defined.
 sub_menu_dict = {
                 "list": list_donors,
-                "1": update_donation,
+                "1": input_donation_call,  # update donation,
                 "q": exit_menu
                 }
 
@@ -160,10 +186,6 @@ main_menu_dict = {
                 'q': exit_menu
                 }
 
-
-# for additional manual testing
-def test_print_db():
-    print(donor_db)
 
 if __name__ == '__main__':
     show_menu(promptText, main_menu_dict)

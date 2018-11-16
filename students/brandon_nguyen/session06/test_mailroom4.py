@@ -6,8 +6,10 @@ import unittest
 from decimal import Decimal
 from datetime import datetime
 from mailroom4 import sort_sum4_report
+from mailroom4 import update_donation
 
 
+# Test 1: the sum list and sort for report in mailroom
 def test_sort_sum4_report():
     input_db = {'FirstNameA LastNameA': [1, 1, 1, 1],
                 'FirstNameB LastNameB': [2, 2, 2, 2],
@@ -18,3 +20,11 @@ def test_sort_sum4_report():
                      ('FirstNameA LastNameA', [4], [4], [1.0]),
                      ]
     assert sort_sum4_report(input_db) == expect_sum_db
+
+
+# Test 2: update_donation
+def test_update_donation():
+    empty_dict = {}
+    input_list = ['First Last', 50]
+    expected_test1 = {'First Last': [50]}
+    assert update_donation(input_list, empty_dict) == expected_test1
