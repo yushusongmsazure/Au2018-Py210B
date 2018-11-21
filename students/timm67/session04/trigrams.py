@@ -6,37 +6,30 @@ sample_words = "I wish I may I wish I might".split()
 
 trigrams = {}
 
-def build_trigrams(words):
+def build_trigrams_list(words_list, trigrams_dict):
+    for line_list in words_list:
+        build_trigrams(line_list, trigrams_dict)
+
+def build_trigrams(word_list, trigrams_dict):
     """
     build up the trigrams dict from the list of words
 
     returns a dict with:
        keys: word pairs
        values: list of followers
-
-    From example: 
-
-    trigrams = {
-        "I wish": ["I", "I"],
-        "wish I": ["may", "might"],
-        "I may": ["I"],
-        "may I": ["wish"],
-    }
     """
-    global trigrams
 
     #
     # (word0, word1) ==> word2 
     # If key exists, then append word2 to the list
     #
 
-    for i in range(0, len(words)-2, 1):
-        key = (words[i], words[i+1])
-        if key in trigrams.keys():
-            trigrams[key].append(words[i+2])
+    for i in range(0, len(word_list)-2, 1):
+        key = (word_list[i], word_list[i+1])
+        if key in trigrams_dict.keys():
+            trigrams_dict[key].append(word_list[i+2])
         else:
-            trigrams[key] = [words[i+2]]
-    return trigrams
+            trigrams_dict[key] = [word_list[i+2]]
 
 def generate_text_trigrams(trigram_dict):
     random_str = str()
@@ -69,7 +62,11 @@ def parse_input_file(input_filename):
     line_list = []
     try:
         with open(input_filename, 'r') as fd:
-            line = fd.readline()
+            try:
+                line = fd.readline()
+            except IOError:
+                print("I/O Error with file [{0}] on readline".format(input_filename))
+                return None
             while(line):
                 line = line.rstrip('/n')
                 line.strip('.,:;-?')
@@ -79,13 +76,18 @@ def parse_input_file(input_filename):
         print("File [{0}] not found".format(input_filename))
         return None
     except IOError:
-        print("I/O Error on file [{0}]".format(input_filename))
+        print("I/O Error with file [{0}] on open".format(input_filename))
         return None
+
+    for line in line_list:
+        line = line.split()
+
     return line_list
 
 
 if __name__ == "__main__":
-    trigrams = build_trigrams(sample_words)
-    print(trigrams)
-    random_txt = generate_text_trigrams(trigrams)
+    trigrams_dict = {}
+    build_trigrams(sample_words, trigrams_dict)
+    print(trigrams_dict)
+    random_txt = generate_text_trigrams(trigrams_dict)
     print(random_txt)
