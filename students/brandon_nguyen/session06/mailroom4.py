@@ -118,6 +118,25 @@ def get_donation_input():
 
 
 # READY TO TEST
+# READY TO TEST
+def create_letters_text(db):
+    txt_list = []
+    #makedirs("testDir")  # make sub directory testDir to put files there
+    for personName in db:
+        # assuming that the last donation appended to last
+        # letter = email_template(personName, donor_db[personName][-1])
+        tmp_dict = {"Name": personName, "LastAmnt": db[personName][-1]}
+        letter = E_FORMAT.format(**tmp_dict)
+        textfile = (personName.replace(" ", "_") + "_" +
+                    str(date.today()).replace(" ", "_")+".txt")
+        txt_list.append((letter, textfile),)
+    return txt_list 
+
+def create_files(in_list):
+    for i in range(len(in_list)-1):
+        with open(in_list[i][1], 'w') as file_object:
+            file_object.write(in_list[i][0])
+'''
 def send_ty_all(db):
     makedirs("testDir")  # make sub directory testDir to put files there
     for personName in db:
@@ -129,7 +148,7 @@ def send_ty_all(db):
                     str(date.today()).replace(" ", "_")+".txt")
         with open(textfile, 'w') as file_object:
             file_object.write(letter)
-
+'''
 
 def list_donors():
     """
@@ -167,7 +186,7 @@ def send_ty():
 
 
 def send_all_letters():
-    send_ty_all(donor_db)
+    x_list = create_letters_text(donor_db)
 
 # lesson learned - the value as function need to be below the defined function
 # otherwise error - NameError 'send_ty' is not defined.
