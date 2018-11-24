@@ -34,6 +34,7 @@ def render_result(element, ind=""):
 # Step 1
 ########
 
+
 def test_init():
     """
     This only tests that it can be initialized with and without
@@ -273,6 +274,33 @@ def test_selfclose_initerror():
     """
     try:
         e = Hr("Not allowed", width=400)
+    except TypeError:
+        assert(True)
+    else:
+        assert(False)
+
+
+########
+# Step 6
+########
+
+def test_linkandcontent():
+    """
+    tests that the link is included and formatted correctly:
+    """
+    e = A("http://test.com", "testname")
+
+    file_contents = render_result(e).strip()
+
+    assert("<a href=\"http://test.com\">testname</a>") in file_contents
+
+
+def test_missingvalues():
+    """
+    tests that the class is initialized with values:
+    """
+    try:
+        e = A("http://test.com")
     except TypeError:
         assert(True)
     else:
