@@ -9,17 +9,28 @@ A class-based system for rendering html.
 class Element(object):
     tag_name = "html"
 
-    def __init__(self, content=None):
+    def __init__(self, content=None, **kwargs):
         if content:
             self.html_content = [content]
         else:
             self.html_content = []
 
+        if kwargs:
+            self.header_arg = kwargs
+        else:
+            self.header_arg = {}
+
     def append(self, new_content):
         self.html_content.append(new_content)
 
     def render(self, out_file):
-        out_file.write("<{}>\n".format(self.tag_name))
+        if self.header_arg:
+            out_file.write("<{}".format(self.tag_name))
+            for k, v in self.header_arg.items():
+                out_file.write(" {}=\"{}\"".format(k, v))
+            out_file.write(">\n")
+        else:
+            out_file.write("<{}>\n".format(self.tag_name))
         for htmlitem in self.html_content:
             if type(htmlitem) == str:
                 out_file.write("{}\n".format(htmlitem))
@@ -45,10 +56,16 @@ class Head(Element):
 
 
 class OneLineTag(Element):
-    tag_name = "title"
+    tag_name = ""
 
     def render(self, out_file):
-        out_file.write("<{}>".format(self.tag_name))
+        if self.header_arg:
+            out_file.write("<{}".format(self.tag_name))
+            for k, v in self.header_arg.items():
+                out_file.write(" {}=\"{}\"".format(k, v))
+            out_file.write(">")
+        else:
+            out_file.write("<{}>".format(self.tag_name))
         for htmlitem in self.html_content:
             out_file.write("{}".format(htmlitem))
         out_file.write("</{}>\n".format(self.tag_name))
