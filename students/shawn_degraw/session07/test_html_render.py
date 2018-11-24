@@ -188,13 +188,42 @@ def test_head():
     assert "</head>" in file_contents
 
 
-def test_title():
+def test_singleline_title():
 
     e = Title("this is some text")
 
     file_contents = render_result(e).strip()
 
     assert("<title>this is some text</title>") in file_contents
+
+
+########
+# Step 4
+########
+
+def test_headerattrib():
+    """
+    tests that the P attributes are formatted correctly
+    """
+    page = Html()
+    page.append("some plain text.")
+    page.append(P("A simple paragraph of text", style="test", encode="test2"))
+
+    file_contents = render_result(page)
+
+    assert "<p style=\"test\" encode=\"test2\">" in file_contents
+
+
+def test_singleline_attrib():
+    """
+    tests that the single line attributes are formatted correctly
+    """
+    e = Title("this is some text", attrib="test")
+
+    file_contents = render_result(e).strip()
+
+    assert("<title attrib=\"test\">this is some text</title>") in file_contents
+
 
 # #####################
 # # indentation testing
