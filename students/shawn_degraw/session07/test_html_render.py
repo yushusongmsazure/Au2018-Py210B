@@ -225,6 +225,60 @@ def test_singleline_attrib():
     assert("<title attrib=\"test\">this is some text</title>") in file_contents
 
 
+########
+# Step 5
+########
+
+def test_selfclosing():
+    """
+    tests that the self closing tags are correct
+    """
+    e = Hr()
+
+    file_contents = render_result(e).strip()
+
+    assert("<hr />") in file_contents
+
+
+def test_selfclose_withattrib():
+    """
+    tests that the self closing tags are correct with attribute
+    """
+    e = Hr(width=400)
+
+    file_contents = render_result(e).strip()
+
+    assert("<hr width=\"400\" />") in file_contents
+
+
+def test_selfclose_appenderror():
+    """
+    tests that the self closing tags do not except content in append
+    """
+    e = Hr(width=400)
+    try:
+        e = Hr.append("Not allowed")
+    except TypeError:
+        assert(True)
+        file_contents = render_result(e).strip()
+    else:
+        assert(False)
+
+    assert("<hr width=\"400\" />") in file_contents
+
+
+def test_selfclose_initerror():
+    """
+    tests that the self closing throws exception when content provided
+    """
+    try:
+        e = Hr("Not allowed", width=400)
+    except TypeError:
+        assert(True)
+    else:
+        assert(False)
+
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
