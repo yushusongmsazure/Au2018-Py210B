@@ -173,13 +173,28 @@ def test_sub_element():
     assert "</p>" in file_contents
 
 
-
-
 ########
 # Step 3
 ########
 
-# Add your tests here!
+def test_head():
+    page = Html()
+
+    body = Head()
+
+    file_contents = render_result(body).strip()
+
+    assert "<head>" in file_contents
+    assert "</head>" in file_contents
+
+
+def test_title():
+
+    e = Title("this is some text")
+
+    file_contents = render_result(e).strip()
+
+    assert("<title>this is some text</title>") in file_contents
 
 # #####################
 # # indentation testing
