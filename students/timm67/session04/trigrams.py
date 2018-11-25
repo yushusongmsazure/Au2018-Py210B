@@ -5,9 +5,6 @@ import sys
 
 trigrams = {}
 
-def build_trigrams_list(words_list, trigrams_dict):
-    for line_list in words_list:
-        build_trigrams(line_list, trigrams_dict)
 
 def build_trigrams(word_list, trigrams_dict):
     """
@@ -24,7 +21,11 @@ def build_trigrams(word_list, trigrams_dict):
     #
 
     if word_list == None:
-        print('build_trigrams: No words to build trigram dict with')
+        print('build_trigrams: No words to build trigram dict')
+        return
+
+    if (len(word_list) < 3):
+        print('build_trigrams: Not enough words to build trigram')
         return
 
     for i in range(0, len(word_list)-2, 1):
@@ -33,6 +34,12 @@ def build_trigrams(word_list, trigrams_dict):
             trigrams_dict[key].append(word_list[i+2])
         else:
             trigrams_dict[key] = [word_list[i+2]]
+
+
+def build_trigrams_list(words_list, trigrams_dict):
+    for line_list in words_list:
+        build_trigrams(line_list, trigrams_dict)
+
 
 def generate_text_trigrams(trigram_dict):
     random_str = str()
@@ -52,7 +59,7 @@ def generate_text_trigrams(trigram_dict):
         print('[{0}] random word value: {1}'.format(i, random_word))
         random_str += random_word
         line_length += len(random_str)
-        if (line_length > 60):
+        if (line_length > 50):
             random_str += '\n'
             return_str += random_str
             line_length = 0
@@ -62,14 +69,14 @@ def generate_text_trigrams(trigram_dict):
     return return_str
 
 
-def filter_isalpha(input_str):
-    exceptions = [' ', '-']
+def filter_trigram(input_str, exceptions):
     return ''.join(c for c in input_str if (c.isalpha() or (c in exceptions)))
 
 
 def parse_input_file(input_filename):
     line_list = []
     word_list = []
+    exceptions = [' ', '-']
 
     try:
         with open(input_filename, 'r') as fd:
@@ -80,7 +87,7 @@ def parse_input_file(input_filename):
                 return None
             while(line):
                 line = line.replace('--', ' ')
-                line = filter_isalpha(line)
+                line = filter_trigram(line, exceptions)
                 if(len(line) == 0):
                     continue
                 line_list.append(line)

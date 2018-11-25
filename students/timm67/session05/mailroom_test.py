@@ -13,6 +13,16 @@ from mailroom_part4 import send_thankyou_single_donor_test
 from mailroom_part4 import add_single_donor_test
 from pathlib import Path
 
+# Duplicate donor database
+
+donors = {
+     ('Jim', 'Tillson'): [5.00, 20.00],
+     ('Barb', 'Langley'): [10.00, 20.00, 100.00],
+     ('Jen', 'Garfield'): [10.00, 20.00, 5.00],
+     ('Rex', 'Miller'): [20.00, 20.00, 5.00],
+     ('Tony', 'Blake'): [20.00, 20.00, 10.00]
+     }
+
 thankyou_file_list = []
 
 def test_report():
@@ -31,15 +41,22 @@ def test_thankyou_files():
 
 def test_single_thankyou():
     fname = 'Jim'
-    lname = 'Smith'
-    amount = 50.0
+    lname = 'Tillson'
     key = (fname, lname)
-    add_single_donor_test(fname, lname, amount)
+    donations = donors[key]
     thankyou_lines = send_thankyou_single_donor_test(key)
     assert fname in thankyou_lines[0]
-    assert str(amount) in thankyou_lines[1]
-    assert str(amount) in thankyou_lines[2]
+    assert str(donations[(len(donations)-1)]) in thankyou_lines[1]
 
-
+def test_single_thankyou_addnew():
+    fname = 'Ada'
+    lname = 'Fruit'
+    key = (fname, lname)
+    donations = [50.00]
+    add_single_donor_test(fname, lname, donations)
+    thankyou_lines = send_thankyou_single_donor_test(key)
+    assert fname in thankyou_lines[0]
+    assert str(donations[(len(donations)-1)]) in thankyou_lines[1]
+    pass
 
 
