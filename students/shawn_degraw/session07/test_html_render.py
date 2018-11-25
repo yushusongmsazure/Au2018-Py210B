@@ -307,6 +307,39 @@ def test_missingvalues():
         assert(False)
 
 
+########
+# Step 7
+########
+
+def test_header():
+    """
+    tests that header tag works properly
+    """
+    e = H(1, "First Test Title")
+    f = H(2, "Second Test Title")
+
+    file_contents_first = render_result(e).strip()
+    file_contents_second = render_result(f).strip()
+
+    assert("<h1>First Test Title</h1>") in file_contents_first
+    assert("<h2>Second Test Title</h2>") in file_contents_second
+
+
+########
+# Step 7
+########
+
+def test_meta():
+    """
+    tests that the meta tag is rendered correctly
+    """
+    e = Meta(testattrib="test")
+
+    file_contents = render_result(e).strip()
+
+    assert("<meta testattrib=\"test\" />") in file_contents
+
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
