@@ -14,7 +14,7 @@ class Element(object):
 
     def __init__(self, content=None, **kwargs):
         self.contents = []
-        self.args = ""
+        self.args = ''
         if content:
             self.contents.append(content)
         if kwargs:
@@ -76,11 +76,10 @@ class OneLineTag(Element):
         raise NotImplementedError
 
     def render(self, out_file):
-        out_file.write("<{}>".format(self.tag))
+        out_file.write(self._open_tag())
         for item in self.contents:
             out_file.write(item)
-            out_file.write(" ")
-        out_file.write("</{}>".format(self.tag))
+        out_file.write(self._close_tag())
 
 
 class Title(OneLineTag):
@@ -114,4 +113,25 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     tag = 'br'
+
+
+class A(OneLineTag):
+    tag = 'a'
+
+    def __init__(self, link, content=None, **kwargs):
+        kwargs['href'] = link
+        super().__init__(content, **kwargs)
+
+
+class Ul(Element):
+    tag = 'ul'
+
+class Li(Element):
+    tag = 'li'
+
+
+class H(OneLineTag):
+    def __init__(self, level, content=None, **kwargs):
+        self.tag = 'h{}'.format(str(level))
+        super().__init__(content, **kwargs)
 

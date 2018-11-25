@@ -269,6 +269,34 @@ def test_append_content_in_br():
         br = Br()
         br.append("some content")
 
+
+def test_anchor():
+    a = A("http://google.com", "link to google")
+    file_contents = render_result(a)
+    assert file_contents == '<a href="http://google.com">link to google</a>'
+
+
+def test_ul():
+    ul = Ul('this is content')
+    file_contents = render_result(ul)
+    assert file_contents == '<ul>\nthis is content\n</ul>'
+
+
+def test_li():
+    li = Li('list item')
+    file_contents = render_result(li)
+    assert file_contents == '<li>\nlist item\n</li>'
+
+
+def test_header():
+    h1 = H(1, 'this is some content')
+    file_contents = render_result(h1)
+    assert file_contents == '<h1>this is some content</h1>'
+
+    h2 = H(2, 'other content')
+    file_contents = render_result(h2)
+    assert file_contents == '<h2>other content</h2>'
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
