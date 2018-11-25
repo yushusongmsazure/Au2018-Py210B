@@ -70,25 +70,28 @@ def add_single_donor_test(donor_fname, donor_lname, donor_amt):
     for donor in donors.keys():
         if donor[0] == donor_fname and donor[1] == donor_lname:
             print("{0}, {1} FOUND".format(donor_fname, donor_lname))
-            donors[donor].append(donor_amt)
+            for amount in donor_amt:
+                donors[donor].append(amount)
             donor_found = True
             break
 
     if not donor_found:
         print("{0}, {1} NOT found, creating".format(donor_fname, donor_lname))
         donor = (donor_fname, donor_lname)
-        donors[donor] = [donor_amt]
+        donors[donor] = donor_amt
 
 
 def generate_thankyou_single_donor_task(donor):
     global donors
+    total_donations = float(0.0)
     outlines = []
     fmtline0 = "\n\nDear {0},\n\n"
     fmtline1 = "Many thanks for your recent donation of {0:6.2f}.\n\n"
     fmtline2 = "Your total donations are {0:6.2f}, averaging {1:6.2f}\n\n"
     fmtline3 = "Thanks for your generous donation.\n\nBest Regards,\nThe Staff"
     donations = donors[donor]
-    total_donations = sum(donations)
+    for donation in donations:
+        total_donations += donation
     avg_donation = total_donations / len(donations)
     outlines.append(fmtline0.format(donor[0]))
     outlines.append(fmtline1.format(donations[(len(donations) - 1)]))
