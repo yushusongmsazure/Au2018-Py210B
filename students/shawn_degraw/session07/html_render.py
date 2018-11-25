@@ -93,8 +93,19 @@ class A(Element):
         out_file.write("<a href=\"{}\">{}</a>\n".format(self.href_link, self.html_content))
 
 
+class H(OneLineTag):
+
+    def __init__(self, level, content):
+        self.tag_name = "h{}".format(level)
+        Element.__init__(self, content)
+
+
 class Html(Element):
     tag_name = "html"
+
+    def render(self, out_file):
+        out_file.write("<!DOCTYPE html>\n")
+        Element.render(self, out_file)
 
 
 class Body(Element):
@@ -127,3 +138,7 @@ class Ul(Element):
 
 class Li(Element):
     tag_name = "li"
+
+
+class Meta(SelfClosingTag):
+    tag_name = "meta"
