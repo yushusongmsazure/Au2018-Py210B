@@ -7,20 +7,7 @@ trigrams = {}
 
 
 def build_trigrams(word_list, trigrams_dict):
-    """
-    build up the trigrams dict from the list of words
-
-    returns a dict with:
-       keys: word pairs
-       values: list of followers
-    """
-
-    #
-    # (word0, word1) ==> word2 
-    # If key exists, then append word2 to the list
-    #
-
-    if word_list == None:
+    if word_list is None:
         print('build_trigrams: No words to build trigram dict')
         return
 
@@ -52,7 +39,7 @@ def generate_text_trigrams(trigram_dict):
         print('[{0}] random key: {1}'.format(i, first_key))
         random_str += (first_key[0])
         random_str += ' '
-        random_str +=(first_key[1])
+        random_str += (first_key[1])
         random_str += ' '
         word_values = trigram_dict[first_key]
         random_word = random.choice(word_values)
@@ -73,17 +60,17 @@ def filter_trigram(input_str, exceptions):
     return ''.join(c for c in input_str if (c.isalpha() or (c in exceptions)))
 
 
-def parse_input_file(input_filename):
+def parse_input_file(in_filename):
     line_list = []
     word_list = []
     exceptions = [' ', '-']
 
     try:
-        with open(input_filename, 'r') as fd:
+        with open(in_filename, 'r') as fd:
             try:
                 line = fd.readline()
             except IOError:
-                print("I/O Error with file [{0}] on readline".format(input_filename))
+                print("I/O Error with [{0}] readline".format(in_filename))
                 return None
             while(line):
                 line = line.replace('--', ' ')
@@ -94,13 +81,13 @@ def parse_input_file(input_filename):
                 try:
                     line = fd.readline()
                 except IOError:
-                    print("I/O Error with file [{0}] on readline".format(input_filename))
+                    print("I/O Error with [{0}] readline".format(in_filename))
                     return None
     except FileNotFoundError:
-        print("File [{0}] not found".format(input_filename))
+        print("File [{0}] not found".format(in_filename))
         return None
     except IOError:
-        print("I/O Error with file [{0}] on open".format(input_filename))
+        print("I/O Error with [{0}] on open".format(in_filename))
         return None
 
     for line in line_list:
