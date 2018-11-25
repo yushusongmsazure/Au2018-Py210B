@@ -21,6 +21,7 @@ donors = {
 
 exitMail = False
 
+
 def prompt_donor():
     global donors
     donor_found = False

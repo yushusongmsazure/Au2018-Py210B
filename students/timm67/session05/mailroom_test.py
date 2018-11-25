@@ -25,9 +25,11 @@ donors = {
 
 thankyou_file_list = []
 
+
 def test_report():
     outlines = create_report_task()
     assert(5 == len(outlines))
+
 
 def test_thankyou_files():
     global thankyou_file_list
@@ -39,6 +41,7 @@ def test_thankyou_files():
         except FileNotFoundError:
             assert(False)
 
+
 def test_single_thankyou():
     fname = 'Jim'
     lname = 'Tillson'
@@ -47,6 +50,7 @@ def test_single_thankyou():
     thankyou_lines = send_thankyou_single_donor_test(key)
     assert fname in thankyou_lines[0]
     assert str(donations[(len(donations)-1)]) in thankyou_lines[1]
+
 
 def test_single_thankyou_addnew():
     fname = 'Ada'
@@ -58,5 +62,3 @@ def test_single_thankyou_addnew():
     assert fname in thankyou_lines[0]
     assert str(donations[(len(donations)-1)]) in thankyou_lines[1]
     pass
-
-
