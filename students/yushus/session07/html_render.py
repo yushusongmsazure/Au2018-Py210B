@@ -59,6 +59,10 @@ class Element(object):
 
 class Html(Element):
     tag = "html"
+    def render(self, out_file):
+        out_file.write(f"<!DOCTYPE {self.tag}>")
+        out_file.write("\n")
+        super().render(out_file)
 
 class Body(Element):
     tag = "body"
@@ -101,6 +105,9 @@ class Hr(SelfClosingTag):
 class Br(SelfClosingTag):
     tag = "br"
 
+class Meta(SelfClosingTag):
+    tag  = "meta"
+
 class A(OneLineTag):
     tag = "a"
     def __init__(self, link, content=None, **attributes):
@@ -113,7 +120,7 @@ class Ul(Element):
 class Li(Element):
     tag = "li"
 
-class Header(OneLineTag):
+class H(OneLineTag):
     def __init__(self, level, content=None, **attributes):
         self.tag = f"h{level}"
         super().__init__(content, **attributes)

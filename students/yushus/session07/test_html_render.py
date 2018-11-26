@@ -115,9 +115,7 @@ def test_render_element2():
 def test_html():
     e = Html("this is some text")
     e.append("and this is some more text")
-
     file_contents = render_result(e).strip()
-
     assert("this is some text") in file_contents
     assert("and this is some more text") in file_contents
     print(file_contents)
@@ -328,12 +326,35 @@ def test_ul_attr():
 
 def test_header():
     con = "PythonClass - Class 6 example"
-    h = Header(2, con)
+    h = H(2, con)
     file_contents = render_result(h)
     print(file_contents)
     assert con in file_contents
     assert file_contents.startswith("<h2>")
     assert file_contents.endswith("</h2>\n")
+
+########
+# Step 8
+########
+
+def test_html_doctype():
+    e = Html("this is some text")
+    e.append("and this is some more text")
+    file_contents = render_result(e).strip()
+    assert("<!DOCTYPE html>") in file_contents
+    assert("this is some text") in file_contents
+    assert("and this is some more text") in file_contents
+    print(file_contents)
+    assert file_contents.endswith("</html>")
+
+def test_meta_attr():
+    head = Head()
+    head.append(Meta(charset="UTF-8"))
+    file_contents = render_result(head)
+    print(file_contents)
+    assert file_contents.startswith('<head>\n<meta')
+    assert 'charset="UTF-8"' in file_contents
+    assert file_contents.endswith('/>\n</head>\n')
 
 # #####################
 # # indentation testing
