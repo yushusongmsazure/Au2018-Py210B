@@ -12,6 +12,8 @@ class Element(object):
 
     tag = "html"
 
+    indent = '    '
+
     def __init__(self, content=None, **kwargs):
         self.contents = []
         self.args = ''
@@ -23,15 +25,24 @@ class Element(object):
     def append(self, new_content):
         self.contents.append(new_content)
 
-    def render(self, out_file):
+    def _indenter(self, cur_ind):
+        output = ''
+        for i in range(cur_ind):
+            output += self.indent
+        return output
+
+    def render(self, out_file, cur_ind=0):
+        out_file.write(self._indenter(cur_ind))
         out_file.write(self._open_tag())
         out_file.write('\n')
         for item in self.contents:
             try:
-                item.render(out_file)
+                item.render(out_file, cur_ind=cur_ind+1)
             except AttributeError:
+                out_file.write(self._indenter(cur_ind+1))
                 out_file.write(item)
             out_file.write("\n")
+        out_file.write(self._indenter(cur_ind))
         out_file.write(self._close_tag())
 
     def _unpack_kwargs(self):
@@ -54,7 +65,11 @@ class Element(object):
 
 
 class Html(Element):
-    pass
+    def render(self, out_file, cur_ind=0):
+        out_file.write(self._indenter(cur_ind))
+        out_file.write('<!DOCTYPE html>\n')
+        out_file.write(self._indenter(cur_ind))
+        super().render(out_file)
 
 
 class Body(Element):
@@ -75,7 +90,8 @@ class OneLineTag(Element):
     def append(self, content):
         raise NotImplementedError
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=0):
+        out_file.write(self._indenter(cur_ind))
         out_file.write(self._open_tag())
         for item in self.contents:
             out_file.write(item)
@@ -126,6 +142,7 @@ class A(OneLineTag):
 class Ul(Element):
     tag = 'ul'
 
+
 class Li(Element):
     tag = 'li'
 
@@ -135,3 +152,6 @@ class H(OneLineTag):
         self.tag = 'h{}'.format(str(level))
         super().__init__(content, **kwargs)
 
+
+class Meta(SelfClosingTag):
+    tag = 'meta'
