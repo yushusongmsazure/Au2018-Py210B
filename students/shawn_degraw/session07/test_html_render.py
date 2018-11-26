@@ -394,12 +394,6 @@ def test_element_indent1():
     """
     Tests whether the Element indents at least simple content
 
-    we are expecting to to look like this:
-
-    <html>
-        this is some text
-    <\html>
-
     More complex indentation should be tested later.
     """
     e = Element("this is some text")
@@ -419,3 +413,27 @@ def test_element_indent1():
     assert lines[1].startswith(Element.indent + "thi")
     assert lines[2] == "</html>"
     assert file_contents.endswith("</html>")
+
+
+def test_indent_onelinetag():
+    """
+    Tests that the indentation works for onelinetag objects
+    """
+    h = H(2, "Header Content")
+    file_contents = render_result(h, ind="   ").rstrip()  # remove the end newline
+
+    print(file_contents)
+    lines = file_contents.split("\n")
+    assert lines[0].startswith("   <")
+
+
+def test_indent_selfclosingtag():
+    """
+    Tests that the indentation works for selfclosing objects
+    """
+    hr = Hr()
+    file_contents = render_result(hr, ind="   ").rstrip()  # remove the end newline
+
+    print(file_contents)
+    lines = file_contents.split("\n")
+    assert lines[0].startswith("   <")
