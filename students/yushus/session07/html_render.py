@@ -24,8 +24,14 @@ class Element(object):
             self.contents = []
 
         self.attributes = attributes
+    
+    def _open_tag(self):
+        return f"<{self.tag}{self._get_attributes()}>"
 
-    def get_attributes(self, attributes):
+    def _close_tag(self):
+        return f"</{self.tag}>"
+
+    def _get_attributes(self):
         page_attributes = ""
         if self.attributes:
             for attribute in self.attributes:
@@ -33,20 +39,23 @@ class Element(object):
         return page_attributes
 
     def render(self, out_file):
-        page_attributes = self.get_attributes(self.attributes)
+        #page_attributes = self.get_attributes(self.attributes)
+
+        out_file.write(self._open_tag())
+
+        out_file.write("\n")
 
         for content in self.contents:
-            out_file.write(f"<{self.tag}")
-            out_file.write(f"{page_attributes}>\n")
-
             if isinstance(content, Element):
                 content.render(out_file)
             elif isinstance(content, str):
                 out_file.write(f"{content}")
+                out_file.write("\n")
             else:
                 raise TypeError("Cannot render!!")
-            out_file.write("\n")
-            out_file.write(f"</{self.tag}>\n")
+        
+        out_file.write(self._close_tag())
+        out_file.write("\n")
 
     def append(self, new_content):
         self.contents.append(new_content)
@@ -76,7 +85,17 @@ class Title(OneLineTag):
     tag = "title"
 
 class SelfClosingTag(Element):
-    pass
+    def __init__(self, content=None, **attributes):
+        if content is not None:
+            raise TypeError("SelfClosingTag can not contain any content")
+        super().__init__(content=content, **attributes)
+
+    def render(self, outfile):
+        tag = super()._open_tag()[:-1] + " />\n"
+        outfile.write(tag)
+
+    def append(self, *args):
+        raise TypeError("You can not add content to a SelfClosingTag")
 
 class Hr(SelfClosingTag):
     tag = "hr"

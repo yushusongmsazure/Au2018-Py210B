@@ -241,8 +241,34 @@ def test_attributes():
     assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
     assert file_contents[:file_contents.index(">")].count(" ") == 3
 
-    assert False
+def test_hr():
+    """a simple horizontal rule with no attributes"""
+    hr = Hr()
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr />\n'
 
+def test_hr_attr():
+    """a horizontal rule with an attribute"""
+    hr = Hr(width=400)
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr width="400" />\n'
+
+def test_br():
+    br = Br()
+    file_contents = render_result(br)
+    print(file_contents)
+    assert file_contents == "<br />\n"
+
+def test_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br("some content")
+
+def test_append_content_in_br():
+    with pytest.raises(TypeError):
+        br = Br()
+        br.append("some content")
 
 # #####################
 # # indentation testing
