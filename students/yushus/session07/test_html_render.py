@@ -107,8 +107,6 @@ def test_render_element2():
     assert file_contents.startswith("<html>")
     assert file_contents.endswith("</html>")
 
-
-
 ########
 # Step 2
 ########
@@ -213,6 +211,10 @@ def test_one_line_tag_append():
     file_contents = render_result(e).strip()
     print(file_contents)
 
+########
+# Step 4
+########
+
 def test_attributes():
     e = P("A paragraph of text", style="text-align: center", id="intro")
 
@@ -240,6 +242,10 @@ def test_attributes():
     # # just to be sure -- there should be a closing bracket to the opening tag
     assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
     assert file_contents[:file_contents.index(">")].count(" ") == 3
+
+########
+# Step 5
+########
 
 def test_hr():
     """a simple horizontal rule with no attributes"""
@@ -270,11 +276,64 @@ def test_append_content_in_br():
         br = Br()
         br.append("some content")
 
+########
+# Step 6
+########
+
 def test_anchor():
     a = A("http://google.com", "link to google")
     file_contents = render_result(a)
     print(file_contents)
     assert file_contents.startswith('<a ')
+
+########
+# Step 7
+########
+
+def test_li():
+    con = "The first item in a list"
+    li = Li(con)
+    file_contents = render_result(li)
+    print(file_contents)
+    assert con in file_contents
+    assert file_contents.startswith('<li>\n')
+
+def test_li_attr():
+    """a li with an attribute"""
+    con = "This is the second item"
+    li = Li(con, style="color: red")
+    file_contents = render_result(li)
+    print(file_contents)
+    assert '<li style="color: red">\n' in file_contents
+
+def test_li_anchor():
+    """a li with an anchor"""
+    con1 = "And this is a"
+    con2 = "to google"
+    li = Li(con1)
+    li.append(A("http://google.com", "link"))
+    li.append(con2)
+    file_contents = render_result(li)
+    print(file_contents)
+    assert con1 in file_contents
+    assert con2 in file_contents
+    assert '<a href="http://google.com">link</a>\n' in file_contents
+
+def test_ul_attr():
+    """a ul with an attribute"""
+    ul = Ul(id="TheList", style="line-height:200%")
+    file_contents = render_result(ul)
+    print(file_contents)
+    assert '<ul id="TheList" style="line-height:200%">\n' in file_contents
+
+def test_header():
+    con = "PythonClass - Class 6 example"
+    h = Header(2, con)
+    file_contents = render_result(h)
+    print(file_contents)
+    assert con in file_contents
+    assert file_contents.startswith("<h2>")
+    assert file_contents.endswith("</h2>\n")
 
 # #####################
 # # indentation testing

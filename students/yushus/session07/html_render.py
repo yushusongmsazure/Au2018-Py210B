@@ -106,3 +106,14 @@ class A(OneLineTag):
     def __init__(self, link, content=None, **attributes):
         attributes["href"] = link
         super().__init__(content, **attributes)
+
+class Ul(Element):
+    tag = "ul"
+
+class Li(Element):
+    tag = "li"
+
+class Header(OneLineTag):
+    def __init__(self, level, content=None, **attributes):
+        self.tag = f"h{level}"
+        super().__init__(content, **attributes)
