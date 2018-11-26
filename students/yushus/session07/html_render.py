@@ -39,10 +39,7 @@ class Element(object):
         return page_attributes
 
     def render(self, out_file):
-        #page_attributes = self.get_attributes(self.attributes)
-
         out_file.write(self._open_tag())
-
         out_file.write("\n")
 
         for content in self.contents:
@@ -53,7 +50,7 @@ class Element(object):
                 out_file.write("\n")
             else:
                 raise TypeError("Cannot render!!")
-        
+
         out_file.write(self._close_tag())
         out_file.write("\n")
 
@@ -77,9 +74,10 @@ class OneLineTag(Element):
         raise NotImplementedError
 
     def render(self, out_file):
-        out_file.write(f"<{self.tag}>")
+        out_file.write(super()._open_tag())
         out_file.write(self.contents[0])
-        out_file.write(f"</{self.tag}>\n")
+        out_file.write(super()._close_tag())
+        out_file.write("\n")
 
 class Title(OneLineTag):
     tag = "title"
@@ -103,5 +101,8 @@ class Hr(SelfClosingTag):
 class Br(SelfClosingTag):
     tag = "br"
 
-
-
+class A(OneLineTag):
+    tag = "a"
+    def __init__(self, link, content=None, **attributes):
+        attributes["href"] = link
+        super().__init__(content, **attributes)

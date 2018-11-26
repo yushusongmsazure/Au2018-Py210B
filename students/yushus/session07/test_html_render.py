@@ -270,6 +270,12 @@ def test_append_content_in_br():
         br = Br()
         br.append("some content")
 
+def test_anchor():
+    a = A("http://google.com", "link to google")
+    file_contents = render_result(a)
+    print(file_contents)
+    assert file_contents.startswith('<a ')
+
 # #####################
 # # indentation testing
 # #  Uncomment for Step 9 -- adding indentation
