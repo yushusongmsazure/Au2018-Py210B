@@ -8,8 +8,8 @@ A class-based system for rendering html.
 class Element(object):
     """ Default Element class for rendering html """
     tag_name = "html"
-    indent = 3
-    cur_ind = 0
+    indent = "   "
+    cur_ind = ""
 
     def __init__(self, content=None, **kwargs):
         self.html_content = ([content] if content else [])
@@ -18,22 +18,22 @@ class Element(object):
     def append(self, new_content):
         self.html_content.append(new_content)
 
-    def render(self, out_file, cur_ind=0):
+    def render(self, out_file, cur_ind=""):
         if self.header_arg:
-            self.writetag(out_file, (" " * cur_ind) + "<{}")
+            self.writetag(out_file, cur_ind + "<{}")
             for k, v in self.header_arg.items():
                 out_file.write(" {}=\"{}\"".format(k, v))
             out_file.write(">\n")
         else:
-            self.writetag(out_file, (" " * cur_ind) + "<{}>\n")
+            self.writetag(out_file, cur_ind + "<{}>\n")
 
         for htmlitem in self.html_content:
             if type(htmlitem) == str:
-                out_file.write((" " * (cur_ind + self.indent)) + "{}\n".format(htmlitem))
+                out_file.write((cur_ind + self.indent) + "{}\n".format(htmlitem))
             else:
                 htmlitem.render(out_file, (cur_ind + self.indent))
 
-        self.writetag(out_file, (" " * cur_ind) + "</{}>\n")
+        self.writetag(out_file, cur_ind + "</{}>\n")
 
     def writetag(self, out_file, outstring):
         out_file.write(outstring.format(self.tag_name))
@@ -43,14 +43,14 @@ class OneLineTag(Element):
     """ subclass of Element for rendering single line html tags """
     tag_name = ""
 
-    def render(self, out_file, cur_ind=0):
+    def render(self, out_file, cur_ind=""):
         if self.header_arg:
-            self.writetag(out_file, (" " * cur_ind) + "<{}")
+            self.writetag(out_file, cur_ind + "<{}")
             for k, v in self.header_arg.items():
                 out_file.write(" {}=\"{}\"".format(k, v))
             out_file.write(">")
         else:
-            self.writetag(out_file, (" " * cur_ind) + "<{}>")
+            self.writetag(out_file, cur_ind + "<{}>")
 
         for htmlitem in self.html_content:
             out_file.write("{}".format(htmlitem))
@@ -73,14 +73,14 @@ class SelfClosingTag(Element):
     def append(self, new_content):
         raise TypeError('Error: Content not allowed for tag. Discarding content.')
 
-    def render(self, out_file, cur_ind=0):
+    def render(self, out_file, cur_ind=""):
         if self.header_arg:
-            self.writetag(out_file, (" " * cur_ind) + "<{}")
+            self.writetag(out_file, cur_ind + "<{}")
             for k, v in self.header_arg.items():
                 out_file.write(" {}=\"{}\"".format(k, v))
             out_file.write(" />\n")
         else:
-            self.writetag(out_file, (" " * cur_ind) + "<{} />\n")
+            self.writetag(out_file, cur_ind + "<{} />\n")
 
 
 class A(Element):
@@ -94,8 +94,8 @@ class A(Element):
             self.href_link = link
             self.html_content = content
 
-    def render(self, out_file, cur_ind=0):
-        out_file.write((" " * cur_ind) + "<a href=\"{}\">{}</a>\n".format(self.href_link, self.html_content))
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + "<a href=\"{}\">{}</a>\n".format(self.href_link, self.html_content))
 
 
 class H(OneLineTag):
@@ -109,9 +109,9 @@ class Html(Element):
     """ subclass of Element for rendering html tags """
     tag_name = "html"
 
-    def render(self, out_file):
-        out_file.write("<!DOCTYPE html>\n")
-        Element.render(self, out_file)
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + "<!DOCTYPE html>\n")
+        Element.render(self, out_file, cur_ind)
 
 
 class Body(Element):
