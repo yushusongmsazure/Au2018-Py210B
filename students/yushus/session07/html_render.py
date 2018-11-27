@@ -16,13 +16,10 @@ from collections import defaultdict
 # This is the framework for the base class
 class Element(object):
     tag = "html"
+    indent = "    "
 
     def __init__(self, content=None, **attributes):
-        if content:
-            self.contents = [content]
-        else:
-            self.contents = []
-
+        self.contents = [content] if content else []
         self.attributes = attributes
     
     def _open_tag(self):
@@ -38,20 +35,20 @@ class Element(object):
                 page_attributes = f"{page_attributes} {attribute}=\"{self.attributes[attribute]}\""
         return page_attributes
 
-    def render(self, out_file):
-        out_file.write(self._open_tag())
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + self._open_tag())
         out_file.write("\n")
 
         for content in self.contents:
             if isinstance(content, Element):
-                content.render(out_file)
+                content.render(out_file, cur_ind + self.indent)
             elif isinstance(content, str):
-                out_file.write(f"{content}")
+                out_file.write(f"{cur_ind}{self.indent}{content}")
                 out_file.write("\n")
             else:
                 raise TypeError("Cannot render!!")
 
-        out_file.write(self._close_tag())
+        out_file.write(cur_ind + self._close_tag())
         out_file.write("\n")
 
     def append(self, new_content):
@@ -59,10 +56,10 @@ class Element(object):
 
 class Html(Element):
     tag = "html"
-    def render(self, out_file):
-        out_file.write(f"<!DOCTYPE {self.tag}>")
+    def render(self, out_file, cur_ind=""):
+        out_file.write(f"{cur_ind}<!DOCTYPE {self.tag}>")
         out_file.write("\n")
-        super().render(out_file)
+        super().render(out_file, cur_ind)
 
 class Body(Element):
     tag = "body"
@@ -77,8 +74,8 @@ class OneLineTag(Element):
     def append(self, content):
         raise NotImplementedError
 
-    def render(self, out_file):
-        out_file.write(super()._open_tag())
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + super()._open_tag())
         out_file.write(self.contents[0])
         out_file.write(super()._close_tag())
         out_file.write("\n")
@@ -92,9 +89,9 @@ class SelfClosingTag(Element):
             raise TypeError("SelfClosingTag can not contain any content")
         super().__init__(content=content, **attributes)
 
-    def render(self, outfile):
+    def render(self, outfile, cur_ind=""):
         tag = super()._open_tag()[:-1] + " />\n"
-        outfile.write(tag)
+        outfile.write(f"{cur_ind}{tag}")
 
     def append(self, *args):
         raise TypeError("You can not add content to a SelfClosingTag")
