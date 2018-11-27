@@ -48,22 +48,27 @@ menu_txt = ("\n Would you like to:"
     "\n >>> ")
 
 
-def sort_key(sort):
-    return sort[1]
-
-
 def input_name():
-    donor_nm = input("Please enter the full name: ").lower()
-    return donor_nm
+    name = input("Please enter the full name: ").lower()
+    return name
 
 
 def input_amt():
     while True:
         try:
-            donor_amt = int(input("Please enter the donation amount: "))
-            return donor_amt
+            amt = int(input("Please enter the donation amount: "))
+            return amt
         except ValueError:
-            print("Warning: Please enter an integer!")
+            print("Warning: Please enter an integer!\n")
+
+
+def donor_list(donor_db):
+    donor_nm = [donor.capitalize() for donor, amt in donor_db.items()]
+    return donor_nm
+
+
+def add_donor(name, amt, donor_db):
+    donor_db.setdefault(name,[]).append(amt)
 
 
 def create_msg(name, amt):
@@ -71,19 +76,23 @@ def create_msg(name, amt):
     return msg
 
 
-def donor_list():
-    for donor, amt in donor_db.items():
-        print("{}".format(donor).capitalize())
-
-
 def send_thanks():
     name = input_name()
     if name == "list":
-        donor_list()
+        print(', '.join(donor_list(donor_db)))
     else:
         amt = input_amt()
-        donor_db.setdefault(name,[]).append(amt)
+        add_donor(name, amt, donor_db)
         print(create_msg(name, amt))
+
+
+def sort_key(sort):
+    return sort[1]
+
+
+def donor_sort(donor_seq):
+    donor_sort = sorted(donor_seq, key=sort_key, reverse=True)
+    return donor_sort
 
 
 def donor_calc(donor_db):
@@ -92,11 +101,6 @@ def donor_calc(donor_db):
             for donor, amt in donor_db.items()
             ]
     return donor_sort(donor_sum)
-
-
-def donor_sort(donor_seq):
-    donor_sort = sorted(donor_seq, key=sort_key, reverse=True)
-    return donor_sort
 
 
 def donor_rpt():
@@ -112,15 +116,15 @@ def input_path():
     return path
 
 
-def write_letter(letter_path):
+def write_letter(path, donor_db):
     for donor, amt, len, avg in donor_calc(donor_db):
-        with open("{}{}.txt".format(letter_path, donor), "w") as thank_you:
+        with open("{}{}.txt".format(path, donor), "w") as thank_you:
             thank_you.write(create_msg(donor, amt))
 
 
-def print_thanks(thx_pth):
-    if thx_pth != "":
-        print(saved_txt + "{}".format(thx_pth).replace("\\",""))
+def print_thanks(path):
+    if path != "":
+        print(saved_txt + "{}".format((path)).replace("\\",""))
     else:
         print(saved_txt + "the current directory.")
 
@@ -128,9 +132,9 @@ def print_thanks(thx_pth):
 def thanks_all():
     while True:
         try:
-            thanks_path = input_path()
-            write_letter(thanks_path)
-            print_thanks(thanks_path)
+            path = input_path()
+            write_letter(path, donor_db)
+            print_thanks(path)
             return
         except FileNotFoundError:
             print("Warning: Please enter a valid path!\n")
@@ -140,7 +144,6 @@ def exit_program():
     print("Bye!")
     sys.exit()
 
-
 switch_dict = {
     1: send_thanks,
     2: donor_rpt,
@@ -148,13 +151,14 @@ switch_dict = {
     4: exit_program,
     }
 
-def menu():
+
+def menu(menu_txt, user_options):
     main_menu = (menu_txt.format(**user_options))
     return main_menu
 
 
 def input_main():
-    response = int(input(menu()))
+    response = int(input(menu(menu_txt, user_options)))
     return response
 
 

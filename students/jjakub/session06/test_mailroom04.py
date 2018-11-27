@@ -5,59 +5,78 @@ Class: Python 210 B, Au2018
 Exercise: Session 06, Mailroom Part 04 Unit Test
 Student: Jason Jakubiak
 """
+
 from mailroom04 import *
 import mailroom04
 import os.path
 
-test_name = "Name"
+test_name = "name"
 test_amt = 9999
+test_db_in = {}
+path = test_name + ".txt"
 
-test_sort_input = [
+test_db = {
+    test_name: [test_amt]
+    }
+
+test_list_out = ["Name"]
+
+test_txt = (
+    "\nDear Name,"
+    "\nThank you for the donation of $9999.00."
+    "\nSincerely,"
+    "\nThe Mailroom Foundation\n"
+    )
+
+
+test_sort_in = [
     ('A', 3),
     ('B', 1),  
     ('C', 2),
     ('D', 4),
     ]
 
-test_sort_output = [
+test_sort_out = [
     ('D', 4),
     ('A', 3),
     ('C', 2),
     ('B', 1),
     ]
 
-test_db_input = {
-    "A": [1, 2, 3, 4, 5],
-    "B": [10, 20, 30],
-    "C": [9, 8, 7, 6],
-    "D": [100.5, 50.25, 75.55, 25.45, 200.25],
-    }
-
-test_db_output = [
-    ('D', 452, 5, 90.4),
-    ('B', 60, 3, 20),  
-    ('C', 30, 4, 7.5),
-    ('A', 15, 5, 3),
+test_db_calc = [
+    (test_name.capitalize(), test_amt, 1, test_amt)
     ]
 
 
+def test_add_donor():
+    mailroom04.add_donor(test_name, test_amt, test_db_in)
+    assert test_db_in == test_db
+
+
+def test_donor_list():
+    assert donor_list(test_db) == test_list_out
+
+
 def test_create_msg():
-    assert mailroom04.create_msg(test_name,test_amt) == \
-        thanks_txt.format(test_name,test_amt)
+    assert mailroom04.create_msg(test_name,test_amt) == test_txt
 
 
 def test_donor_sort():
-    assert mailroom04.donor_sort(test_sort_input) == test_sort_output
+    assert mailroom04.donor_sort(test_sort_in) == test_sort_out
 
 
 def test_donor_calc():
-    assert mailroom04.donor_calc(test_db_input) == test_db_output
+     assert mailroom04.donor_calc(test_db) == test_db_calc
 
 
 def test_write_letter():
-    mailroom04.write_letter("")
-    donor_list = [donor.capitalize() for donor, key in donor_db.items()]
+    mailroom04.write_letter("", test_db)
+    assert os.path.exists(path)
 
-    for name in donor_list:
-        path = name + ".txt"
-        assert os.path.exists(path)
+
+def test_contents():
+    file = open(path, "r")
+    letter = file.read()
+    file.close()
+    os.remove(path)
+    assert letter == test_txt
