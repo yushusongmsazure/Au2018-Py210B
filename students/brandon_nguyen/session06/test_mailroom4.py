@@ -2,11 +2,15 @@
 # Week6 Excercise mailroom part 4b- the test file
 # Student: Brandon Nguyen - Au2018
 import sys
+import time
 import unittest
+import os
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, date
 from mailroom4 import sort_sum4_report
 from mailroom4 import update_donation
+from mailroom4 import create_letters_text
+from mailroom4 import create_files
 
 
 input_db = {'FirstNameA LastNameA': [1, 1, 1, 11],
@@ -35,5 +39,24 @@ def test_update_donation():
     input_list = ['First Last', 50]
     expected_test1 = {'First Last': [50]}
     # test empty dict
-    assert update_donation(input_list, empty_dict) == expected_test1  
-    # test existing dict
+    assert update_donation(input_list, empty_dict) == expected_test1
+    # test existing dict TODO
+
+
+# Test 3: Verify the text in letters
+def test_create_letters_text():
+    dict_test3 = {'Brandon Nguyen': [100, 200, 300]}
+    file_name = "Brandon_Nguyen_"+str(date.today()).replace(" ", "_")+".txt"
+    expected_list = [(TEST_LETTER.format(Name='Brandon Nguyen', LastAmnt=300),
+                      file_name)]
+    assert create_letters_text(dict_test3) == expected_list
+
+
+# Test 4: Verify file created
+def test_create_files():
+    file_name = "Brandon_Nguyen_"+str(date.today()).replace(" ", "_")+".txt"
+    test4_list = [(TEST_LETTER.format(Name='Brandon Nguyen', LastAmnt=300),
+                  file_name)]
+    create_files(test4_list)
+    assert os.path.isfile(file_name) == 1
+
