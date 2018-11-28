@@ -31,7 +31,7 @@
   * ``object.__str__``: Like Java's ``Object.toString()`` method
     * But Python also has ``object.__repr__``, which should satisfy ``eval(repr(something)) == something``
   * Numerics protocol: Like operator overloading in C++ or C#
-    * Use ``fraction.py`` for example
+    * Use [``fraction.py``](../examples/fraction.py) and [``test_fraction.py``](../examples/test_fraction.py) for example
   * Container protocol: Still related to operator overloading, but mostly for indexing operator (``[]``)
     * The sparse array exercise is for this
     * See [``index_slicing.py``](../examples/index_slicing.py) for example
