@@ -19,13 +19,10 @@ class Element(object):
         self.html_content.append(new_content)
 
     def render(self, out_file, cur_ind=""):
-        if self.header_arg:
-            self.writetag(out_file, cur_ind + "<{}")
-            for k, v in self.header_arg.items():
-                out_file.write(" {}=\"{}\"".format(k, v))
-            out_file.write(">\n")
-        else:
-            self.writetag(out_file, cur_ind + "<{}>\n")
+        self.writetag(out_file, cur_ind + "<{}")
+        for k, v in self.header_arg.items():
+            out_file.write(" {}=\"{}\"".format(k, v))
+        out_file.write(">\n")
 
         for htmlitem in self.html_content:
             if type(htmlitem) == str:
@@ -44,13 +41,10 @@ class OneLineTag(Element):
     tag_name = ""
 
     def render(self, out_file, cur_ind=""):
-        if self.header_arg:
-            self.writetag(out_file, cur_ind + "<{}")
-            for k, v in self.header_arg.items():
-                out_file.write(" {}=\"{}\"".format(k, v))
-            out_file.write(">")
-        else:
-            self.writetag(out_file, cur_ind + "<{}>")
+        self.writetag(out_file, cur_ind + "<{}")
+        for k, v in self.header_arg.items():
+            out_file.write(" {}=\"{}\"".format(k, v))
+        out_file.write(">")
 
         for htmlitem in self.html_content:
             out_file.write("{}".format(htmlitem))
@@ -65,37 +59,24 @@ class SelfClosingTag(Element):
     def __init__(self, content=None, **kwargs):
         if content:
             raise TypeError('Error: Content not allowed for tag.')
-        else:
-            self.html_content = []
-
-        self.header_arg = (kwargs if kwargs else {})
+        super().__init__(content, **kwargs)
 
     def append(self, new_content):
-        raise TypeError('Error: Content not allowed for tag. Discarding content.')
+        raise TypeError('Error: Content not allowed for tag.')
 
     def render(self, out_file, cur_ind=""):
-        if self.header_arg:
-            self.writetag(out_file, cur_ind + "<{}")
-            for k, v in self.header_arg.items():
-                out_file.write(" {}=\"{}\"".format(k, v))
-            out_file.write(" />\n")
-        else:
-            self.writetag(out_file, cur_ind + "<{} />\n")
+        self.writetag(out_file, cur_ind + "<{}")
+        for k, v in self.header_arg.items():
+            out_file.write(" {}=\"{}\"".format(k, v))
+        out_file.write(" />\n")
 
 
-class A(Element):
-    """ subclass of Element for rendering a tags """
+class A(OneLineTag):
+    """ subclass of OneLineTag for rendering a tags """
     tag_name = "a"
 
     def __init__(self, link=None, content=None):
-        if not link or not content:
-            raise TypeError('Error: Value cannot be null.')
-        else:
-            self.href_link = link
-            self.html_content = content
-
-    def render(self, out_file, cur_ind=""):
-        out_file.write(cur_ind + "<a href=\"{}\">{}</a>\n".format(self.href_link, self.html_content))
+        super().__init__(content, href="{}".format(link))
 
 
 class H(OneLineTag):
