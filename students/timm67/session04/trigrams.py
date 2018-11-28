@@ -76,6 +76,71 @@ def parse_input_file(in_filename):
                 line = line.replace('--', ' ')
                 line = filter_trigram(line, exceptions)
                 if(len(line) == 0):
+                    try:
+                        line = fd.readline()
+                    except IOError:
+                        print("I/O Error with [{0}] readline".format(in_filename))
+                    continue
+                line_list.append(line)
+                try:
+                    line = fd.readline()
+                except IOError:
+                    print("I/O Error with [{0}] readline".format(in_filename))
+                    return None
+    except FileNotFoundError:
+        print("File [{0}] not found".format(in_filename))
+        return None
+    except IOError:
+        print("I/O Error with [{0}] on open".format(in_filename))
+        return None
+
+    for line in line_list:
+        line = line.split()
+        for word in line:
+            word_list.append(word)
+
+    return word_list
+
+
+def parse_input_file_gutenberg(in_filename):
+    line_list = []
+    word_list = []
+    exceptions = [' ', '-']
+
+    try:
+        with open(in_filename, 'r') as fd:
+            try:
+                line = fd.readline()
+            except IOError:
+                print("I/O Error with [{0}] readline".format(in_filename))
+                return None
+            while(line):
+
+                if not line.contains('*** START'):
+                    try:
+                        line = fd.readline()
+                    except IOError:
+                        print("I/O Error with [{0}] readline".format(in_filename))
+                    continue
+                
+                if not line.contains('I.'):
+                    try:
+                        line = fd.readline()
+                    except IOError:
+                        print("I/O Error with [{0}] readline".format(in_filename))
+                        continue
+
+                if len(line) == 0:
+                    continue
+
+                #
+                # At this point, the line should be genuine text, and not header detritus
+                # or TOC
+                #
+
+                line = line.replace('--', ' ')
+                line = filter_trigram(line, exceptions)
+                if len(line) == 0:
                     continue
                 line_list.append(line)
                 try:
