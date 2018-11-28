@@ -294,18 +294,6 @@ def test_linkandcontent():
     assert("<a href=\"http://test.com\">testname</a>") in file_contents
 
 
-def test_missingvalues():
-    """
-    tests that the class is initialized with values:
-    """
-    try:
-        e = A("http://test.com")
-    except TypeError:
-        assert(True)
-    else:
-        assert(False)
-
-
 ########
 # Step 7
 ########
