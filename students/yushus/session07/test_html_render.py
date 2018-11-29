@@ -209,9 +209,9 @@ def test_one_line_tag_append():
     file_contents = render_result(e).strip()
     print(file_contents)
 
-# ########
-# # Step 4
-# ########
+########
+# Step 4
+########
 
 def test_attributes():
     e = P("A paragraph of text", style="text-align: center", id="intro")
@@ -240,6 +240,8 @@ def test_attributes():
     # # just to be sure -- there should be a closing bracket to the opening tag
     assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
     assert file_contents[:file_contents.index(">")].count(" ") == 3
+    print(file_contents)
+
 
 ########
 # Step 5
@@ -359,7 +361,6 @@ def test_meta_attr():
 # indentation testing
 #  Uncomment for Step 9 -- adding indentation
 #####################
-
 
 def test_indent():
     """

@@ -23,17 +23,13 @@ class Element(object):
         self.attributes = attributes
     
     def _open_tag(self):
-        return f"<{self.tag}{self._get_attributes()}>"
+        return f"<{self.tag} {self._get_attributes()}>" if self._get_attributes() else f"<{self.tag}>" 
 
     def _close_tag(self):
         return f"</{self.tag}>"
 
     def _get_attributes(self):
-        page_attributes = ""
-        if self.attributes:
-            for attribute in self.attributes:
-                page_attributes = f"{page_attributes} {attribute}=\"{self.attributes[attribute]}\""
-        return page_attributes
+        return " ".join(f"{k}=\"{v}\"" for k,v in self.attributes.items())
 
     def render(self, out_file, cur_ind=""):
         out_file.write(cur_ind + self._open_tag())
