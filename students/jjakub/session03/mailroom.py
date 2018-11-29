@@ -1,69 +1,98 @@
 
 import sys
+import tempfile
 
-user_menu = "\n".join(("Would you like to: ",
-"1 - Send a Thank You",
-"2 - Create a Report",
-"3 - Quit",
-">>>> "))
+user_options = {
+    "Send": "Send a Thank You to a single donor",
+    "Report": "Create a Report",
+    "Letter": "Send a letter to all donors",
+    "Quit": "Quit",
+}
 
-donor_db = [
-("Alex", [53898.23, 2653.00, 105.07]) ,
-("Jeff", [183.00, 200.00]) ,
-("Paul", [33941.98]) ,
-("Mark", [1.65, 55.00]) ,
-("John", [2705.71])]
+donor_db = {
+    "alex" : [53898.23, 2653.00, 105.07],
+    "jeff" : [183.00, 200.00],
+    "paul" : [33941.98],
+    "mark" : [1.65, 55.00],
+    "john" : [2705.71],
+}
+
 
 def sort_key(donor_db):
     return sum(donor_db[1])
 
+
 def send_thanks():
     name = ''
     while not name or name.lower() == 'list':
-        name = input("Please enter the full name: ")
-        if name.lower() == 'list':
-            print(' '.join(x[0] for x in donor_db))
+        name = input("Please enter the full name: ").lower()
+        if name == 'list':
+            print(' '.join(donor_db))
+    amt = int(input("Please enter the donation amount: "))
+    donor_db.setdefault(name,[]).append(amt)
 
-    donation = int(input("Please enter the donation amount: "))
-    for i in range(len(donor_db)):
-        if name.lower() ==  donor_db[i][0].lower():
-            donor_db[i][1].append(donation)
-        
-    # added unique else block to handle donors that are already in the list           
-    else:
-        donor_db.append((name, [donation]))
+    print(f'\nDear {name.capitalize()},\
+        \nThank you for the donation of ${amt:.2f}.\nSincerely,\
+        \nThe Mailroom Foundation')
 
-    print("\nDear {},".format(name))
-    print("Thank you for the donation of ${}".format(donation))
-    print("Sincerely,")
-    print("The Mailroom Foundation\n")
 
 def donor_rpt():
-    print('\n\n')
-    print('{:13}|{:^10}|{:^10}|{:^10}'.format('Donor Name', 'Total Given', 'Num Gifts', 'Average Gift'))
-    print('-' * 50)
+    header = ['Donor Name', 'Total Given', 'Num Gifts', 'Average Gift']
+    seperator = '-' * 50
+    print(f'\n{header[0]:13}|{header[1]:<10}|{header[2]:<10}|{header[3]:<10}\n{seperator}')
+    donor_db_sum = {donor: sum(donor_db[donor]) for donor in donor_db}
+    key_sort = sorted(donor_db_sum, key=donor_db_sum.__getitem__,reverse=True)
+    for donor in key_sort:
+        print(f'{donor.capitalize():13}',\
+            f'{sum(donor_db.get(donor)):>10.2f}',\
+            f'{len(donor_db.get(donor)):>10}',\
+            f'${sum(donor_db.get(donor))/len(donor_db.get(donor)):>10.2f}'
+        )
 
-    sorted(donor_db, key=sort_key, reverse=True)
 
-    for i in donor_db:
-        print(f'{i[0]:13}', f'${sum(i[1]):>10.2f}', f'{len(i[1]):>10}', f'${(sum(i[1])/len(i[1])):>10.2f}')
+def thanks_all():
+    path = input("Please enter the path: ")
+    if path != '':
+        path = path + "\\"
+    for donor_key,donor_val in donor_db.items():
+        with open("{}{}.txt".format(path, donor_key), "w") as thank_you:
+            thank_you.write(f'\nDear {donor_key.capitalize()},\
+                \nThank you for the donation of ${sum(donor_db.get(donor_key)):.2f}.\nSincerely,\
+                \nThe Mailroom Foundation')
+
+    if path != '':
+        print("\n Letters were successfully saved to {}.\n".format(path))
+    else:
+        print("\n Letters were successfully saved in the current directory.\n")
+
 
 def exit_program():
     print("Bye!")
-    sys.exit() 
+    sys.exit()
+
+
+switch_dict = {
+    1 : send_thanks ,
+    2 : donor_rpt ,
+    3 : thanks_all,
+    4 : exit_program,
+}
+
 
 def main():
+    main_menu = ("\n Would you like to: \
+        \n 1 - {Send}\
+        \n 2 - {Report}\
+        \n 3 - {Letter}\
+        \n 4 - {Quit}\
+        \n >>>> ".format(**user_options)
+    )
     while True:
-        response = input(user_menu)
-        if response == "1":
-            send_thanks()
-        elif response == "2":
-            donor_rpt()
-        elif response == "3":
-            exit_program()
+        response = int(input(main_menu))
+        if response in switch_dict.keys():
+            switch_dict.get(response)()
         else:
             print("Warning: Not a valid option!")
 
 if __name__ == "__main__":
     main()
-

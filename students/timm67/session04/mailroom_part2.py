@@ -9,106 +9,130 @@ Mailroom Part 2 assignment
 import collections
 from collections import defaultdict
 
-#
-# Revised donors database is an array of dictionaries with appropriate keynames. 
-# 'amounts' remains a list of donation values 
-# 
+# Revised donor database uses tuples for names instead of a single string
 
-donors = [
-    { 'fname' : 'Jim',  'lname' : 'Tillson',  'amounts' : [5.00, 20.00]},
-    { 'fname' : 'Barb', 'lname' : 'Langley',  'amounts' : [10.00, 20.00, 100.00]},
-    { 'fname' : 'Jen',  'lname' : 'Garfield', 'amounts' : [10.00, 20.00, 5.00]},
-    { 'fname' : 'Rex',  'lname' : 'Miller',   'amounts' : [20.00, 20.00, 5.00]},
-    { 'fname' : 'Tony', 'lname' : 'Blake',    'amounts' : [20.00, 20.00, 10.00]},
-]
+donors = {
+     ('Jim', 'Tillson'): [5.00, 20.00],
+     ('Barb', 'Langley'): [10.00, 20.00, 100.00],
+     ('Jen', 'Garfield'): [10.00, 20.00, 5.00],
+     ('Rex', 'Miller'): [20.00, 20.00, 5.00],
+     ('Tony', 'Blake'): [20.00, 20.00, 10.00]
+     }
 
-def send_thankyou_task():
+exitMail = False
+
+
+def send_thankyou_single_donor_task():
+    global donors
     donor_found = False
-    donor_name = input("Enter donor name ('list' for all donors) : ")
-    if (donor_name == 'list'):
-        for donor in donors:
-            print("{}, {} ",donor['lname'], donor['fname'])
+    donor_fname = input("Enter donor first name ('list' for all donors) : ")
+    if (donor_fname == 'list'):
+        for name in donors.keys():
+            print("{}, {} ".format(name[0], name[1]))
         donor_fname = input("Enter donor first name : ")
-        donor_lname = input("Enter donor last  name : ")
-    donor_amt = input("Enter donation value: ")
-    try:
-        donor_amt = float(donor_amt)
-    except ValueError:
-        print("Please enter a numeric value")
-        return
-    
-    for donor in donors:
-        if donor['fname'] == donor_fname and donor['lname'] == donor_lname:
-            print("{0}, {1} FOUND in dictionary".format(donor_lname, donor_fname))
-            donor['amounts'].append(donor_amt)
+    donor_lname = input("Enter donor last name : ")
+    while True:
+        donor_amt = input("Enter donation value: ")
+        try:
+            donor_amt = float(donor_amt)
+            break
+        except ValueError:
+            print("Please enter a numeric donation value")
+
+    for donor in donors.keys():
+        if donor[0] == donor_fname and donor[1] == donor_lname:
+            print("{0}, {1} FOUND".format(donor_fname, donor_lname))
+            donors[donor].append(donor_amt)
             donor_found = True
             break
 
-    # if we got to here, donor is not in dictionary, so create a new donor
-    if donor_found == False:
-        print("{0}, {1} NOT found in dictionary, creating...".format(donor_lname, donor_fname))
-        new_donor = { 'fname' : str(donor_fname), 'lname' : str(donor_lname), [].append(donor_amt) }
-        donors.append(new_donor)
+    if not donor_found:
+        print("{0}, {1} NOT found, creating".format(donor_fname, donor_lname))
+        donor = (donor_fname, donor_lname)
+        donors[donor] = [donor_amt]
 
-    a = 0.0
-    donations = donors[donor_name]
-    for x in donations:
-        a += x
-    fmtline0 = "\n\nDear {0},\n"
-    fmtline1 = "Many thanks for your recent donation of {0:6.2f}. With this donation, your cumulative total is {1:6.2f}\n"
-    fmtline2 = "Thanks for your donation. \n\n"
-    print(fmtline0.format(donor_name))
-    print(fmtline1.format(donor_amt, a))
-    print(fmtline2)
-    pass
+    fmtline0 = "\n\nDear {0},\n\n"
+    fmtline1 = "Many thanks for your recent donation of {0:6.2f}.\n\n"
+    fmtline2 = "Your total donations are {0:6.2f}, averaging {1:6.2f}\n\n"
+    fmtline3 = "Thanks for your generous donation.\n\nBest Regards,\nThe Staff"
+    donations = donors[donor]
+    total_donations = sum(donations)
+    avg_donation = total_donations / len(donations)
+    print(fmtline0.format(donor[0]))
+    print(fmtline1.format(donations[(len(donations) - 1)]))
+    print(fmtline2.format(total_donations, avg_donation))
+    print(fmtline3.format())
+
+
+def send_thankyou_multiple_donors_task():
+    global donors
+    ffmtline0 = "\n\nDear {0},\n\n"
+    ffmtline1 = "Many thanks for your recent donation of {0:6.2f}.\n\n"
+    ffmtline2 = "Your total donations are {0:6.2f}, averaging {1:6.2f}\n\n"
+    ffmtline3 = "Thanks for your generous donation.\nBest Regards,\nThe Staff"
+    for donor in donors.keys():
+        filename = "./{0}_{1}.txt".format(donor[0], donor[1])
+        print("Writing {0}...".format(filename))
+        donations = donors[donor]
+        total_donations = sum(donations)
+        avg_donation = total_donations / len(donations)
+        with open(filename, 'w') as handle:
+            handle.write(ffmtline0.format(donor[0]))
+            handle.write(ffmtline1.format(donations[(len(donations) - 1)]))
+            handle.write(ffmtline2.format(total_donations, avg_donation))
+            handle.write(ffmtline3.format())
+
+
+def formatter(fname, lname, in_list):
+    list_len = len(in_list)
+    fmt_string = "{0:15} {1:15} ".format(fname, lname)
+    fmt_string += list_len * '{:6.2f}, '
+    return fmt_string.format(*in_list)
+
 
 def create_report_task():
-    for d in donors:
-        print("{}\t".format(d))
-        avg = 0.0
-        donations = donors[d]
-        for x in donations:
-            print("{:6.2f}\t".format(x))
-            avg += x
-        numd = len(donations)
-        avg = avg / numd
-        print("{:6.2f}\t{}\n".format(avg, numd))
-    pass
+    global donors
+    report_fmt_str_hdr = "{0:15} {1:15} {2:10}"
+    print(report_fmt_str_hdr.format('First Name', 'Last Name', ' Donations'))
+    for key in donors.keys():
+        print(formatter(key[0], key[1], donors[key]))
+
 
 def print_menu():
     print("Mailroom Tasks")
-    print("[1] Send a Thank you")
+    print("[1] Send a Thank you to a single donor")
     print("[2] Create a report")
+    print("[3] Send letters to all donors")
     print("[9] Exit Mailroom")
     pass
 
-def main():
 
-    exitMail = False
-    while(exitMail == False):
+def exit_mail():
+    global exitMail
+    exitMail = True
+
+
+task_dict = {
+    9: exit_mail,
+    3: send_thankyou_multiple_donors_task,
+    2: create_report_task,
+    1: send_thankyou_single_donor_task
+}
+
+
+def main():
+    while(exitMail is False):
         print_menu()
         response = input("Enter Mailroom Option: ")
         try:
             response = int(response)
         except(ValueError):
-	        print("Enter a number between 1-9")
-	        continue
-        if (response == 9):
-            exitMail = True
-        elif (response == 5):
-            pass
-        elif (response == 4):
-            pass
-        elif (response == 3):
-            pass
-        elif (response == 2):
-            create_report_task()            
-            pass
-        elif (response == 1):
-            send_thankyou_task()
-            pass
-        else:
-            print("Invalid response entered\n")
+            print("Enter a number between 1-9")
+            continue
+        try:
+            task_dict[response]()
+        except(KeyError):
+            print("Please enter a correct task number")
 
 if __name__ == "__main__":
     main()

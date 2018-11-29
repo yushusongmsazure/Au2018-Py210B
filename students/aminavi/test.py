@@ -1,93 +1,94 @@
-d = {'name': 'alex', 'score': 43}
-d['name']
-d['score']
-
-
-d = {'one:': 1, 'two':2, 'three': 3}
-str(d)
-d.keys()
-
-d = {}
-d['one'] = 1
-d['two'] = 2
-d['three'] = 3
-d['four'] = 4
-# str(d)
-# d.keys()
-# for x in d:
-# print(x)
-# d.values()
-# d
-# 'one' in d
-# 'five' in d
-# 'five' not in d
-# d.get('one')
-# d.get('five', 'haha')
-
-# for i in d:
-#     print(i)
-
-# for i in d.values():
-#     print(i)
-
-# d.pop('one')
-
-# d = {}
-# d.setdefault('somthing', 'value')
-# d['something else'] = 'another value'
-# d['another thing'] =  'different value'
-# item_copy = d
-
-# set()
-
-# set([1,2,3])
-
-# s = set()
-
-# s.update([1,2,3])
-
-# s = 'This is an arbitrary string'
-# s.count('i')
-
-
-# for i in range(0,21):
-#     if i % 12 == 0:
-#         print(i)
-
-
-# words = "I wish I may I wish I might".split()
-
-# def build_trigram(words):
-#     d = {}
-#     for i in range(len(words)-2):
-#         pair = tuple(words[i:i + 2])
-#         follower = words[i + 2]    
-#         d.setdefault(pair,[]).append(follower)
-
-#     trigrams = {}
-#     import random
-#     trigrams = list(random.choice(list(d.keys())))
-
-#     wordcnt = 10
-#     while len(trigrams) < wordcnt:
-#         cur_pair = trigrams[-2:]
-#         if tuple(cur_pair) not in d:
-#             cur_pair = list(random.choice(list(d.keys())))
-#         trigrams.extend(d.setdefault(tuple(cur_pair),[]))
-#         return trigrams
-
-#     print(trigrams)
-
-# create a temporary file and write some data to it
-
+import sys
 import tempfile
 
-path = tempfile.gettempdir()
-output_file = open("{}\\{}".format(path,"Jeff.txt"),"w")
-output_file.write("Hello World") 
-output_file.write("This is our new text file") 
-output_file.write("and this is another line.") 
-output_file.write("Why? Because we can.") 
-output_file.close()
+donor_list = {
+    'william': [653772.32 , 953772.32,100000],
+    'jeff': [8888777.22 ,877.33],
+    'paul': [663.23, 43.87 ,1.32],
+    'mark': [1663.23, 4300.87, 10432.00],
+    'nigel': [5000000 , 10]
+    }
 
 
+def send_thank_you():
+    name = ''
+    while not name or name.lower() == 'list':
+        name = input("Please enter the full name: ")
+        if name.lower() == 'list':
+            print(''.join(donor_list))
+        try:
+            donation = int(input("Please enter the donation amount: "))
+            donor_list.setdefault(name.lower(),[]).append(donation)
+            print("\nDear {},".format(name))
+            print("Thank you for your generous donation of ${}".format(donation))
+            print("You have our sincere gratitude.\nThank you\n\n")
+        except ValueError:
+            print("\n Input must be an integer, try again. \n")
+            continue
+
+def create_a_report():
+    print('\n\n')
+    print('{:<25}|{:^17}|{:^15}|{:^17}'.format('Donor Name','Total Given','Num Gifts', 'Average Gift'))
+    print(75 * '-')
+    sorted_donor_list = sorted(donor_list, key=donor_list.get, reverse=True)
+    for key in sorted_donor_list:
+        print(f'{key:25}', f'${sum(donor_list[key]):>17.2f}', f'{len(donor_list[key]):^15}', f'${(sum(donor_list[key])/len(donor_list[key])):>17.2f}')
+
+
+def thank_you_action_all():
+    path = input("please enter the path ")
+    if path != '':
+        path = path + "\\"
+    for k,v in donor_list.items():
+        with open("{}{}.txt".format(path, k), "w") as letter:
+            letter.write("Dear {},\n\n".format(k))
+            letter.write("\tThank you for your generous donation of ${}\n\n".format(sum(v)))
+            letter.write("\tIt will be put to very good use.\n\n")
+            letter.write("\t\tSincerely,\n")
+            letter.write("\t\t  - Team\n")
+    
+    if path != '':
+        print("\n\nLetters were saved in {}.\n\n".format(path))
+    else:
+        print("\n\nletters were saved in the current directory.\n\n")
+
+
+def quit_action():
+    print('bye')
+    sys.exit()
+
+
+function_list = { 
+    1: send_thank_you, 
+    2: create_a_report, 
+    3: thank_you_action_all,
+    4: quit_action
+}
+
+actions = {"send": "Send a Thank You to a single donor.", 'create': "create a report. ", "all": "Send letters to all donors.", 'quit': "quit program"}
+
+
+def Main():
+    prompt = ("Choose an action: \n \n1 - {send}\n2 - {create}\n3 - {all}\n4 - {quit}\n".format(**actions))
+    while True:
+        try:
+            response = int(input(prompt))
+        except ValueError:
+            print("\n Input must be between 1 and 4 (integer), try again. \n")
+            continue
+        if response in function_list.keys():
+            function_list.get(response)()
+        else:
+            print("Not a valid option!")
+
+if __name__ == '__main__':
+   Main()
+
+# def divide(a,b):
+#     if b == 0:
+#         raise ZeroDivisionError("b can not be zero")
+#     else:
+#         return a / b
+# divide(2,2)
+
+# actions = {"send": "Send a Thank You to a single donor.", 'create': "create a report. ", "all": "Send letters to all donors.", 'quit': "quit program"}
