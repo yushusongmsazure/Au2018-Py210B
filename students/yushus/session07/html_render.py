@@ -71,9 +71,9 @@ class OneLineTag(Element):
         raise NotImplementedError
 
     def render(self, out_file, cur_ind=""):
-        out_file.write(cur_ind + super()._open_tag())
+        out_file.write(cur_ind + self._open_tag())
         out_file.write(self.contents[0])
-        out_file.write(super()._close_tag())
+        out_file.write(self._close_tag())
         out_file.write("\n")
 
 class Title(OneLineTag):
@@ -86,7 +86,7 @@ class SelfClosingTag(Element):
         super().__init__(content=content, **attributes)
 
     def render(self, outfile, cur_ind=""):
-        tag = super()._open_tag()[:-1] + " />\n"
+        tag = self._open_tag()[:-1] + " />\n"
         outfile.write(f"{cur_ind}{tag}")
 
     def append(self, *args):
