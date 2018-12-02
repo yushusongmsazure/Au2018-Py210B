@@ -183,8 +183,10 @@ def test_augmentedmul():
 def test_reflected_comparison():
 
     c1 = Circle(2)
+    c2 = Circle(3)
 
     assert c1 * 2 == 2 * c1
+    assert not c1 * 2 == 2 * c2
 
 
 # Step 9 tests
