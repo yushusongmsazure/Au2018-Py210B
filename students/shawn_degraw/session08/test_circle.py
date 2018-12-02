@@ -1,5 +1,5 @@
 """
-test code for circle.py
+test code for circle.py and sphere.py
 """
 
 import pytest
@@ -106,7 +106,7 @@ def test_multiply():
     assert isinstance(c3, Circle)
 
 
-def test_multiply_reverse():
+def test_multiply_reversearguments():
 
     c2 = Circle(6)
 
@@ -144,7 +144,24 @@ def test_circlesort():
     assert circles == [Circle(1), Circle(2), Circle(4), Circle(5)]
 
 
-# Step 8 optional?
+# Step 8 optional
+
+def test_augmentedadd():
+
+    c1 = Circle(5)
+    c2 = Circle(3)
+    c1 += c2
+
+    assert c1.radius == 8
+
+
+def test_augmentedmul():
+
+    c1 = Circle(5)
+
+    c1 *= 2
+
+    assert c1.radius == 10
 
 
 # Step 9 tests
@@ -183,9 +200,37 @@ def test_sphereadd():
     s1 = Sphere(5)
     s2 = Sphere(8)
     s3 = s1 + s2
-    s4 = s1 * 2
 
     assert s3.radius == 13
+    assert type(s3) == Sphere
+
+
+def test_spheremul():
+
+    s1 = Sphere(5)
+
+    s4 = s1 * 2
+
     assert s4.radius == 10
-    assert type(s3) == Sphere
-    assert type(s3) == Sphere
+    assert type(s4) == Sphere
+
+
+def test_sphereaugadd():
+
+    s1 = Sphere(5)
+    s2 = Sphere(2)
+
+    s1 += s2
+
+    assert s1.radius == 7
+    assert type(s1) == Sphere
+
+
+def test_sphereaugmul():
+
+    s1 = Sphere(5)
+
+    s1 *= 2
+
+    assert s1.radius == 10
+    assert type(s1) == Sphere
