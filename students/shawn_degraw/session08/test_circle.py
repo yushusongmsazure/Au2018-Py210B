@@ -121,18 +121,24 @@ def test_lessthan():
 
     c1 = Circle(5)
     c2 = Circle(8)
+    c3 = Circle(8)
 
     assert c1 < c2
     assert not c2 < c1
+    assert c1 <= c2
+    assert c3 <= c2
 
 
 def test_greaterthan():
 
     c1 = Circle(5)
     c2 = Circle(8)
+    c3 = Circle(8)
 
     assert not c1 > c2
     assert c2 > c1
+    assert c2 >= c1
+    assert c3 >= c2
 
 
 def test_circlesort():
@@ -170,17 +176,18 @@ def test_sphere():
 
     s = Sphere(5)
 
-    assert(s.radius) == 5
-    assert(s.diameter) == 10
-    assert(s.volume) == 523.598776
+    assert s.radius  == 5
+    assert s.diameter  == 10
+    assert s.volume  == 523.598776
 
 
 def test_spherediameter():
 
     s = Sphere.from_diameter(8)
 
-    assert(s.radius) == 4
-    assert(s.diameter) == 8
+    assert s.radius == 4
+    assert s.diameter == 8
+
 
 
 def test_spherearea():
