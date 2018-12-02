@@ -9,6 +9,11 @@ from circle import *
 
 
 class Sphere(Circle):
+    """
+    Sphere class with volume property
+    sublcass of circle
+
+    """
 
     @property
     def volume(self):
