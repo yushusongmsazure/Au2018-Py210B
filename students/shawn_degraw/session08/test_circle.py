@@ -141,6 +141,16 @@ def test_greaterthan():
     assert c3 >= c2
 
 
+def test_notequal():
+
+    c1 = Circle(5)
+    c2 = Circle(8)
+    c3 = Circle(8)
+
+    assert not c2 != c3
+    assert c1 != c2
+
+
 def test_circlesort():
 
     circles = [Circle(2), Circle(1), Circle(5), Circle(4)]
