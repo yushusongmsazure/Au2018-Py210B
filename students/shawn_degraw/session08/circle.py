@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Class to implement simple circle
+Class to implement simple Circle
 
 """
 
@@ -9,9 +9,16 @@ from math import pi
 
 
 class Circle:
+    """
+    Circle class with area and diameter properties
+    numberic protocols added
+
+    """
 
     def __init__(self, init_radius=0):
-            self.radius = init_radius
+        """ Constructor using radius """
+
+        self.radius = init_radius
 
     @classmethod
     def from_diameter(cls, init_diameter=0):
@@ -41,11 +48,19 @@ class Circle:
     def __add__(self, other):
         return type(self)(self.radius + other.radius)
 
+    def __iadd__(self, other):
+        self.radius += other.radius
+        return self
+
     def __mul__(self, value):
         return type(self)(self.radius * value)
 
     def __rmul__(self, value):
         return type(self)(self.radius * value)
+
+    def __imul__(self, value):
+        self.radius *= value
+        return self
 
     def __lt__(self, other):
         return self.radius < other.radius
