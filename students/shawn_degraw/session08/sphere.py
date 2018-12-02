@@ -23,4 +23,3 @@ class Sphere(Circle):
     @property
     def area(self):
         raise NotImplementedError
-
