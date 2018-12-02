@@ -76,3 +76,6 @@ class Circle:
 
     def __le__(self, other):
         return self.radius <= other.radius
+
+    def __ne__(self, other):
+        return self.radius != other.radius
