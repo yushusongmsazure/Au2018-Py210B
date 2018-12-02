@@ -180,6 +180,13 @@ def test_augmentedmul():
     assert c1.radius == 10
 
 
+def test_reflected_comparison():
+
+    c1 = Circle(2)
+
+    assert c1 * 2 == 2 * c1
+
+
 # Step 9 tests
 
 def test_sphere():
