@@ -39,13 +39,19 @@ class Circle:
         return "Circle({})".format(self.radius)
 
     def __add__(self, other):
-        return Circle(self.radius + other.radius)
+        return type(self)(self.radius + other.radius)
 
     def __mul__(self, value):
-        return Circle(self.radius * value)
+        return type(self)(self.radius * value)
+
+    def __rmul__(self, value):
+        return type(self)(self.radius * value)
 
     def __lt__(self, other):
         return self.radius < other.radius
 
     def __gt__(self, other):
         return self.radius > other.radius
+
+    def __eq__(self, other):
+        return self.radius == other.radius
