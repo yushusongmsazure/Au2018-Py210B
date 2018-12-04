@@ -22,11 +22,8 @@ class Circle():
 
     @classmethod
     def from_diameter(self, dia):
-        self._diameter = float(dia)
-        self._radius = self._diameter / float(2.0)
-        self._area = math.pi * (self._radius ** 2)
-        self._circumference = float(2.0) * math.pi * self._radius
-        return Circle(self.radius)
+        radius = dia // 2
+        return Circle(radius)
 
     def __str__(self):
         return "Circle with radius [{%f}]".format(self._radius)
