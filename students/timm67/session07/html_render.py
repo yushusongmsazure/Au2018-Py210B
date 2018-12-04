@@ -8,7 +8,7 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element(object):
     _tag = str('html')
-    _indent_count = 0
+    _indent_count = 0 * 5
     _indent = ''
 
     def __init__(self, content=None):
@@ -25,24 +25,23 @@ class Element(object):
         if not indent_in:
             if self._indent_count > 0:
                 self._indent = ' ' * self._indent_count
-            else:
-                self._indent = ''
         else:
             self._indent = indent_in
-        out_fd.write('{0}<{1}>'.format(self._indent, self._tag))
+
+        out_fd.write('{0}<{1}>\n'.format(self._indent, self._tag))
         # loop through the list of contents:
+
         for content in self._content:
             try:
-                out_fd.write('{0}{1}'.format(self._indent, content))
                 try:
-                    content.render(out_fd)
+                    content.render(out_fd, indent_in)
                 except AttributeError:
-                    out_fd.write(content)
-                out_fd.write('\n')
+                    out_fd.write('{0}{1}\n'.format(self._indent + (5 * ' '), content))
             except IOError:
                 print("I/O Error")
                 return
-        out_fd.write('{0}</{1}>'.format(self._indent, self._tag))
+
+        out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
 
     @property
     def indent(self):
@@ -51,12 +50,12 @@ class Element(object):
 
 class Html(Element):
     _tag = str('html')
-    _indent = 0
+    _indent_count = 0 * 5
 
 class Body(Element):
     _tag = str('body')
-    _indent = 5
+    _indent_count = 1 * 5
 
 class P(Element):
     _tag = str('p')
-    _indent = 10
+    _indent_count = 2 * 5
