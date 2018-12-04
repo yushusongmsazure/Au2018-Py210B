@@ -277,3 +277,4 @@ def test_title():
     print(file_contents)
     assert file_contents.startswith("<title>")
     assert file_contents.endswith("</title>")
+    assert "\n" not in file_contents

@@ -28,26 +28,23 @@ class Element(object):
         else:
             self._indent = indent_in
 
-        out_fd.write('{0}<{1}>\n'.format(self._indent, self._tag))
-        # loop through the list of contents:
-
-        for content in self._content:
-            try:
+        try:
+            out_fd.write('{0}<{1}>\n'.format(self._indent, self._tag))
+            # loop through the list of contents:
+            for content in self._content:
                 try:
                     content.render(out_fd, indent_in)
                 except AttributeError:
                     out_fd.write('{0}{1}\n'.format(self._indent + (5 * ' '), content))
-            except IOError:
-                print("I/O Error")
-                return
-
-        out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+            out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+        except IOError:
+            print("I/O Error")
+            return
 
     @property
     def indent(self):
         print("in indent getter")
         return str(self._indent)
-
 
 class OneLineTag(Element):
 
@@ -58,21 +55,16 @@ class OneLineTag(Element):
         else:
             self._indent = indent_in
 
-        out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
-        # loop through the list of contents:
-
-        for content in self._content:
+        try:
+            out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
             try:
-                try:
-                    content.render(out_fd, indent_in)
-                except AttributeError:
-                    out_fd.write('{0}{1}'.format(self._indent, content))
-            except IOError:
-                print("I/O Error")
-                return
-
-        out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
-
+                self._content[0].render(out_fd, indent_in)
+            except AttributeError:
+                out_fd.write('{0}{1}'.format(self._indent, self._content[0]))
+            out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+        except IOError:
+            print("I/O Error")
+            return
 
 class Html(Element):
     _tag = str('html')
