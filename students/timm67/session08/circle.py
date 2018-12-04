@@ -8,6 +8,7 @@ Circle Lab
 
 from math import pi
 
+
 class Circle():
     _radius = float(0.0)
     _diameter = float(0.0)

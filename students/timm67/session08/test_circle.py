@@ -34,7 +34,6 @@ def test_circle_init_methods():
     assert(c.area == test_area * float(4.0))
 
 
-
 def test_sphere_init_methods():
     s = Sphere(test_radius_int)
     assert(s.radius == test_radius)
