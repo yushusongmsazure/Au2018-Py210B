@@ -48,8 +48,38 @@ class Element(object):
         print("in indent getter")
         return str(self._indent)
 
+
+class OneLineTag(Element):
+
+    def render(self, out_fd, indent_in=''):
+        if not indent_in:
+            if self._indent_count > 0:
+                self._indent = ' ' * self._indent_count
+        else:
+            self._indent = indent_in
+
+        out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
+        # loop through the list of contents:
+
+        for content in self._content:
+            try:
+                try:
+                    content.render(out_fd, indent_in)
+                except AttributeError:
+                    out_fd.write('{0}{1}'.format(self._indent, content))
+            except IOError:
+                print("I/O Error")
+                return
+
+        out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+
+
 class Html(Element):
     _tag = str('html')
+    _indent_count = 0 * 5
+
+class Head(Element):
+    _tag = str('head')
     _indent_count = 0 * 5
 
 class Body(Element):
@@ -59,3 +89,7 @@ class Body(Element):
 class P(Element):
     _tag = str('p')
     _indent_count = 2 * 5
+
+class Title(OneLineTag):
+    _tag = str('title')
+    _indent_count = 0

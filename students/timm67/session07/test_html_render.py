@@ -267,3 +267,13 @@ def test_multiple_indent():
 #     assert lines[1].startswith(Element.indent + "thi")
 #     assert lines[2] == "</html>"
 #     assert file_contents.endswith("</html>")
+
+def test_title():
+    e = Title("This is a Title")
+
+    file_contents = render_result(e).strip()
+
+    assert("This is a Title") in file_contents
+    print(file_contents)
+    assert file_contents.startswith("<title>")
+    assert file_contents.endswith("</title>")
