@@ -6,7 +6,7 @@ Au2018-Py210B
 Circle Lab
 """
 
-import math
+from math import pi
 
 class Circle():
     _radius = float(0.0)
@@ -17,24 +17,24 @@ class Circle():
     def __init__(self, radius):
         self._radius = float(radius)
         self._diameter = float(2.0) * self._radius
-        self._area = math.pi * (self._radius ** 2)
-        self._circumference = float(2.0) * math.pi * self._radius
+        self._area = pi * (self._radius * self._radius)
+        self._circumference = float(2.0) * pi * self._radius
 
     @classmethod
     def from_diameter(self, dia):
-        radius = dia // 2
-        return Circle(radius)
+        radius_in = dia // 2
+        return Circle(radius_in)
 
     def __str__(self):
-        return "Circle with radius [{%f}]".format(self._radius)
+        return "Circle with radius [{0:6.2f}]".format(self._radius)
 
     def __repl__(self):
-        return "Circle({%d})".format(int(self._radius))
+        return "Circle({0:d})".format(int(self._radius))
 
     def __add__(self, other):
         return Circle(self._radius + other.radius)
 
-    def __mult__(self, other):
+    def __mul__(self, other):
         return Circle(self._radius * float(other))
 
     def __eq__(self, other):
@@ -42,7 +42,6 @@ class Circle():
 
     def __lt__(self, other):
         return self._radius < other.radius
-
 
 #
 # Properties
@@ -60,11 +59,9 @@ class Circle():
 
     @diameter.setter
     def diameter(self, dia):
-        print("in diameter setter", dia)
-        self._diameter = float(dia)
-        self._radius = self._diameter / float(2.0)
-        self._area = math.pi * (self._radius ** 2)
-        self._circumference = float(2.0) * math.pi * self._radius
+        print("in diameter setter")
+        radius_in = dia // 2
+        self.__init__(radius_in)
 
     @property
     def area(self):
@@ -73,5 +70,5 @@ class Circle():
 
     @property
     def circumference(self):
-        print("in circumferenc de getter")
+        print("in circumference getter")
         return self._circumference
