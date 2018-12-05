@@ -58,12 +58,8 @@ def test_setarea():
 
     c = Circle(2)
 
-    try:
+    with pytest.raises(AttributeError):
         c.area = 12
-    except AttributeError:
-        assert(True)
-    else:
-        assert(False)
 
 
 # Step 5 tests
@@ -82,7 +78,7 @@ def test_repr():
 
     c = Circle(5)
     d = repr(c)
-    assert d == 'Circle(5)'
+    assert eval(d) == c
 
 
 # Step 7 tests
@@ -208,17 +204,12 @@ def test_spherediameter():
     assert s.diameter == 8
 
 
-
 def test_spherearea():
 
     s = Sphere(5)
 
-    try:
+    with pytest.raises(NotImplementedError):
         a = s.area
-    except NotImplementedError:
-        assert(True)
-    else:
-        assert(False)
 
 
 def test_sphereadd():
