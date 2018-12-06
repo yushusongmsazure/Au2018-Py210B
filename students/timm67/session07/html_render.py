@@ -58,14 +58,8 @@ class SelfClosingTag(Element):
         raise NotImplementedError
 
     def render(self, out_fd, indent_in=''):
-        if not indent_in:
-            if self._indent_count > 0:
-                self._indent = ' ' * self._indent_count
-        else:
-            self._indent = indent_in
-
         try:
-            out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
+            out_fd.write('{0}<{1}> '.format(indent_in, self._tag))
 
             #TODO: add attributes here
 
