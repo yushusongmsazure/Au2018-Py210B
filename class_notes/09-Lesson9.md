@@ -10,6 +10,8 @@
 * Due dates for week 8
   * Lesson 8 Assignment by 11:59pm, Tuesday, Dec. 11, 2018 (15 points, Canvas submission of your source files and a GitHub PR for the assignment required)
     * Object-oriented mailroom: https://canvas.uw.edu/courses/1231462/modules/items/8759026
+* **Important** Past assignments (sessions 7 & 8) should be all submitted by next Monday (12/10).
+  * Final letter grading due is coming soon, so we need to expedite assignment submissions so that grading can start!
 
 ## [Multiple Inheritance & Mix-ins](https://uwpce-pythoncert.github.io/PythonCertDevel/modules/MultipleInheritance.html#multiple-inheritance)
 
