@@ -8,8 +8,7 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element(object):
     _tag = str('html')
-    _indent_count = 0 * 5
-    _indent = str('')
+    indent = str('    ')
 
     def __init__(self, content=None, **kwargs):
         if content is not None:
@@ -22,28 +21,19 @@ class Element(object):
             self._content.append(new_content)
 
     def render(self, out_fd, indent_in=''):
-        if not indent_in:
-            if self._indent_count > 0:
-                self._indent = ' ' * self._indent_count
-        else:
-            self._indent = indent_in
 
         try:
-            out_fd.write('{0}<{1}>\n'.format(self._indent, self._tag))
+            out_fd.write('{0}<{1}>\n'.format(indent_in, self._tag))
             # loop through the list of contents:
             for content in self._content:
                 try:
-                    content.render(out_fd, indent_in)
+                    content.render(out_fd, (indent_in + self.indent))
                 except AttributeError:
-                    out_fd.write('{0}{1}\n'.format(self._indent + (5 * ' '), content))
-            out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+                    out_fd.write('{0}{1}\n'.format(indent_in + self.indent, content))
+            out_fd.write('{0}</{1}>\n'.format(indent_in, self._tag))
         except IOError:
             print("Element: I/O Error on render")
             return
-
-    @property
-    def indent(self):
-        return self._indent
 
 class OneLineTag(Element):
 
@@ -51,19 +41,13 @@ class OneLineTag(Element):
         raise NotImplementedError
 
     def render(self, out_fd, indent_in=''):
-        if not indent_in:
-            if self._indent_count > 0:
-                self._indent = ' ' * self._indent_count
-        else:
-            self._indent = indent_in
-
         try:
-            out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
+            out_fd.write('{0}<{1}> '.format(indent_in, self._tag))
             try:
-                self._content[0].render(out_fd, indent_in)
+                self._content[0].render(out_fd, indent_in + self.indent)
             except AttributeError:
-                out_fd.write('{0}{1}'.format(self._indent, self._content[0]))
-            out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
+                out_fd.write('{0}{1}'.format(indent_in, self._content[0]))
+            out_fd.write('{0}</{1}>\n'.format(indent_in, self._tag))
         except IOError:
             print("OneLineTag: I/O Error on render")
             return
@@ -81,7 +65,7 @@ class SelfClosingTag(Element):
             self._indent = indent_in
 
         try:
-            out_fd.write('{0}<{1} '.format(self._indent, self._tag))
+            out_fd.write('{0}<{1}> '.format(self._indent, self._tag))
 
             #TODO: add attributes here
 
