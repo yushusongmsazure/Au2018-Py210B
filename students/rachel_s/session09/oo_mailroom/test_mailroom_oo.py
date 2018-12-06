@@ -2,6 +2,7 @@
 
 """session09, assignment oo mailroom, Rachel Schirra"""
 
+import pytest
 from donor_models import *
 
 def test_donor_class():
@@ -20,6 +21,8 @@ def test_add_donation():
     d.add_donation(2)
     d.add_donation(3)
     assert d.donations == [1, 2, 3]
+    with pytest.raises(ValueError):
+        d.add_donation('pineapple')
 
 def test_donor_params():
     d = Donor('Jelly Kid')

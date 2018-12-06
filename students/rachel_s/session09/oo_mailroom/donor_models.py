@@ -35,20 +35,36 @@ class Donor():
     
     def __str__(self):
         return "Donor name: {}\nDonations: {}".format(self.__name, 
-        self.__donations)
+            self.__donations)
     
     def add_donation(self, donation):
-        try:
-            self.__donations.append(float(donation))
-        except ValueError:
-            print('Please enter the donation as a number.')
+        self.__donations.append(float(donation)) # If not floatable throw error
+    
+    def generate_letter(self):
+        pass
+    
+    def generate_report_row(self):
+        pass
 
 
 class DonorCollection():
     def __init__(self):
         self.__donors = {} # name: Donor pairs
     
-    def add_new_donor(self, name):
+    def add_new_donor(self, name, donor):
         if name in self.__donors:
             raise ValueError('Name ({}) already exists.'.format(name))
         self.__donors[name] == Donor(name)
+    
+    def get_donor(self, name):
+        return self.__donors[name]
+
+    def generate_report(self):
+        pass
+    
+    def generate_all_letters(self, folder):
+        pass
+    
+    
+if __name__ == '__main__':
+    dc = DonorCollection()
