@@ -9,9 +9,9 @@ A class-based system for rendering html.
 class Element(object):
     _tag = str('html')
     _indent_count = 0 * 5
-    _indent = ''
+    _indent = str('')
 
-    def __init__(self, content=None):
+    def __init__(self, content=None, **kwargs):
         if content is not None:
             self._content = [content]
         else:
@@ -38,15 +38,17 @@ class Element(object):
                     out_fd.write('{0}{1}\n'.format(self._indent + (5 * ' '), content))
             out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
         except IOError:
-            print("I/O Error")
+            print("Element: I/O Error on render")
             return
 
     @property
     def indent(self):
-        print("in indent getter")
-        return str(self._indent)
+        return self._indent
 
 class OneLineTag(Element):
+
+    def append(self, content):
+        raise NotImplementedError
 
     def render(self, out_fd, indent_in=''):
         if not indent_in:
@@ -63,7 +65,29 @@ class OneLineTag(Element):
                 out_fd.write('{0}{1}'.format(self._indent, self._content[0]))
             out_fd.write('{0}</{1}>\n'.format(self._indent, self._tag))
         except IOError:
-            print("I/O Error")
+            print("OneLineTag: I/O Error on render")
+            return
+
+class SelfClosingTag(Element):
+
+    def append(self, content):
+        raise NotImplementedError
+
+    def render(self, out_fd, indent_in=''):
+        if not indent_in:
+            if self._indent_count > 0:
+                self._indent = ' ' * self._indent_count
+        else:
+            self._indent = indent_in
+
+        try:
+            out_fd.write('{0}<{1} '.format(self._indent, self._tag))
+
+            #TODO: add attributes here
+
+            out_fd.write(' />\n')
+        except IOError:
+            print("SelfClosingTag: I/O Error on render")
             return
 
 class Html(Element):

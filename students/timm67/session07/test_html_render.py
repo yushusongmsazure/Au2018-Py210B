@@ -213,8 +213,8 @@ def test_indent_contents():
     print(file_contents)
     lines = file_contents.split("\n")
     print(lines)
-    #assert lines[1].startswith(Element.indent)
-    assert lines[1].startswith('   ')
+    assert lines[1].startswith(Element.indent)
+    #assert lines[1].startswith('   ')
 
 
 def test_multiple_indent():
