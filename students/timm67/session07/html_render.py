@@ -70,20 +70,16 @@ class SelfClosingTag(Element):
 
 class Html(Element):
     _tag = str('html')
-    _indent_count = 0 * 5
 
 class Head(Element):
     _tag = str('head')
-    _indent_count = 0 * 5
 
 class Body(Element):
     _tag = str('body')
-    _indent_count = 1 * 5
+
 
 class P(Element):
     _tag = str('p')
-    _indent_count = 2 * 5
 
 class Title(OneLineTag):
     _tag = str('title')
-    _indent_count = 0
