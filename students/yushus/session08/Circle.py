@@ -1,4 +1,10 @@
+#!/usr/bin/env/python3
 
+"""
+Yushu Song
+Au2018-Py210B
+Circle Class Assignment
+"""
 
 from math import pi
 
@@ -91,10 +97,6 @@ class Circle:
         #return circles.sort(key=lambda c: c.radius, reverse=True)
 
 class Sphere(Circle):
-
-    # def __init__(self, radius):
-    #     self.__radius = radius
-    #     super().__init__(radius)
 
     @property
     def area(self):
