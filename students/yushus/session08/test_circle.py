@@ -90,14 +90,11 @@ def test_circle_augmented_mul():
 
 def test_sphere_init():
     s = Sphere(5)
-    print(s.radius)
-    print(s.area)
-    print(s.volume)
+    assert s.diameter == 10
 
 def test_sphere_diameter():
     s = Sphere.from_diameter(8)
-    print(s.area)
-    print(s.volume)
+    assert s.radius == 4
 
 def test_sphere_add():
      assert Sphere(5) + Sphere(5) == Sphere(10)
