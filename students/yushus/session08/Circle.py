@@ -10,6 +10,8 @@ from math import pi
 
 class Circle:
     def __init__(self, radius):
+        if radius < 0:
+            raise ValueError('Radius cannot be < 0')
         self.__radius = radius
         self.__diameter = 2*self.__radius
 
@@ -23,10 +25,7 @@ class Circle:
 
     @diameter.setter 
     def diameter(self, value):
-        if value < 0:
-            raise ValueError('Diameter cannot be < 0')
-        self.__diameter = value
-        self.__radius = self.__diameter / 2
+        self.__init__(value/2)
 
     @property
     def area(self):
