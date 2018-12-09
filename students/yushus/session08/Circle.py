@@ -91,10 +91,6 @@ class Circle:
     def __ge__(self, other):
         return not self.__lt__(other)
 
-    def __sort__(self, circles):
-        return sorted(circles, key=lambda circle: circle.radius, reverse=True) 
-        #return circles.sort(key=lambda c: c.radius, reverse=True)
-
 class Sphere(Circle):
 
     @property
