@@ -235,7 +235,7 @@ def test_head():
     print(file_contents)
 
     assert("This is some text in HEADER!") in file_contents
-    assert("A simple paragraph.")
+    assert("A simple paragraph.") in file_contents
 
     assert file_contents.startswith("<html>")
     assert "<head>" in file_contents
@@ -249,18 +249,21 @@ def test_head():
     assert file_contents.count("<head>") == 1
     assert file_contents.count("</head>") == 1
 
-    #assert False
+    # assert False
 
 
 # to Test new subclass of OneLineTag class - Tittle
 def test_title():
     e = Title("This is a Title")
-    e.append("and this is some more text")
 
     file_contents = render_result(e).strip()
+    print(file_contents)
 
+    assert("This is a Title") in file_contents
+    assert file_contents.startswith("<title>")
+    assert file_contents.endswith("</title>")
 
-
+    assert "\n" not in file_contents
 
 
 # #####################

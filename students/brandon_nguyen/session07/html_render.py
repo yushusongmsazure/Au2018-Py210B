@@ -19,17 +19,9 @@ class Element(object):
     def append(self, new_content):
         self.contents.append(new_content)
 
-    # def render(self, out_file):
-    #     # out_file.write("just something as a place holder...")
-    #     # TODO how to be pure if ELEMENT has abstract_tag instead.
-    #     out_file.write("<{}>\n".format(self.tag))
-    #     for content in self.contents:
-    #         out_file.write(content)
-    #         out_file.write("\n")
-    #     out_file.write("</{}>\n".format(self.tag))
-
     def render(self, out_file):
         # loop through the list of contents + recursive render(...)
+        # TODO how to be pure if ELEMENT has abstract_tag instead.
         out_file.write("<{}>\n".format(self.tag))
         for content in self.contents:
             try:
@@ -59,9 +51,18 @@ class Head(Element):
 
 
 class OneLineTag(Element):
-    pass
+
+    def render(self, out_file):
+        # loop through the list of contents
+        out_file.write("<{}>".format(self.tag))
+        for content in self.contents:
+            try:
+                content.render(out_file)
+            except:
+                out_file.write(content)
+                # out_file.write("\n")  # OneLineTage does not need \n
+        out_file.write("</{}>\n".format(self.tag))
 
 
 class Title(OneLineTag):
     tag = "title"
-    
