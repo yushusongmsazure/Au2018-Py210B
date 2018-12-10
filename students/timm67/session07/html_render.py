@@ -28,18 +28,23 @@ class Element(object):
         if new_content is not None:
             self._content.append(new_content)
 
+    def render_attributes(self, out_fd, indent_in):
+        if(len(self._attributes) > 0):
+            out_fd.write('{0}<{1} '.format(indent_in, self._tag))
+            for key, value in self._attributes.items():
+                out_fd.write('{0}="{1}" '.format(key, value))
+            out_fd.write('>')
+        else:
+            out_fd.write('{0}<{1}>'.format(indent_in, self._tag))
+
     def render(self, out_fd, indent_in=''):
         try:
             # render DOCTYPE
             if isinstance(self, Html) is True:
                 out_fd.write('{0}\n'.format(self._doctype))
-            if(len(self._attributes) > 0):
-                out_fd.write('{0}<{1} '.format(indent_in, self._tag))
-                for key, value in self._attributes.items():
-                    out_fd.write('{0}={1} '.format(key, value))
-                out_fd.write('>\n')
-            else:
-                out_fd.write('{0}<{1}>\n'.format(indent_in, self._tag))
+
+            self.render_attributes(out_fd, indent_in)
+            out_fd.write('\n')
 
             # loop through the list of contents:
             for content_item in self._content:
@@ -60,13 +65,7 @@ class OneLineTag(Element):
 
     def render(self, out_fd, indent_in=''):
         try:
-            if(len(self._attributes) > 0):
-                out_fd.write('{0}<{1} '.format(indent_in, self._tag))
-                for key, value in self._attributes.items():
-                    out_fd.write('{0}={1} '.format(key, value))
-                out_fd.write('> ')
-            else:
-                out_fd.write('{0}<{1}> '.format(indent_in, self._tag))
+            self.render_attributes(out_fd, indent_in)
 
             #if isinstance(self._content[0], str):
             #    out_fd.write('{0}{1}\n'.format(indent_in + self.indent, self._content[0]))
@@ -92,15 +91,11 @@ class SelfClosingTag(Element):
 
     def render(self, out_fd, indent_in=''):
         try:
-            if(len(self._attributes) > 0):
-                out_fd.write('{0}<{1} '.format(indent_in, self._tag))
-                for key, value in self._attributes.items():
-                    out_fd.write('{0}={1} '.format(key, value))
-            else:
-                out_fd.write('{0}<{1}> '.format(indent_in, self._tag))
-            for content_item in self._content:
-                if isinstance(content_item, str):
-                    out_fd.write('{0}{1}\n'.format(indent_in + self.indent, content_item))
+            self.render_attributes(out_fd, indent_in)
+            if self._content is not None:
+                for content_item in self._content:
+                    if isinstance(content_item, str):
+                        out_fd.write('{0}{1}\n'.format(indent_in + self.indent, content_item))
             out_fd.write('/>\n')
         except IOError:
             print("SelfClosingTag: I/O Error on render")

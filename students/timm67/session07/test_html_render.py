@@ -184,7 +184,7 @@ def test_sub_element():
 
 
 def test_attributes():
-    e = P("A paragraph of text", style="\"text-align: center\"", id="\"intro\"")
+    e = P("A paragraph of text", style="text-align: center", id="intro")
     file_contents = render_result(e).strip()
     print(file_contents) # so we can see it if the test fails
 
