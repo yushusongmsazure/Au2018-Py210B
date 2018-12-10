@@ -255,6 +255,8 @@ def test_head():
 # to Test new subclass of OneLineTag class - Tittle
 def test_title():
     e = Title("This is a Title")
+    with pytest.raises(NotImplementedError):  # test_one_line_tag_append
+        e.append("to see the test failed here")
 
     file_contents = render_result(e).strip()
     print(file_contents)
@@ -264,6 +266,38 @@ def test_title():
     assert file_contents.endswith("</title>")
 
     assert "\n" not in file_contents
+
+
+############################################
+# Step 4
+# Testing and coding for elements attributes.
+############################################
+def test_attributes():
+    # attrs = {'class': 'intro'}
+    # e = P('some content', **attrs)
+    e = P("A short test paragraph.", style="text-align: center", id="intro")
+
+    file_contents = render_result(e).strip()
+    print(file_contents)
+
+    assert("A short test paragraph.") in file_contents
+    assert file_contents.startswith("<p ")
+    assert file_contents.endswith("</p>")
+    assert ('style="text-align: center"') in file_contents
+    assert ('id="intro"') in file_contents
+
+    # test closing bracket to the opening tag
+    assert file_contents[:-1].index(">") > file_contents.index('id="intro"')
+    assert file_contents[:file_contents.index(">")].count(" ") == 3
+
+    # assert False
+
+
+############################################
+# Step 5
+# Testing and coding for elements attributes.
+############################################
+
 
 
 # #####################
