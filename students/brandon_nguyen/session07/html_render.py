@@ -11,7 +11,9 @@ class Element(object):
     tag = "html"
 
     def __init__(self, content=None):
-        self.contents = [content]
+        # self.contents = [content]
+        self.contents = ([content] if content else [])
+        #print("***DEBUG*** contents is:", self.contents)  # to debug test_render2
 
     def append(self, new_content):
         self.contents.append(new_content)
