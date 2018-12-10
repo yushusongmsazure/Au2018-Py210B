@@ -245,6 +245,7 @@ def test_indent():
     lines = file_contents.split("\n")
     assert lines[1].startswith("   <")
 
+    # These lines are possibly incorrect
     #print(repr(lines[-1]))
     #assert lines[-1].startswith("   <")
 
@@ -279,3 +280,17 @@ def test_multiple_indent():
         assert lines[i + 1].startswith(i * Element.indent + "<")
 
     assert lines[3+1].startswith(3 * Element.indent + "some")
+
+def test_hr():
+    """a simple horizontal rule with no attributes"""
+    hr = Hr()
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr />\n'
+
+def test_hr_attr():
+    """a horizontal rule with an attribute"""
+    hr = Hr(width=400)
+    file_contents = render_result(hr)
+    print(file_contents)
+    assert file_contents == '<hr width="400" />\n'
