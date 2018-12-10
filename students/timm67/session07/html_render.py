@@ -4,6 +4,7 @@
 A class-based system for rendering html.
 """
 
+
 # This is the framework for the base class
 class Element(object):
     _doctype = '<!DOCTYPE html>'
@@ -55,11 +56,13 @@ class Element(object):
                 try:
                     content_item.render(out_fd, (indent_in + self.indent))
                 except AttributeError:
-                    out_fd.write('{0}{1}\n'.format(indent_in + self.indent, content_item))
+                    out_fd.write('{0}{1}\n'.format(indent_in + self.indent,
+                                                   content_item))
             out_fd.write('{0}</{1}>\n'.format(indent_in, self._tag))
         except IOError:
             print("Element: I/O Error on render")
             return
+
 
 class OneLineTag(Element):
     _attributes = {}
@@ -81,10 +84,11 @@ class OneLineTag(Element):
         try:
             num_attrib = self.render_attributes(out_fd, indent_in)
 
-            #if isinstance(self._content[0], str):
-            #    out_fd.write('{0}{1}\n'.format(indent_in + self.indent, self._content[0]))
-            #else:
-            #    self._content[0].render(out_fd, (indent_in + self.indent))
+            # if isinstance(self._content[0], str):
+            #     out_fd.write('{0}{1}\n'.format(indent_in + self.indent,
+            #                   self._content[0]))
+            # else:
+            #     self._content[0].render(out_fd, (indent_in + self.indent))
             if self._content[0] is not None:
                 if num_attrib > 0:
                     out_fd.write('>')
@@ -97,6 +101,7 @@ class OneLineTag(Element):
         except IOError:
             print("OneLineTag: I/O Error on render")
             return
+
 
 class SelfClosingTag(Element):
     _attributes = {}
@@ -125,35 +130,43 @@ class SelfClosingTag(Element):
             if self._content is not None:
                 for content_item in self._content:
                     if isinstance(content_item, str):
-                        out_fd.write('{0}{1}\n'.format(indent_in + self.indent, content_item))
+                        out_fd.write('{0}{1}\n'.format(indent_in + self.indent,
+                                                       content_item))
                 out_fd.write('/>\n')
         except IOError:
             print("SelfClosingTag: I/O Error on render")
             return
 
+
 class Html(Element):
     _tag = 'html'
     _attributes = {}
+
 
 class Head(Element):
     _tag = 'head'
     _attributes = {}
 
+
 class Body(Element):
     _tag = 'body'
     _attributes = {}
+
 
 class P(Element):
     _tag = 'p'
     _attributes = {}
 
+
 class Title(OneLineTag):
     _tag = 'title'
     _attributes = {}
 
+
 class Hr(SelfClosingTag):
     _tag = 'hr'
     _attributes = {}
+
 
 class H(OneLineTag):
     _tag = 'h'
@@ -183,9 +196,11 @@ class Meta(SelfClosingTag):
     _tag = 'meta'
     _attributes = {}
 
+
 class Ul(Element):
     _tag = 'ul'
     _attributes = {}
+
 
 class Li(Element):
     _tag = 'li'
