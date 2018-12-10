@@ -71,7 +71,7 @@ def test_render_element():
 
     # This uses the render_results utility above
     file_contents = render_result(e).strip()
-    print(file_contents)
+    # print(file_contents)
     # making sure the content got in there.
     assert("this is some text") in file_contents
     assert("and this is some more text") in file_contents
@@ -87,7 +87,7 @@ def test_render_element():
     assert file_contents.count("<html>") == 1
     assert file_contents.count("</html>") == 1
     # un-comment to see print
-    #assert False  # to see the print statement in line 74 - only failed HERE.
+    # assert False  # to see the print statement in line 74 - only failed HERE.
 
 
 # # Uncomment this one after you get the one above to pass
@@ -134,6 +134,8 @@ def test_html():
     assert("this is some text") in file_contents
     assert("and this is some more text") in file_contents
     print(file_contents)
+
+    assert file_contents.startswith("<html>")
     assert file_contents.endswith("</html>")
 
 
@@ -142,12 +144,13 @@ def test_body():
     e.append("and this is some more text")
 
     file_contents = render_result(e).strip()
-    print(file_contents)
+    
     assert("this is some text") in file_contents
     assert("and this is some more text") in file_contents
 
     assert file_contents.startswith("<body>")
     assert file_contents.endswith("</body>")
+
 
 
 def test_p():
@@ -163,29 +166,57 @@ def test_p():
     assert file_contents.endswith("</p>")
 
 
-# def test_sub_element():
-#     """
-#     tests that you can add another element and still render properly
-#     """
-#     page = Html()
-#     page.append("some plain text.")
-#     page.append(P("A simple paragraph of text"))
-#     page.append("Some more plain text.")
+def test_sub_element():
+    """
+    tests that you can add another element and still render properly
+    """
+    page = Html()
+    page.append("some plain text.")
+    page.append(P("A simple paragraph of text"))
+    page.append("Some more plain text.")
 
-#     file_contents = render_result(page)
-#     print(file_contents) # so we can see it if the test fails
+    file_contents = render_result(page)
+    print(file_contents) # so we can see it if the test fails
 
-#     # note: The previous tests should make sure that the tags are getting
-#     #       properly rendered, so we don't need to test that here.
-#     assert "some plain text" in file_contents
-#     assert "A simple paragraph of text" in file_contents
-#     assert "Some more plain text." in file_contents
-#     assert "some plain text" in file_contents
-#     # but make sure the embedded element's tags get rendered!
-#     assert "<p>" in file_contents
-#     assert "</p>" in file_contents
+    # note: The previous tests should make sure that the tags are getting
+    #       properly rendered, so we don't need to test that here.
+    assert "some plain text" in file_contents
+    assert "A simple paragraph of text" in file_contents
+    assert "Some more plain text." in file_contents
+    assert "some plain text" in file_contents
+    # but make sure the embedded element's tags get rendered!
+    assert "<p>" in file_contents
+    assert "</p>" in file_contents
 
+    #assert False
 
+# Testing sub element with correct body
+def test_sub_element2():
+    """
+    tests that you can add another element and still render properly
+    """
+    page = Html()
+    body = Body()
+    str = "Another small paragraph.\nThis one with multiple lines."
+    body.append(P("A 1st small perargraph."))
+    body.append(P(str))
+    page.append(body)
+
+    file_contents = render_result(page)
+    print(file_contents)  # so we can see it if the test fails
+
+    # note: The previous tests should make sure that the tags are getting
+    #       properly rendered, so we don't need to test that here.
+    assert "A 1st small perargraph." in file_contents
+    assert str in file_contents
+
+    # but make sure the embedded element's tags get rendered!
+    assert "<p>" in file_contents
+    assert "</p>" in file_contents
+    assert file_contents.count("<p>") == 2
+    assert file_contents.count("</p>") == 2
+
+    #assert False
 
 
 ########
@@ -193,6 +224,44 @@ def test_p():
 ########
 
 # Add your tests here!
+def test_head():
+    page = Html()
+    body = Body()
+    page.append(Head("This is some text in HEADER!"))
+    body.append(P("A simple paragraph."))
+    page.append(body)
+
+    file_contents = render_result(page).strip()
+    print(file_contents)
+
+    assert("This is some text in HEADER!") in file_contents
+    assert("A simple paragraph.")
+
+    assert file_contents.startswith("<html>")
+    assert "<head>" in file_contents
+    assert "</head>" in file_contents
+    assert "<body>" in file_contents
+    assert "</body>" in file_contents
+    assert "<p>" in file_contents
+    assert "</p>" in file_contents
+    assert file_contents.endswith("</html>")
+
+    assert file_contents.count("<head>") == 1
+    assert file_contents.count("</head>") == 1
+
+    #assert False
+
+
+# to Test new subclass of OneLineTag class - Tittle
+def test_title():
+    e = Title("This is a Title")
+    e.append("and this is some more text")
+
+    file_contents = render_result(e).strip()
+
+
+
+
 
 # #####################
 # # indentation testing
