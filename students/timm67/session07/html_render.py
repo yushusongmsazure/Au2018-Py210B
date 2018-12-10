@@ -70,16 +70,6 @@ class OneLineTag(Element):
     def append(self, content_in):
         raise NotImplementedError
 
-    def render_attributes(self, out_fd, indent_in):
-        num_attrib = len(self._attributes)
-        if(num_attrib > 0):
-            out_fd.write('{0}<{1} '.format(indent_in, self._tag))
-            for key, value in self._attributes.items():
-                out_fd.write('{0}="{1}" '.format(key, value))
-        else:
-            out_fd.write('{0}<{1}>'.format(indent_in, self._tag))
-        return num_attrib
-
     def render(self, out_fd, indent_in=''):
         try:
             num_attrib = self.render_attributes(out_fd, indent_in)
