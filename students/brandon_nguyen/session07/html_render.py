@@ -9,7 +9,8 @@ A class-based system for rendering html.
 # This is the framework for the base class
 class Element(object):
     tag = "html"
-    # abstract_tag = "html"  # to be pure!
+    indent = "    "
+    # abstract_tag = "html"  # to be pure? ask!
 
     def __init__(self, content=None, **kwargs):
         # self.contents = [content]
@@ -20,32 +21,22 @@ class Element(object):
     def append(self, new_content):
         self.contents.append(new_content)
 
-    def render(self, out_file):
+    def render(self, out_file, cur_ind=""):
         # loop through the list of contents + recursive render(...)
         # TODO how to be pure if ELEMENT has abstract_tag instead.
-        # NEXT LINE replacing with _open_tag()
-        #out_file.write("<{}>\n".format(self.tag))  # use in part 3
-
-        out_file.write(self._open_tag())
-        #out_file.write("\n")
-        #
-        # out_file.write("<{}".format(self.tag))
-        # for k, v in self.element_attrs.items():
-        #     out_file.write(" {}=\"{}\"".format(k, v))
-        out_file.write(">\n")
+        out_file.write(cur_ind + self._open_tag())
+        out_file.write("\n")
         for content in self.contents:
             try:
-                content.render(out_file)
+                content.render(out_file, cur_ind + self.indent)
             except:
-                out_file.write(content)
+                out_file.write(cur_ind+self.indent+content)
                 out_file.write("\n")
         # out_file.write("</{}>\n".format(self.tag))
-        out_file.write(self._close_tag())
-        #out_file.write("\n")
+        out_file.write(cur_ind + self._close_tag())
 
     # python private conv opening tags with items in element_attrs
     def _open_tag(self):
-        # TODO
         open_tag = ["<{}".format(self.tag)]
         for k, v in self.element_attrs.items():
             open_tag.append(" {}=\"{}\"".format(k, v))
@@ -57,13 +48,22 @@ class Element(object):
         return "</{}>\n".format(self.tag)
 
 
-# Create sub-classes of Element
+############################
+# Element group of subclasses
+############################
 class Body(Element):
     tag = "body"
 
 
 class Html(Element):
     tag = "html"
+    doctype = "<!DOCTYPE html>"
+
+    def render(self, out_file, cur_ind=""):
+        out_file.write(cur_ind + self.doctype)
+        out_file.write("\n")
+        # advtg using super() over Element to study more!
+        super().render(out_file, cur_ind)
 
 
 class P(Element):
@@ -75,22 +75,17 @@ class Head(Element):
     tag = 'head'
 
 
-class OneLineTag(Element):
-    def render(self, out_file):
-        # ONE line no need to loop!
-        out_file.write("<{}>".format(self.tag))
-        out_file.write(self.contents[0])
-        out_file.write("</{}>\n".format(self.tag))
-
-    # blocking other append
-    def append(self, content):
-        raise NotImplementedError
+class Ul(Element):
+    tag = "ul"
 
 
-class Title(OneLineTag):
-    tag = "title"
+class Li(Element):
+    tag = "li"
 
 
+#################################
+# SelfClosingTag group: subclass
+################################
 # in STEP 5
 class SelfClosingTag(Element):
 
@@ -99,8 +94,8 @@ class SelfClosingTag(Element):
             raise TypeError("SelfClosingTag cannot contain any content")
         super().__init__(content=content, **kwargs)
 
-    def render(self, out_file):
-        tag = self._open_tag()[:-1] + " />\n"
+    def render(self, out_file, cur_ind=""):
+        tag = cur_ind + self._open_tag()[:-1] + " />\n"
         out_file.write(tag)
 
     def append(self, *args):
@@ -110,5 +105,47 @@ class SelfClosingTag(Element):
 class Hr(SelfClosingTag):
     tag = "hr"
 
+
 class Br(SelfClosingTag):
     tag = "br"
+
+
+class Meta(SelfClosingTag):
+    tag = "meta"
+
+
+############################
+# OneLineTag group: subclass
+############################
+class OneLineTag(Element):
+
+    def render(self, out_file, cur_ind=""):
+        # ONE line no need to loop!
+        out_file.write(cur_ind + self._open_tag())
+        out_file.write(self.contents[0])
+        out_file.write(self._close_tag())
+
+    # blocking other append to OneLineTag object
+    def append(self, content):
+        raise NotImplementedError
+
+
+class Title(OneLineTag):
+    tag = "title"
+
+
+# STEP 6
+class A(OneLineTag):
+    tag = "a"
+
+    def __init__(self, link, content=None, **kwargs):
+        kwargs['href'] = link
+        super().__init__(content, **kwargs)
+
+
+# STEP 7
+class H(OneLineTag):
+
+    def __init__(self, level, content=None, **kwargs):
+        self.tag = "h{}".format(level)
+        super().__init__(content, **kwargs)
