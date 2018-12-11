@@ -6,7 +6,7 @@ from donor_models import DonorCollection
 
 def test_donor_class():
     d = Donor('Ryan Seacrest', 1000)
-    assert d.name == 'Ryan Seacrest'
+    assert d.donor_name == 'Ryan Seacrest'
     assert d.donations[0] == 1000
     assert d.total_donations == 1000
 
@@ -19,4 +19,4 @@ def test_DonorCollection_class():
     d = dc.get_donor('Bill Gates')
     assert d.num_donations == 1
     assert d.total_donations == 1234
-    assert d.name == 'Bill Gates'
+    assert d.donor_name == 'Bill Gates'
