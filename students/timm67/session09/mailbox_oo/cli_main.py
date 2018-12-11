@@ -2,6 +2,7 @@
 
 from donor_models import DonorCollection
 
+
 class MailroomCli():
 
     _exit_mail = False
@@ -87,6 +88,7 @@ class MailroomCli():
             except KeyError:
                 print("Please enter a correct task number")
                 continue
+
 
 def main():
     cli = MailroomCli()

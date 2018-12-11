@@ -5,6 +5,7 @@ from donor_models import Donor
 from donor_models import DonorCollection
 from cli_main import MailroomCli
 
+
 def test_donor_class():
     d = Donor('Ryan Seacrest', 1000.0)
     assert d.donor_name == 'Ryan Seacrest'
@@ -14,6 +15,7 @@ def test_donor_class():
     assert d.last_donation == 500.0
     assert d.num_donations == 2
     assert d.avg_donation == ((1000.0 + 500.0) / 2.0)
+
 
 def test_DonorCollection_class():
     dc = DonorCollection()
@@ -31,6 +33,7 @@ def test_DonorCollection_class():
     assert d2.num_donations == 1
     assert d2.total_donations == 2000.0
     assert d2.donor_name == 'Paul Allen'
+
 
 def test_Climain():
     cli = MailroomCli()
@@ -59,6 +62,3 @@ def test_Climain():
     assert report_text.count('6000.00') == 1
     filenames = cli._dc.generate_thankyou_all_to_file()
     assert filenames[2] == './Paul_Allen.txt'
-
-
-
