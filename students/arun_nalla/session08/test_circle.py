@@ -13,10 +13,6 @@ def test_radius():
     x_radius = 2
     c = Circle(x_radius)
     assert c.radius == x_radius
-    with pytest.raises(ValueError):
-        x_radius = -2
-        c = Circle(x_radius)
-        assert c.radius == 'Value is less than or equal to zero'
 
 
 def test_area():
@@ -30,7 +26,7 @@ def test_diameter():
     area = pi * (4/2) **2
     c = Circle(x_diameter/2)
     assert c.area == area
-    assert c.diameter == x_diameter/2
+    assert c.radius == x_diameter/2
 
 def test_setter():
     x_diameter = 4
@@ -39,7 +35,7 @@ def test_setter():
     assert c.area == area
     x_diameter = 6
     c1 = Circle(x_diameter/2)
-    assert c1.diameter == 3
+    assert c1.radius == 3
 
 def test_str_():
     c = Circle(2)

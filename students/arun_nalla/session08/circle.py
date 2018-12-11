@@ -9,15 +9,11 @@ import random
 class Circle():
 
     def __init__(self, radius):
-        if radius >= 1:
-            self.radius = radius
-        else:
-            raise ValueError ('Value is less than or equal to zero')
+        self.radius = radius
 
     @property
     def diameter(self):
-        self.diameter = self.radius * 2
-        return self.radius
+        return self.radius * 2
  
     @ diameter.setter
     def diameter (self, set_diameter):
@@ -48,11 +44,14 @@ class Circle():
         return self.radius > other.radius
     def __eq__(self, other):
         return self.radius == other.radius
+circles = [Circle(6), Circle(7), Circle(8), Circle(4), Circle(0), Circle(2), Circle(3), Circle(5), Circle(9), Circle(1)]
+circles.sort()
+print (circles)
 
 class Sphere(Circle):
-        def __inti__(self):
-            super().__inti__()
-        
+        def __init__(self,radius):
+            super().__init__(radius)
+
         def __str__(self):
             return ('Sphere with radius {}'.format(self.radius))
 
@@ -113,8 +112,11 @@ circles.sort()
 print (circles)
 
 s = Sphere(3)
+s1 = Sphere(4)
+
 print (s)
 print (repr(s))
-print (s.volume)"""
+print (s.volume, s.radius, s1.radius, s1.volume)
+print (s.area())"""
 
 
