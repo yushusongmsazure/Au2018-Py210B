@@ -72,7 +72,11 @@ class Donor(object):
 
     def generate_thankyou_to_file(self):
         outlines = self.generate_text()
-        filename = "./{0}.txt".format(self.donor_name)
+        if self.donor_name.count(' ') > 0:
+            filename_arg = self.donor_name.replace(' ', '_')
+        else:
+            filename_arg = self.donor_name
+        filename = "./{0}.txt".format(filename_arg)
         print("Writing {0}...".format(filename))
         try:
             with open(filename, 'w') as handle:
