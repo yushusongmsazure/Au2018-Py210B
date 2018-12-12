@@ -4,6 +4,9 @@ from donor_models import DonorCollection
 
 
 class MailroomCli():
+    """
+    MailroomCli: command line interface that interacts with DonorCollection
+    """
 
     _exit_mail = False
     _dc = None
