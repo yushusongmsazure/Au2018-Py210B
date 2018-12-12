@@ -12,7 +12,7 @@
   * 12/14 (Friday) for submissions of all assignments for TA grading
   * If you miss this deadline and/or your total percentage score is still below 80% as of 12/17 (Monday), you may be given an I (incomplete) grade.
     * Your firm late submission deadline (to be considered for an S (satisfactory) grade change) is 12/26 (Wed.).
-      * Only Canvas submissions are accepted. No github PRs will be received or reviewed for late submissions after 12/17.
+      * Only Canvas submissions will be graded. Github PRs may be still used for asking reviews and providing feedback, but you must explicitly request my review by email (because most of you don't address my comments anyway, and I can't keep track of unrelated commits all the time). I'll not review github PRs without any explicit requests for review.
       * Resubmissions of earlier assignments are allowed, to boost your total percentage score.
       * All submissions after 12/14 will be graded by instructor.
     * After 12/26, no more late submissions can be accepted.
