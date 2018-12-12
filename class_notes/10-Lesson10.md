@@ -9,12 +9,12 @@
   * Email me for any appointment requests
 * No assignments, no due dates for week 10
 * **Important:** End-of-quarter deadlines
-  * 12/13 (Friday) for submissions of all assignments for TA grading
+  * 12/14 (Friday) for submissions of all assignments for TA grading
   * If you miss this deadline and/or your total percentage score is still below 80% as of 12/17 (Monday), you may be given an I (incomplete) grade.
     * Your firm late submission deadline (to be considered for an S (satisfactory) grade change) is 12/26 (Wed.).
       * Only Canvas submissions are accepted. No github PRs will be received or reviewed for late submissions after 12/17.
       * Resubmissions of earlier assignments are allowed, to boost your total percentage score.
-      * All submissions after 12/17 will be graded by instructor.
+      * All submissions after 12/14 will be graded by instructor.
     * After 12/26, no more late submissions can be accepted.
     * Your I grade will be changed to either S or U after 12/26, based on your achieved final total percentage score (80% or above for S, U otherwise).
     * You need an S grade in this course, in order to continue to PY220 in the next (or a later) quarter.
