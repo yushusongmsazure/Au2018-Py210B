@@ -3,6 +3,7 @@
 """session09, assignment oo mailroom, Rachel Schirra"""
 
 import datetime
+import csv
 
 class Donor():
     def __init__(self, donor_name, initial_donation=None):
@@ -40,13 +41,20 @@ class Donor():
             self.__donations)
     
     def add_donation(self, donation):
-        self.__donations.append(float(donation)) # If not floatable throw error
+        try:
+            donation = float(donation)
+        except ValueError:
+            raise ValueError('Please enter a numeric donation amount.')
+        else:
+            if donation <= 0:
+                raise ValueError('Please enter a donation amount greater '
+                    'than zero.')
+        self.__donations.append(donation)
     
     def generate_letter(self):
         output = ("Dear {name},\nThank you for your recent donation in the "
-            "amount of ${amount:.2f}.\n ").format(name=self.name.title(),
+            "amount of ${amount:.2f}.\n").format(name=self.name.title(),
             amount=self.donations[-1])
-
         if self.count_donations > 1:
             output += ("You have donated {count} times for a total of "
                 "${total:.2f}! ").format(count=self.count_donations,
@@ -54,10 +62,8 @@ class Donor():
         else:
             output += ("We greatly appreciate your generous contribution to "
                 "our cause! ")
-
         output += ("We will ensure that these funds are put to good use "
             "defending the universe.\nSincerely,\nThe Bravest Warriors")
-        
         return output
     
     def generate_report_row(self):
@@ -71,6 +77,15 @@ class Donor():
 class DonorCollection():
     def __init__(self):
         self.__donors = {} # name: Donor pairs
+
+    def __str__(self):
+        output = ''
+        for name in self.__donors.keys():
+            d = self.get_donor(name)
+            output += 'Donor name: {} | Donations: {}'.format(d.name, 
+                d.donations)
+            output += '\n'
+        return output
     
     def add_new_donor(self, name, donation=None):
         if name in self.__donors:
@@ -88,9 +103,12 @@ class DonorCollection():
             "Num Gifts", 
             "Avg Gift")
         for name in self.__donors.keys():
-            output += self.get_donor(name).generate_report_row()
+            output += '\n'
             output += ("---------------------|---------------|--------------"
                 "|--------------")
+            output += '\n'
+            output += self.get_donor(name).generate_report_row()
+        return output
 
     def generate_all_letters(self, folder):
         dest = "{user_dir}/{date}_{name}.txt"
@@ -101,6 +119,19 @@ class DonorCollection():
             with open(path, "w") as f:
                 f.write(d.generate_letter())
     
+    def data_import(self, filename):
+        csv_list = []
+        with open(filename) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            csv_list = [line for line in csv_reader]
+            for item in csv_list:
+                name = item[0].lower()
+                donation = item[1]
+                if name in self.__donors.keys():
+                    self.get_donor(name).add_donation(donation)
+                else:
+                    self.add_new_donor(name, donation)
     
-if __name__ == '__main__':
-    dc = DonorCollection()
+    @property
+    def all_donors(self):
+        return self.__donors.keys()
