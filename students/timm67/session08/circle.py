@@ -10,10 +10,6 @@ from math import pi
 
 
 class Circle():
-    _radius = float(0.0)
-    _diameter = float(0.0)
-    _area = float(0.0)
-    _circumference = float(0.0)
 
     def __init__(self, radius):
         self._radius = float(radius)
