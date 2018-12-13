@@ -29,7 +29,7 @@ class Circle:
 
     @property
     def area(self):
-        return pi * self.__radius * self.__radius
+        return pi * self.radius ** 2
 
     @classmethod
     def from_diameter(class_object, value):
@@ -37,10 +37,10 @@ class Circle:
         return class_object(value/2)
 
     def __str__(self):
-        return f'Circle with radius: {self.__radius:.6f}'
+        return f'Circle with radius: {self.radius:.6f}'
 
     def __repr__(self):
-        return f'Circle({self.__radius})'
+        return f'Circle({self.radius})'
     
     def __add__(self, other):
         if isinstance(other, Circle):
@@ -95,14 +95,14 @@ class Sphere(Circle):
 
     @property
     def area(self):
-        return pi * super().radius * super().radius * 4
+        return pi * self.radius **2 * 4
 
     @property
     def volume(self):
-        return pi * super().radius * super().radius* super().radius * 4 / 3
+        return pi * self.radius ** 3 * 4 / 3
     
     def __str__(self):
-        return f'Sphere with radius: {super().radius:.6f}'
+        return f'Sphere with radius: {self.radius:.6f}'
 
     def __repr__(self):
-        return f'Sphere({super().radius})'
+        return f'Sphere({self.radius})'
