@@ -7,8 +7,8 @@
 * Office hours
   * Instructor: Tuesday 7:30-9pm online only through [Zoom](https://washington.zoom.us/my/python2018)
   * TA: Optional or TBA
-* Due dates for week 8
-  * Lesson 8 Assignment by 11:59pm, Tuesday, Dec. 11, 2018 (15 points, Canvas submission of your source files and a GitHub PR for the assignment required)
+* Due dates for week 9
+  * Lesson 9 Assignment by 11:59pm, Tuesday, Dec. 11, 2018 (15 points, Canvas submission of your source files and a GitHub PR for the assignment required)
     * Object-oriented mailroom: https://canvas.uw.edu/courses/1231462/modules/items/8759026
 * **Important** Past assignments (sessions 7 & 8) should be all submitted by next Monday (12/10).
   * Final letter grading due is coming soon, so we need to expedite assignment submissions so that grading can start!
